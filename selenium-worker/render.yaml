@@ -1,0 +1,15 @@
+services:
+  - type: worker
+    name: binly-binnovator
+    runtime: docker
+    plan: starter
+    autoDeploy: true
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: WORKER_INTERVAL_SECONDS
+        value: "1800"
+      - key: WORKER_BATCH_SIZE
+        value: "10"

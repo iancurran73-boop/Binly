@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
+    <title>Binly — never miss a bin day</title>
+    <meta name="description" content="Binly tells you which bins to put out and what goes in them. Built for UK households." />
+    <meta property="og:title" content="Binly" />
+    <meta property="og:description" content="Never miss a bin day again. The end of the binfluencer." />
+    <meta name="theme-color" content="#DB5A2A" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {
+            /* silent — push is opt-in anyway */
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3251 @@
+[
+  {
+    "id": "hartlepool",
+    "code": "E06000001",
+    "name": "Hartlepool",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HartlepoolBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "middlesbrough",
+    "code": "E06000002",
+    "name": "Middlesbrough",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MiddlesbroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "redcar-and-cleveland",
+    "code": "E06000003",
+    "name": "Redcar and Cleveland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "stockton-on-tees",
+    "code": "E06000004",
+    "name": "Stockton-on-Tees",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StocktonOnTeesCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "darlington",
+    "code": "E06000005",
+    "name": "Darlington",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DarlingtonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "halton",
+    "code": "E06000006",
+    "name": "Halton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HaltonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "warrington",
+    "code": "E06000007",
+    "name": "Warrington",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WarringtonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "blackburn-with-darwen",
+    "code": "E06000008",
+    "name": "Blackburn with Darwen",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BlackburnCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "blackpool",
+    "code": "E06000009",
+    "name": "Blackpool",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BlackpoolCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "kingston-upon-hull-city-of",
+    "code": "E06000010",
+    "name": "Kingston upon Hull, City of",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "east-riding-of-yorkshire",
+    "code": "E06000011",
+    "name": "East Riding of Yorkshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastRidingCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-east-lincolnshire",
+    "code": "E06000012",
+    "name": "North East Lincolnshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "north-lincolnshire",
+    "code": "E06000013",
+    "name": "North Lincolnshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthLincolnshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "york",
+    "code": "E06000014",
+    "name": "York",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "YorkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "derby",
+    "code": "E06000015",
+    "name": "Derby",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DerbyCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "leicester",
+    "code": "E06000016",
+    "name": "Leicester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LeicesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rutland",
+    "code": "E06000017",
+    "name": "Rutland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "nottingham",
+    "code": "E06000018",
+    "name": "Nottingham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NottinghamCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "herefordshire-county-of",
+    "code": "E06000019",
+    "name": "Herefordshire, County of",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HerefordshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "telford-and-wrekin",
+    "code": "E06000020",
+    "name": "Telford and Wrekin",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TelfordAndWrekinCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stoke-on-trent",
+    "code": "E06000021",
+    "name": "Stoke-on-Trent",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StokeOnTrentCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bath-and-north-east-somerset",
+    "code": "E06000022",
+    "name": "Bath and North East Somerset",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BathAndNorthEastSomersetCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bristol-city-of",
+    "code": "E06000023",
+    "name": "Bristol, City of",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BristolCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-somerset",
+    "code": "E06000024",
+    "name": "North Somerset",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthSomersetCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-gloucestershire",
+    "code": "E06000025",
+    "name": "South Gloucestershire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthGloucestershireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "plymouth",
+    "code": "E06000026",
+    "name": "Plymouth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "PlymouthCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "torbay",
+    "code": "E06000027",
+    "name": "Torbay",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TorbayCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "swindon",
+    "code": "E06000030",
+    "name": "Swindon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SwindonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "peterborough",
+    "code": "E06000031",
+    "name": "Peterborough",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "PeterboroughCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "luton",
+    "code": "E06000032",
+    "name": "Luton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LutonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "southend-on-sea",
+    "code": "E06000033",
+    "name": "Southend-on-Sea",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "thurrock",
+    "code": "E06000034",
+    "name": "Thurrock",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ThurrockCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "medway",
+    "code": "E06000035",
+    "name": "Medway",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MedwayCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bracknell-forest",
+    "code": "E06000036",
+    "name": "Bracknell Forest",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BracknellForestCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-berkshire",
+    "code": "E06000037",
+    "name": "West Berkshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestBerkshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "reading",
+    "code": "E06000038",
+    "name": "Reading",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ReadingBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "slough",
+    "code": "E06000039",
+    "name": "Slough",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SloughBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "windsor-and-maidenhead",
+    "code": "E06000040",
+    "name": "Windsor and Maidenhead",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WindsorAndMaidenheadCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wokingham",
+    "code": "E06000041",
+    "name": "Wokingham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WokinghamBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "milton-keynes",
+    "code": "E06000042",
+    "name": "Milton Keynes",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MiltonKeynesCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "brighton-and-hove",
+    "code": "E06000043",
+    "name": "Brighton and Hove",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "portsmouth",
+    "code": "E06000044",
+    "name": "Portsmouth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "PortsmouthCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "southampton",
+    "code": "E06000045",
+    "name": "Southampton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthamptonCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "isle-of-wight",
+    "code": "E06000046",
+    "name": "Isle of Wight",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "county-durham",
+    "code": "E06000047",
+    "name": "County Durham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DurhamCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cheshire-east",
+    "code": "E06000049",
+    "name": "Cheshire East",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CheshireEastCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cheshire-west-and-chester",
+    "code": "E06000050",
+    "name": "Cheshire West and Chester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CheshireWestAndChesterCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "shropshire",
+    "code": "E06000051",
+    "name": "Shropshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ShropshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cornwall",
+    "code": "E06000052",
+    "name": "Cornwall",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CornwallCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "isles-of-scilly",
+    "code": "E06000053",
+    "name": "Isles of Scilly",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "wiltshire",
+    "code": "E06000054",
+    "name": "Wiltshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WiltshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bedford",
+    "code": "E06000055",
+    "name": "Bedford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BedfordBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "central-bedfordshire",
+    "code": "E06000056",
+    "name": "Central Bedfordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "northumberland",
+    "code": "E06000057",
+    "name": "Northumberland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthumberlandCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bournemouth-christchurch-and-poole",
+    "code": "E06000058",
+    "name": "Bournemouth, Christchurch and Poole",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "dorset",
+    "code": "E06000059",
+    "name": "Dorset",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DorsetCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "buckinghamshire",
+    "code": "E06000060",
+    "name": "Buckinghamshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BuckinghamshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-northamptonshire",
+    "code": "E06000061",
+    "name": "North Northamptonshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthNorthamptonshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-northamptonshire",
+    "code": "E06000062",
+    "name": "West Northamptonshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestNorthamptonshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cumberland",
+    "code": "E06000063",
+    "name": "Cumberland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CumberlandCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "westmorland-and-furness",
+    "code": "E06000064",
+    "name": "Westmorland and Furness",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "north-yorkshire",
+    "code": "E06000065",
+    "name": "North Yorkshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthYorkshire",
+    "data_strategy": "real"
+  },
+  {
+    "id": "somerset",
+    "code": "E06000066",
+    "name": "Somerset",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SomersetCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cambridge",
+    "code": "E07000008",
+    "name": "Cambridge",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CambridgeCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-cambridgeshire",
+    "code": "E07000009",
+    "name": "East Cambridgeshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastCambridgeshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "fenland",
+    "code": "E07000010",
+    "name": "Fenland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "FenlandDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "huntingdonshire",
+    "code": "E07000011",
+    "name": "Huntingdonshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "south-cambridgeshire",
+    "code": "E07000012",
+    "name": "South Cambridgeshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthCambridgeshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "amber-valley",
+    "code": "E07000032",
+    "name": "Amber Valley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "AmberValleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bolsover",
+    "code": "E07000033",
+    "name": "Bolsover",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BolsoverCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "chesterfield",
+    "code": "E07000034",
+    "name": "Chesterfield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ChesterfieldBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "derbyshire-dales",
+    "code": "E07000035",
+    "name": "Derbyshire Dales",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DerbyshireDalesDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "erewash",
+    "code": "E07000036",
+    "name": "Erewash",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ErewashBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "high-peak",
+    "code": "E07000037",
+    "name": "High Peak",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HighPeakCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-east-derbyshire",
+    "code": "E07000038",
+    "name": "North East Derbyshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthEastDerbyshireDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-derbyshire",
+    "code": "E07000039",
+    "name": "South Derbyshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthDerbyshireDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-devon",
+    "code": "E07000040",
+    "name": "East Devon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastDevonDC",
+    "data_strategy": "real"
+  },
+  {
+    "id": "exeter",
+    "code": "E07000041",
+    "name": "Exeter",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ExeterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mid-devon",
+    "code": "E07000042",
+    "name": "Mid Devon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MidDevonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-devon",
+    "code": "E07000043",
+    "name": "North Devon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthDevonCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-hams",
+    "code": "E07000044",
+    "name": "South Hams",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthHamsDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "teignbridge",
+    "code": "E07000045",
+    "name": "Teignbridge",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TeignbridgeCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "torridge",
+    "code": "E07000046",
+    "name": "Torridge",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TorridgeDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-devon",
+    "code": "E07000047",
+    "name": "West Devon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "eastbourne",
+    "code": "E07000061",
+    "name": "Eastbourne",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastbourneBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hastings",
+    "code": "E07000062",
+    "name": "Hastings",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HastingsBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lewes",
+    "code": "E07000063",
+    "name": "Lewes",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LewesDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rother",
+    "code": "E07000064",
+    "name": "Rother",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RotherDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wealden",
+    "code": "E07000065",
+    "name": "Wealden",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WealdenDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "basildon",
+    "code": "E07000066",
+    "name": "Basildon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BasildonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "braintree",
+    "code": "E07000067",
+    "name": "Braintree",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BraintreeDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "brentwood",
+    "code": "E07000068",
+    "name": "Brentwood",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "castle-point",
+    "code": "E07000069",
+    "name": "Castle Point",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "chelmsford",
+    "code": "E07000070",
+    "name": "Chelmsford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ChelmsfordCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "colchester",
+    "code": "E07000071",
+    "name": "Colchester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ColchesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "epping-forest",
+    "code": "E07000072",
+    "name": "Epping Forest",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EppingForestDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "harlow",
+    "code": "E07000073",
+    "name": "Harlow",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HarlowCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "maldon",
+    "code": "E07000074",
+    "name": "Maldon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MaldonDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rochford",
+    "code": "E07000075",
+    "name": "Rochford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RochfordCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tendring",
+    "code": "E07000076",
+    "name": "Tendring",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TendringDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "uttlesford",
+    "code": "E07000077",
+    "name": "Uttlesford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "UttlesfordDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cheltenham",
+    "code": "E07000078",
+    "name": "Cheltenham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CheltenhamBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cotswold",
+    "code": "E07000079",
+    "name": "Cotswold",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CotswoldDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "forest-of-dean",
+    "code": "E07000080",
+    "name": "Forest of Dean",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ForestOfDeanDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gloucester",
+    "code": "E07000081",
+    "name": "Gloucester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GloucesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stroud",
+    "code": "E07000082",
+    "name": "Stroud",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StroudDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tewkesbury",
+    "code": "E07000083",
+    "name": "Tewkesbury",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TewkesburyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "basingstoke-and-deane",
+    "code": "E07000084",
+    "name": "Basingstoke and Deane",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "east-hampshire",
+    "code": "E07000085",
+    "name": "East Hampshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "eastleigh",
+    "code": "E07000086",
+    "name": "Eastleigh",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastleighBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "fareham",
+    "code": "E07000087",
+    "name": "Fareham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "FarehamBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gosport",
+    "code": "E07000088",
+    "name": "Gosport",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GosportBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hart",
+    "code": "E07000089",
+    "name": "Hart",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HartDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "havant",
+    "code": "E07000090",
+    "name": "Havant",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "new-forest",
+    "code": "E07000091",
+    "name": "New Forest",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NewForestCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rushmoor",
+    "code": "E07000092",
+    "name": "Rushmoor",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RushmoorCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "test-valley",
+    "code": "E07000093",
+    "name": "Test Valley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TestValleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "winchester",
+    "code": "E07000094",
+    "name": "Winchester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WinchesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "broxbourne",
+    "code": "E07000095",
+    "name": "Broxbourne",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BroxbourneCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "dacorum",
+    "code": "E07000096",
+    "name": "Dacorum",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DacorumBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hertsmere",
+    "code": "E07000098",
+    "name": "Hertsmere",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HertsmereBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-hertfordshire",
+    "code": "E07000099",
+    "name": "North Hertfordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthHertfordshireDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "three-rivers",
+    "code": "E07000102",
+    "name": "Three Rivers",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ThreeRiversDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "watford",
+    "code": "E07000103",
+    "name": "Watford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WatfordBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ashford",
+    "code": "E07000105",
+    "name": "Ashford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "AshfordBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "canterbury",
+    "code": "E07000106",
+    "name": "Canterbury",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CanterburyCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "dartford",
+    "code": "E07000107",
+    "name": "Dartford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DartfordBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "dover",
+    "code": "E07000108",
+    "name": "Dover",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DoverDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gravesham",
+    "code": "E07000109",
+    "name": "Gravesham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GraveshamBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "maidstone",
+    "code": "E07000110",
+    "name": "Maidstone",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MaidstoneBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sevenoaks",
+    "code": "E07000111",
+    "name": "Sevenoaks",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SevenoaksDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "folkestone-and-hythe",
+    "code": "E07000112",
+    "name": "Folkestone and Hythe",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "swale",
+    "code": "E07000113",
+    "name": "Swale",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SwaleBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "thanet",
+    "code": "E07000114",
+    "name": "Thanet",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ThanetDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tonbridge-and-malling",
+    "code": "E07000115",
+    "name": "Tonbridge and Malling",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TonbridgeAndMallingBC",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tunbridge-wells",
+    "code": "E07000116",
+    "name": "Tunbridge Wells",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TunbridgeWellsCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "burnley",
+    "code": "E07000117",
+    "name": "Burnley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BurnleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "chorley",
+    "code": "E07000118",
+    "name": "Chorley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ChorleyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "fylde",
+    "code": "E07000119",
+    "name": "Fylde",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "FyldeCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hyndburn",
+    "code": "E07000120",
+    "name": "Hyndburn",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HyndburnBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lancaster",
+    "code": "E07000121",
+    "name": "Lancaster",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LancasterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "pendle",
+    "code": "E07000122",
+    "name": "Pendle",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "preston",
+    "code": "E07000123",
+    "name": "Preston",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "PrestonCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ribble-valley",
+    "code": "E07000124",
+    "name": "Ribble Valley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "rossendale",
+    "code": "E07000125",
+    "name": "Rossendale",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "south-ribble",
+    "code": "E07000126",
+    "name": "South Ribble",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthRibbleCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-lancashire",
+    "code": "E07000127",
+    "name": "West Lancashire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestLancashireBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wyre",
+    "code": "E07000128",
+    "name": "Wyre",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WyreCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "blaby",
+    "code": "E07000129",
+    "name": "Blaby",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BlabyDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "charnwood",
+    "code": "E07000130",
+    "name": "Charnwood",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CharnwoodBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "harborough",
+    "code": "E07000131",
+    "name": "Harborough",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HarboroughDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hinckley-and-bosworth",
+    "code": "E07000132",
+    "name": "Hinckley and Bosworth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "melton",
+    "code": "E07000133",
+    "name": "Melton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MeltonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-west-leicestershire",
+    "code": "E07000134",
+    "name": "North West Leicestershire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthWestLeicestershire",
+    "data_strategy": "real"
+  },
+  {
+    "id": "oadby-and-wigston",
+    "code": "E07000135",
+    "name": "Oadby and Wigston",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "OadbyAndWigstonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "boston",
+    "code": "E07000136",
+    "name": "Boston",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BostonBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-lindsey",
+    "code": "E07000137",
+    "name": "East Lindsey",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastLindseyDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lincoln",
+    "code": "E07000138",
+    "name": "Lincoln",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LincolnCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-kesteven",
+    "code": "E07000139",
+    "name": "North Kesteven",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthKestevenDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-holland",
+    "code": "E07000140",
+    "name": "South Holland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthHollandDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-kesteven",
+    "code": "E07000141",
+    "name": "South Kesteven",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthKestevenDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-lindsey",
+    "code": "E07000142",
+    "name": "West Lindsey",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestLindseyDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "breckland",
+    "code": "E07000143",
+    "name": "Breckland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BrecklandCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "broadland",
+    "code": "E07000144",
+    "name": "Broadland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BroadlandDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "great-yarmouth",
+    "code": "E07000145",
+    "name": "Great Yarmouth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GreatYarmouthBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "king-s-lynn-and-west-norfolk",
+    "code": "E07000146",
+    "name": "King's Lynn and West Norfolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "north-norfolk",
+    "code": "E07000147",
+    "name": "North Norfolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthNorfolkDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "norwich",
+    "code": "E07000148",
+    "name": "Norwich",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorwichCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-norfolk",
+    "code": "E07000149",
+    "name": "South Norfolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthNorfolkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ashfield",
+    "code": "E07000170",
+    "name": "Ashfield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "AshfieldDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bassetlaw",
+    "code": "E07000171",
+    "name": "Bassetlaw",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "broxtowe",
+    "code": "E07000172",
+    "name": "Broxtowe",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BroxtoweBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gedling",
+    "code": "E07000173",
+    "name": "Gedling",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GedlingBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mansfield",
+    "code": "E07000174",
+    "name": "Mansfield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MansfieldDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newark-and-sherwood",
+    "code": "E07000175",
+    "name": "Newark and Sherwood",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NewarkAndSherwoodDC",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rushcliffe",
+    "code": "E07000176",
+    "name": "Rushcliffe",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RushcliffeBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cherwell",
+    "code": "E07000177",
+    "name": "Cherwell",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CherwellDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "oxford",
+    "code": "E07000178",
+    "name": "Oxford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "OxfordCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-oxfordshire",
+    "code": "E07000179",
+    "name": "South Oxfordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthOxfordshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "vale-of-white-horse",
+    "code": "E07000180",
+    "name": "Vale of White Horse",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "west-oxfordshire",
+    "code": "E07000181",
+    "name": "West Oxfordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestOxfordshireDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "cannock-chase",
+    "code": "E07000192",
+    "name": "Cannock Chase",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CannockChaseDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-staffordshire",
+    "code": "E07000193",
+    "name": "East Staffordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastStaffordshireBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lichfield",
+    "code": "E07000194",
+    "name": "Lichfield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LichfieldDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newcastle-under-lyme",
+    "code": "E07000195",
+    "name": "Newcastle-under-Lyme",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NewcastleUnderLymeCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-staffordshire",
+    "code": "E07000196",
+    "name": "South Staffordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthStaffordshireDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stafford",
+    "code": "E07000197",
+    "name": "Stafford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StaffordBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "staffordshire-moorlands",
+    "code": "E07000198",
+    "name": "Staffordshire Moorlands",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StaffordshireMoorlandsDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tamworth",
+    "code": "E07000199",
+    "name": "Tamworth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "babergh",
+    "code": "E07000200",
+    "name": "Babergh",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BaberghDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ipswich",
+    "code": "E07000202",
+    "name": "Ipswich",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "IpswichBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mid-suffolk",
+    "code": "E07000203",
+    "name": "Mid Suffolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MidSuffolkDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "elmbridge",
+    "code": "E07000207",
+    "name": "Elmbridge",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ElmbridgeBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "epsom-and-ewell",
+    "code": "E07000208",
+    "name": "Epsom and Ewell",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "guildford",
+    "code": "E07000209",
+    "name": "Guildford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GuildfordCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mole-valley",
+    "code": "E07000210",
+    "name": "Mole Valley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MoleValleyDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "reigate-and-banstead",
+    "code": "E07000211",
+    "name": "Reigate and Banstead",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ReigateAndBansteadBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "runnymede",
+    "code": "E07000212",
+    "name": "Runnymede",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RunnymedeBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "spelthorne",
+    "code": "E07000213",
+    "name": "Spelthorne",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SpelthorneBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "surrey-heath",
+    "code": "E07000214",
+    "name": "Surrey Heath",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SurreyHeathBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tandridge",
+    "code": "E07000215",
+    "name": "Tandridge",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "TandridgeDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "waverley",
+    "code": "E07000216",
+    "name": "Waverley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WaverleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "woking",
+    "code": "E07000217",
+    "name": "Woking",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WokingBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-warwickshire",
+    "code": "E07000218",
+    "name": "North Warwickshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthWarwickshireBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "nuneaton-and-bedworth",
+    "code": "E07000219",
+    "name": "Nuneaton and Bedworth",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NuneatonBedworthBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rugby",
+    "code": "E07000220",
+    "name": "Rugby",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RugbyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stratford-on-avon",
+    "code": "E07000221",
+    "name": "Stratford-on-Avon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StratfordUponAvonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "warwick",
+    "code": "E07000222",
+    "name": "Warwick",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WarwickDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "adur",
+    "code": "E07000223",
+    "name": "Adur",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "arun",
+    "code": "E07000224",
+    "name": "Arun",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ArunCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "chichester",
+    "code": "E07000225",
+    "name": "Chichester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ChichesterDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "crawley",
+    "code": "E07000226",
+    "name": "Crawley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CrawleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "horsham",
+    "code": "E07000227",
+    "name": "Horsham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "HorshamDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mid-sussex",
+    "code": "E07000228",
+    "name": "Mid Sussex",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MidSussexDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "worthing",
+    "code": "E07000229",
+    "name": "Worthing",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "bromsgrove",
+    "code": "E07000234",
+    "name": "Bromsgrove",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BromsgroveDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "malvern-hills",
+    "code": "E07000235",
+    "name": "Malvern Hills",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "MalvernHillsDC",
+    "data_strategy": "real"
+  },
+  {
+    "id": "redditch",
+    "code": "E07000236",
+    "name": "Redditch",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RedditchBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "worcester",
+    "code": "E07000237",
+    "name": "Worcester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WorcesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wychavon",
+    "code": "E07000238",
+    "name": "Wychavon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WychavonDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wyre-forest",
+    "code": "E07000239",
+    "name": "Wyre Forest",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WyreForestDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "st-albans",
+    "code": "E07000240",
+    "name": "St Albans",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StAlbansCityAndDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "welwyn-hatfield",
+    "code": "E07000241",
+    "name": "Welwyn Hatfield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "east-hertfordshire",
+    "code": "E07000242",
+    "name": "East Hertfordshire",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "stevenage",
+    "code": "E07000243",
+    "name": "Stevenage",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StevenageBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-suffolk",
+    "code": "E07000244",
+    "name": "East Suffolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "EastSuffolkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-suffolk",
+    "code": "E07000245",
+    "name": "West Suffolk",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WestSuffolkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bolton",
+    "code": "E08000001",
+    "name": "Bolton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BoltonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bury",
+    "code": "E08000002",
+    "name": "Bury",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BuryCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "manchester",
+    "code": "E08000003",
+    "name": "Manchester",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "ManchesterCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "oldham",
+    "code": "E08000004",
+    "name": "Oldham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "OldhamCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rochdale",
+    "code": "E08000005",
+    "name": "Rochdale",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RochdaleCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "salford",
+    "code": "E08000006",
+    "name": "Salford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SalfordCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stockport",
+    "code": "E08000007",
+    "name": "Stockport",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StockportBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "tameside",
+    "code": "E08000008",
+    "name": "Tameside",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "trafford",
+    "code": "E08000009",
+    "name": "Trafford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "wigan",
+    "code": "E08000010",
+    "name": "Wigan",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WiganBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "knowsley",
+    "code": "E08000011",
+    "name": "Knowsley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "liverpool",
+    "code": "E08000012",
+    "name": "Liverpool",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LiverpoolCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "st-helens",
+    "code": "E08000013",
+    "name": "St. Helens",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "StHelensBC",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sefton",
+    "code": "E08000014",
+    "name": "Sefton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SeftonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wirral",
+    "code": "E08000015",
+    "name": "Wirral",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WirralCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "barnsley",
+    "code": "E08000016",
+    "name": "Barnsley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "doncaster",
+    "code": "E08000017",
+    "name": "Doncaster",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DoncasterCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rotherham",
+    "code": "E08000018",
+    "name": "Rotherham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "RotherhamCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sheffield",
+    "code": "E08000019",
+    "name": "Sheffield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SheffieldCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newcastle-upon-tyne",
+    "code": "E08000021",
+    "name": "Newcastle upon Tyne",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NewcastleCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-tyneside",
+    "code": "E08000022",
+    "name": "North Tyneside",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "NorthTynesideCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-tyneside",
+    "code": "E08000023",
+    "name": "South Tyneside",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SouthTynesideCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sunderland",
+    "code": "E08000024",
+    "name": "Sunderland",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SunderlandCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "birmingham",
+    "code": "E08000025",
+    "name": "Birmingham",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "BirminghamCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "coventry",
+    "code": "E08000026",
+    "name": "Coventry",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CoventryCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "dudley",
+    "code": "E08000027",
+    "name": "Dudley",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "DudleyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sandwell",
+    "code": "E08000028",
+    "name": "Sandwell",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SandwellBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "solihull",
+    "code": "E08000029",
+    "name": "Solihull",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "SolihullCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "walsall",
+    "code": "E08000030",
+    "name": "Walsall",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WalsallCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wolverhampton",
+    "code": "E08000031",
+    "name": "Wolverhampton",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WolverhamptonCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bradford",
+    "code": "E08000032",
+    "name": "Bradford",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "calderdale",
+    "code": "E08000033",
+    "name": "Calderdale",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "CalderdaleCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "kirklees",
+    "code": "E08000034",
+    "name": "Kirklees",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "KirkleesCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "leeds",
+    "code": "E08000035",
+    "name": "Leeds",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "LeedsCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wakefield",
+    "code": "E08000036",
+    "name": "Wakefield",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "WakefieldCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gateshead",
+    "code": "E08000037",
+    "name": "Gateshead",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "GatesheadCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "city-of-london",
+    "code": "E09000001",
+    "name": "City of London",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "barking-and-dagenham",
+    "code": "E09000002",
+    "name": "Barking and Dagenham",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "BarkingDagenham",
+    "data_strategy": "real"
+  },
+  {
+    "id": "barnet",
+    "code": "E09000003",
+    "name": "Barnet",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "BarnetCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bexley",
+    "code": "E09000004",
+    "name": "Bexley",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "BexleyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "brent",
+    "code": "E09000005",
+    "name": "Brent",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "BrentCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bromley",
+    "code": "E09000006",
+    "name": "Bromley",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "BromleyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "camden",
+    "code": "E09000007",
+    "name": "Camden",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "croydon",
+    "code": "E09000008",
+    "name": "Croydon",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "CroydonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ealing",
+    "code": "E09000009",
+    "name": "Ealing",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "EalingCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "enfield",
+    "code": "E09000010",
+    "name": "Enfield",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "EnfieldCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "greenwich",
+    "code": "E09000011",
+    "name": "Greenwich",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "hackney",
+    "code": "E09000012",
+    "name": "Hackney",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "HackneyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hammersmith-and-fulham",
+    "code": "E09000013",
+    "name": "Hammersmith and Fulham",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "haringey",
+    "code": "E09000014",
+    "name": "Haringey",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "HaringeyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "harrow",
+    "code": "E09000015",
+    "name": "Harrow",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "havering",
+    "code": "E09000016",
+    "name": "Havering",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "hillingdon",
+    "code": "E09000017",
+    "name": "Hillingdon",
+    "region": "England",
+    "country": "England",
+    "ukbcd_class": "Hillingdon",
+    "data_strategy": "real"
+  },
+  {
+    "id": "hounslow",
+    "code": "E09000018",
+    "name": "Hounslow",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "islington",
+    "code": "E09000019",
+    "name": "Islington",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "IslingtonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "kensington-and-chelsea",
+    "code": "E09000020",
+    "name": "Kensington and Chelsea",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "kingston-upon-thames",
+    "code": "E09000021",
+    "name": "Kingston upon Thames",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "KingstonUponThamesCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lambeth",
+    "code": "E09000022",
+    "name": "Lambeth",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "lewisham",
+    "code": "E09000023",
+    "name": "Lewisham",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "merton",
+    "code": "E09000024",
+    "name": "Merton",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "MertonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newham",
+    "code": "E09000025",
+    "name": "Newham",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "NewhamCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "redbridge",
+    "code": "E09000026",
+    "name": "Redbridge",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "richmond-upon-thames",
+    "code": "E09000027",
+    "name": "Richmond upon Thames",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "LondonBoroughOfRichmondUponThames",
+    "data_strategy": "real"
+  },
+  {
+    "id": "southwark",
+    "code": "E09000028",
+    "name": "Southwark",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "SouthwarkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "sutton",
+    "code": "E09000029",
+    "name": "Sutton",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "tower-hamlets",
+    "code": "E09000030",
+    "name": "Tower Hamlets",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "waltham-forest",
+    "code": "E09000031",
+    "name": "Waltham Forest",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "WalthamForest",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wandsworth",
+    "code": "E09000032",
+    "name": "Wandsworth",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": "WandsworthCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "westminster",
+    "code": "E09000033",
+    "name": "Westminster",
+    "region": "London",
+    "country": "England",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "antrim-and-newtownabbey",
+    "code": "N09000001",
+    "name": "Antrim and Newtownabbey",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "armagh-city-banbridge-and-craigavon",
+    "code": "N09000002",
+    "name": "Armagh City, Banbridge and Craigavon",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "ArmaghBanbridgeCraigavonCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "belfast",
+    "code": "N09000003",
+    "name": "Belfast",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "BelfastCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "causeway-coast-and-glens",
+    "code": "N09000004",
+    "name": "Causeway Coast and Glens",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "derry-city-and-strabane",
+    "code": "N09000005",
+    "name": "Derry City and Strabane",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "fermanagh-and-omagh",
+    "code": "N09000006",
+    "name": "Fermanagh and Omagh",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "FermanaghOmaghDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "lisburn-and-castlereagh",
+    "code": "N09000007",
+    "name": "Lisburn and Castlereagh",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "LisburnCastlereaghCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mid-and-east-antrim",
+    "code": "N09000008",
+    "name": "Mid and East Antrim",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "MidAndEastAntrimBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "mid-ulster",
+    "code": "N09000009",
+    "name": "Mid Ulster",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "MidUlsterDistrictCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newry-mourne-and-down",
+    "code": "N09000010",
+    "name": "Newry, Mourne and Down",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "ards-and-north-down",
+    "code": "N09000011",
+    "name": "Ards and North Down",
+    "region": "Northern Ireland",
+    "country": "Northern Ireland",
+    "ukbcd_class": "ArdsAndNorthDownCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "clackmannanshire",
+    "code": "S12000005",
+    "name": "Clackmannanshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "dumfries-and-galloway",
+    "code": "S12000006",
+    "name": "Dumfries and Galloway",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "east-ayrshire",
+    "code": "S12000008",
+    "name": "East Ayrshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "EastAyrshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-lothian",
+    "code": "S12000010",
+    "name": "East Lothian",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "EastLothianCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-renfrewshire",
+    "code": "S12000011",
+    "name": "East Renfrewshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "EastRenfrewshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "na-h-eileanan-siar",
+    "code": "S12000013",
+    "name": "Na h-Eileanan Siar",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "falkirk",
+    "code": "S12000014",
+    "name": "Falkirk",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "FalkirkCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "highland",
+    "code": "S12000017",
+    "name": "Highland",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "HighlandCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "inverclyde",
+    "code": "S12000018",
+    "name": "Inverclyde",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "midlothian",
+    "code": "S12000019",
+    "name": "Midlothian",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "MidlothianCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "moray",
+    "code": "S12000020",
+    "name": "Moray",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "MorayCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-ayrshire",
+    "code": "S12000021",
+    "name": "North Ayrshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "NorthAyrshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "orkney-islands",
+    "code": "S12000023",
+    "name": "Orkney Islands",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "scottish-borders",
+    "code": "S12000026",
+    "name": "Scottish Borders",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "shetland-islands",
+    "code": "S12000027",
+    "name": "Shetland Islands",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "south-ayrshire",
+    "code": "S12000028",
+    "name": "South Ayrshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "SouthAyrshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "south-lanarkshire",
+    "code": "S12000029",
+    "name": "South Lanarkshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "SouthLanarkshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "stirling",
+    "code": "S12000030",
+    "name": "Stirling",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "StirlingCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "aberdeen-city",
+    "code": "S12000033",
+    "name": "Aberdeen City",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "AberdeenCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "aberdeenshire",
+    "code": "S12000034",
+    "name": "Aberdeenshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "AberdeenshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "argyll-and-bute",
+    "code": "S12000035",
+    "name": "Argyll and Bute",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "city-of-edinburgh",
+    "code": "S12000036",
+    "name": "City of Edinburgh",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "EdinburghCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "renfrewshire",
+    "code": "S12000038",
+    "name": "Renfrewshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "RenfrewshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-dunbartonshire",
+    "code": "S12000039",
+    "name": "West Dunbartonshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "WestDunbartonshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "west-lothian",
+    "code": "S12000040",
+    "name": "West Lothian",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "WestLothianCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "angus",
+    "code": "S12000041",
+    "name": "Angus",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "AngusCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "dundee-city",
+    "code": "S12000042",
+    "name": "Dundee City",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "DundeeCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "east-dunbartonshire",
+    "code": "S12000045",
+    "name": "East Dunbartonshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "EastDunbartonshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "fife",
+    "code": "S12000047",
+    "name": "Fife",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "FifeCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "perth-and-kinross",
+    "code": "S12000048",
+    "name": "Perth and Kinross",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "PerthAndKinrossCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "glasgow-city",
+    "code": "S12000049",
+    "name": "Glasgow City",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "GlasgowCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "north-lanarkshire",
+    "code": "S12000050",
+    "name": "North Lanarkshire",
+    "region": "Scotland",
+    "country": "Scotland",
+    "ukbcd_class": "NorthLanarkshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "isle-of-anglesey",
+    "code": "W06000001",
+    "name": "Isle of Anglesey",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "IsleOfAngleseyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "gwynedd",
+    "code": "W06000002",
+    "name": "Gwynedd",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "GwyneddCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "conwy",
+    "code": "W06000003",
+    "name": "Conwy",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "ConwyCountyBorough",
+    "data_strategy": "real"
+  },
+  {
+    "id": "denbighshire",
+    "code": "W06000004",
+    "name": "Denbighshire",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "DenbighshireCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "flintshire",
+    "code": "W06000005",
+    "name": "Flintshire",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "FlintshireCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "wrexham",
+    "code": "W06000006",
+    "name": "Wrexham",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "WrexhamCountyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "ceredigion",
+    "code": "W06000008",
+    "name": "Ceredigion",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "CeredigionCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "pembrokeshire",
+    "code": "W06000009",
+    "name": "Pembrokeshire",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "PembrokeshireCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "carmarthenshire",
+    "code": "W06000010",
+    "name": "Carmarthenshire",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "CarmarthenshireCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "swansea",
+    "code": "W06000011",
+    "name": "Swansea",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "SwanseaCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "neath-port-talbot",
+    "code": "W06000012",
+    "name": "Neath Port Talbot",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "NeathPortTalbotCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "bridgend",
+    "code": "W06000013",
+    "name": "Bridgend",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "vale-of-glamorgan",
+    "code": "W06000014",
+    "name": "Vale of Glamorgan",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "cardiff",
+    "code": "W06000015",
+    "name": "Cardiff",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "CardiffCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "rhondda-cynon-taf",
+    "code": "W06000016",
+    "name": "Rhondda Cynon Taf",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "caerphilly",
+    "code": "W06000018",
+    "name": "Caerphilly",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "blaenau-gwent",
+    "code": "W06000019",
+    "name": "Blaenau Gwent",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "BlaenauGwentCountyBoroughCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "torfaen",
+    "code": "W06000020",
+    "name": "Torfaen",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  },
+  {
+    "id": "monmouthshire",
+    "code": "W06000021",
+    "name": "Monmouthshire",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "MonmouthshireCountyCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "newport",
+    "code": "W06000022",
+    "name": "Newport",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "NewportCityCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "powys",
+    "code": "W06000023",
+    "name": "Powys",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": "PowysCouncil",
+    "data_strategy": "real"
+  },
+  {
+    "id": "merthyr-tydfil",
+    "code": "W06000024",
+    "name": "Merthyr Tydfil",
+    "region": "Wales",
+    "country": "Wales",
+    "ukbcd_class": null,
+    "data_strategy": "waitlist"
+  }
+]

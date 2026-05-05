@@ -1,0 +1,2338 @@
+[
+  {
+    "module": "AberdeenCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.aberdeencity.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "AberdeenshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://online.aberdeenshire.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "AmberValleyBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://ambervalley.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "AngusCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.angus.gov.uk/bins_litter_and_recycling/bin_collection_days",
+    "skip_get_url": true
+  },
+  {
+    "module": "ArdsAndNorthDownCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.ardsandnorthdown.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "ArmaghBanbridgeCraigavonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.armaghbanbridgecraigavon.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "ArunCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www1.arun.gov.uk/when-are-my-bins-collected",
+    "skip_get_url": true
+  },
+  {
+    "module": "AshfieldDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.ashfield.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "AshfordBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://ashford.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BaberghDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.babergh.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "BarkingDagenham",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.lbbd.gov.uk/rubbish-recycling/household-bin-collection/check-your-bin-collection-days",
+    "skip_get_url": true
+  },
+  {
+    "module": "BarnetCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.barnet.gov.uk/recycling-and-waste/bin-collections/find-your-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "BasildonCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://mybasildon.powerappsportals.com/check/where_i_live/",
+    "skip_get_url": true
+  },
+  {
+    "module": "BathAndNorthEastSomersetCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.bathnes.gov.uk/webforms/waste/collectionday/",
+    "skip_get_url": true
+  },
+  {
+    "module": "BedfordBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.bedford.gov.uk/bins-and-recycling/household-bins-and-recycling/check-your-bin-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "BelfastCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://online.belfastcity.gov.uk/find-bin-collection-day/Default.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "BexleyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://waste.bexley.gov.uk/waste",
+    "skip_get_url": true
+  },
+  {
+    "module": "BirminghamCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.birmingham.gov.uk/xfp/form/619",
+    "skip_get_url": false
+  },
+  {
+    "module": "BlabyDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.blaby.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BlackburnCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.blaby.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "BlackpoolCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.blackpool.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "BlaenauGwentCountyBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.blaenau-gwent.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BolsoverCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://bolsover.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BoltonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://bolton.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "BostonBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.boston.gov.uk/findwastecollections",
+    "skip_get_url": true
+  },
+  {
+    "module": "BracknellForestCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://selfservice.mybfc.bracknell-forest.gov.uk/w/webpage/waste-collection-days",
+    "skip_get_url": true
+  },
+  {
+    "module": "BraintreeDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.braintree.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "BrecklandCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.breckland.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BrentCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://recyclingservices.brent.gov.uk/waste",
+    "skip_get_url": false
+  },
+  {
+    "module": "BristolCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://bristolcouncil.powerappsportals.com/completedynamicformunauth/?servicetypeid=7dce896c-b3ba-ea11-a812-000d3a7f1cdc",
+    "skip_get_url": true
+  },
+  {
+    "module": "BroadlandDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://area.southnorfolkandbroadland.gov.uk/FindAddress",
+    "skip_get_url": true
+  },
+  {
+    "module": "BromleyBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://recyclingservices.bromley.gov.uk/waste/6087017",
+    "skip_get_url": false
+  },
+  {
+    "module": "BromsgroveDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.bromsgrove.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BroxbourneCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.broxbourne.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BroxtoweBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.broxtowe.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "BuckinghamshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.buckinghamshire.gov.uk/waste-and-recycling/find-out-when-its-your-bin-collection/",
+    "skip_get_url": false
+  },
+  {
+    "module": "BurnleyBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.burnley.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "BuryCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.bury.gov.uk/waste-and-recycling/bin-collection-days-and-alerts",
+    "skip_get_url": true
+  },
+  {
+    "module": "CalderdaleCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.calderdale.gov.uk/environment/waste/household-collections/collectiondayfinder.jsp",
+    "skip_get_url": true
+  },
+  {
+    "module": "CambridgeCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.cambridge.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "CannockChaseDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.cannockchasedc.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "CanterburyCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.canterbury.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "CardiffCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "CarmarthenshireCountyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.carmarthenshire.gov.wales",
+    "skip_get_url": false
+  },
+  {
+    "module": "CeredigionCountyCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.ceredigion.gov.uk/resident/bins-recycling/",
+    "skip_get_url": false
+  },
+  {
+    "module": "CharnwoodBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.charnwood.gov.uk/pages/waste_collections_calendars",
+    "skip_get_url": true
+  },
+  {
+    "module": "ChelmsfordCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.chelmsford.gov.uk/myhome/",
+    "skip_get_url": false
+  },
+  {
+    "module": "CheltenhamBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.cheltenham.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "CherwellDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.cherwell.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "CheshireEastCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://online.cheshireeast.gov.uk/mycollectionday",
+    "skip_get_url": true
+  },
+  {
+    "module": "CheshireWestAndChesterCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://my.cheshirewestandchester.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "ChesterfieldBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.chesterfield.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "ChichesterDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.chichester.gov.uk/checkyourbinday",
+    "skip_get_url": true
+  },
+  {
+    "module": "ChorleyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://forms.chorleysouthribble.gov.uk/xfp/form/71",
+    "skip_get_url": true
+  },
+  {
+    "module": "EdinburghCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.edinburgh.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "ColchesterCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.colchester.gov.uk/your-recycling-calendar",
+    "skip_get_url": false
+  },
+  {
+    "module": "ConwyCountyBorough",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.conwy.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "CornwallCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.cornwall.gov.uk/my-area/",
+    "skip_get_url": true
+  },
+  {
+    "module": "CotswoldDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://community.cotswold.gov.uk/s/waste-collection-enquiry",
+    "skip_get_url": true
+  },
+  {
+    "module": "DurhamCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.durham.gov.uk/bincollections?uprn=",
+    "skip_get_url": true
+  },
+  {
+    "module": "CoventryCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.coventry.gov.uk/directory-record/62310/abberton-way-",
+    "skip_get_url": false
+  },
+  {
+    "module": "CrawleyBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://my.crawley.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "CroydonCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://service.croydon.gov.uk/wasteservices/w/webpage/bin-day-enter-address",
+    "skip_get_url": true
+  },
+  {
+    "module": "CumberlandCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.cumberland.gov.uk/bins-recycling-and-street-cleaning/waste-collections/bin-collection-schedule",
+    "skip_get_url": false
+  },
+  {
+    "module": "DacorumBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://webapps.dacorum.gov.uk/bincollections/",
+    "skip_get_url": true
+  },
+  {
+    "module": "DarlingtonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.darlington.gov.uk/bins-waste-and-recycling/collection-day-lookup/",
+    "skip_get_url": false
+  },
+  {
+    "module": "DartfordBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.dartford.gov.uk/waste-recycling/collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "DenbighshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.denbighshire.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "DerbyCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.derby.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "DerbyshireDalesDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.derbyshiredales.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "DoncasterCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.doncaster.gov.uk/Compass/Entity/Launch/D3/",
+    "skip_get_url": true
+  },
+  {
+    "module": "DorsetCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.dorsetcouncil.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "DoverDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://collections.dover.gov.uk/property",
+    "skip_get_url": true
+  },
+  {
+    "module": "DudleyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://my.dudley.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "DundeeCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.dundeecity.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "EalingCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.ealing.gov.uk/site/custom_scripts/WasteCollectionWS/home/FindCollection",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastAyrshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.east-ayrshire.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "EastCambridgeshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.eastcambs.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastDevonDC",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://eastdevon.gov.uk/recycling-and-waste/recycling-waste-information/when-is-my-bin-collected/",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastDunbartonshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.eastdunbarton.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "EastLindseyDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.e-lindsey.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastLothianCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://eastlothian.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastRenfrewshireCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://eastrenfrewshire.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastRidingCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.eastriding.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastStaffordshireBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.eaststaffsbc.gov.uk/bins-rubbish-recycling/collection-dates/68382",
+    "skip_get_url": false
+  },
+  {
+    "module": "EastSuffolkCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://my.eastsuffolk.gov.uk/service/Bin_collection_dates_finder",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastbourneBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.lewes-eastbourne.gov.uk/article/1158/When-is-my-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "EastleighBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.eastleigh.gov.uk/waste-bins-and-recycling/collection-dates/your-waste-bin-and-recycling-collections?uprn=",
+    "skip_get_url": true
+  },
+  {
+    "module": "ElmbridgeBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.elmbridge.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "EnfieldCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.enfield.gov.uk/services/rubbish-and-recycling/find-my-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "EppingForestDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://eppingforestdc.maps.arcgis.com/apps/instant/lookup/index.html?appid=bfca32b46e2a47cd9c0a84f2d8cdde17&find=IG9%206EP",
+    "skip_get_url": true
+  },
+  {
+    "module": "ErewashBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.erewash.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "ExeterCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.exeter.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "FalkirkCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.falkirk.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "FarehamBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.fareham.gov.uk/bincalendar/intro.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "FenlandDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.fenland.gov.uk/article/13114/",
+    "skip_get_url": true
+  },
+  {
+    "module": "FermanaghOmaghDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.fermanaghomagh.com/services/environment-and-waste/waste-collection-calendar/",
+    "skip_get_url": true
+  },
+  {
+    "module": "FifeCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.fife.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "FlintshireCountyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://digital.flintshire.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "ForestOfDeanDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://community.fdean.gov.uk/s/waste-collection-enquiry",
+    "skip_get_url": true
+  },
+  {
+    "module": "FyldeCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.fylde.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "GatesheadCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.gateshead.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "GedlingBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.gedling.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "GlasgowCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://onlineservices.glasgow.gov.uk/forms/refuseandrecyclingcalendar/AddressSearch.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "GloucesterCityCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://gloucester-self.achieveservice.com/service/Bins___Check_your_bin_day",
+    "skip_get_url": true
+  },
+  {
+    "module": "GosportBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.gosport.gov.uk/refuserecyclingdays",
+    "skip_get_url": true
+  },
+  {
+    "module": "GraveshamBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.gravesham.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "GreatYarmouthBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://myaccount.great-yarmouth.gov.uk/article/6456/Find-my-waste-collection-days",
+    "skip_get_url": true
+  },
+  {
+    "module": "GuildfordCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://my.guildford.gov.uk/customers/s/view-bin-collections",
+    "skip_get_url": true
+  },
+  {
+    "module": "GwyneddCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://diogel.gwynedd.llyw.cymru",
+    "skip_get_url": false
+  },
+  {
+    "module": "HackneyCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.hackney.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "HaltonBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://webapp.halton.gov.uk/PublicWebForms/WasteServiceSearchv1.aspx#collections",
+    "skip_get_url": true
+  },
+  {
+    "module": "HarboroughDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.harborough.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "HaringeyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://wastecollections.haringey.gov.uk/property",
+    "skip_get_url": true
+  },
+  {
+    "module": "HarlowCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://harlow.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "HartDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.hart.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "HartlepoolBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.hartlepool.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "HastingsBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.hastings.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "HerefordshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.herefordshire.gov.uk/rubbish-recycling/check-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "HertsmereBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.hertsmere.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "HighPeakCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.highpeak.gov.uk/findyourbinday",
+    "skip_get_url": true
+  },
+  {
+    "module": "HighlandCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.highland.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "Hillingdon",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.hillingdon.gov.uk/collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "HorshamDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.horsham.gov.uk/waste-recycling-and-bins/household-bin-collections/check-your-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "HyndburnBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://iapp.itouchvision.com/iappcollectionday/collection-day/?uuid=FEBA68993831481FD81B2E605364D00A8DC017A4",
+    "skip_get_url": true
+  },
+  {
+    "module": "IpswichBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://app.ipswich.gov.uk/bin-collection/",
+    "skip_get_url": false
+  },
+  {
+    "module": "IsleOfAngleseyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.anglesey.gov.wales/en/Residents/Bins-and-recycling/Waste-Collection-Day.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "IslingtonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.islington.gov.uk/your-area",
+    "skip_get_url": false
+  },
+  {
+    "module": "KingstonUponThamesCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://waste-services.kingston.gov.uk/waste/2701097",
+    "skip_get_url": false
+  },
+  {
+    "module": "KirkleesCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.kirklees.gov.uk/beta/your-property-bins-recycling/your-bins",
+    "skip_get_url": true
+  },
+  {
+    "module": "LancasterCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://lcc-wrp.whitespacews.com",
+    "skip_get_url": true
+  },
+  {
+    "module": "LeedsCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.leeds.gov.uk/residents/bins-and-recycling/check-your-bin-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "LeicesterCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://biffaleicester.co.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "LewesDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.lewes-eastbourne.gov.uk/article/1158/When-is-my-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "LichfieldDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.lichfielddc.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "LincolnCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://lincoln.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "LisburnCastlereaghCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://lisburn.isl-fusion.com",
+    "skip_get_url": true
+  },
+  {
+    "module": "LiverpoolCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://liverpool.gov.uk/bins-and-recycling/bin-collections/",
+    "skip_get_url": true
+  },
+  {
+    "module": "LutonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://myforms.luton.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "MaidstoneBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://my.maidstone.gov.uk/service/Find-your-bin-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "MaldonDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://maldon.suez.co.uk/maldon/ServiceSummary",
+    "skip_get_url": true
+  },
+  {
+    "module": "MalvernHillsDC",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://swict.malvernhills.gov.uk/mhdcroundlookup/HandleSearchScreen",
+    "skip_get_url": true
+  },
+  {
+    "module": "ManchesterCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.manchester.gov.uk/bincollections",
+    "skip_get_url": true
+  },
+  {
+    "module": "MansfieldDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.mansfield.gov.uk/xfp/form/1327",
+    "skip_get_url": true
+  },
+  {
+    "module": "MedwayCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.medway.gov.uk/homepage/45/check_your_waste_collection_day",
+    "skip_get_url": true
+  },
+  {
+    "module": "MeltonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://my.melton.gov.uk/collections",
+    "skip_get_url": false
+  },
+  {
+    "module": "MertonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://fixmystreet.merton.gov.uk/waste/",
+    "skip_get_url": true
+  },
+  {
+    "module": "MidAndEastAntrimBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.midandeastantrim.gov.uk/resident/waste-recycling/collection-dates/",
+    "skip_get_url": true
+  },
+  {
+    "module": "MidDevonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.middevon.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "MidSuffolkDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.midsuffolk.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "MidSussexDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.midsussex.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "MidUlsterDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.midulstercouncil.org",
+    "skip_get_url": true
+  },
+  {
+    "module": "MiddlesbroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.middlesbrough.gov.uk/recycling-and-rubbish/bin-collection-dates/",
+    "skip_get_url": true
+  },
+  {
+    "module": "MidlothianCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.midlothian.gov.uk/info/1054/bins_and_recycling/343/bin_collection_days",
+    "skip_get_url": true
+  },
+  {
+    "module": "MiltonKeynesCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://mycouncil.milton-keynes.gov.uk/en/service/Waste_Collection_Round_Checker",
+    "skip_get_url": false
+  },
+  {
+    "module": "MoleValleyDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://myproperty.molevalley.gov.uk/molevalley/",
+    "skip_get_url": true
+  },
+  {
+    "module": "MonmouthshireCountyCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://maps.monmouthshire.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "MorayCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://bindayfinder.moray.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "NeathPortTalbotCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.npt.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "NewForestCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://forms.newforest.gov.uk/ufs/FIND_MY_BIN_BAR.eb",
+    "skip_get_url": true
+  },
+  {
+    "module": "NewarkAndSherwoodDC",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://app.newark-sherwooddc.gov.uk/bincollection/",
+    "skip_get_url": true
+  },
+  {
+    "module": "NewcastleCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://community.newcastle.gov.uk/my-neighbourhood/ajax/getBinsNew.php?uprn=004510730634",
+    "skip_get_url": false
+  },
+  {
+    "module": "NewcastleUnderLymeCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.newcastle-staffs.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "NewhamCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://bincollection.newham.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "NewportCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.newport.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthAyrshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.north-ayrshire.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "NorthDevonCountyCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://my.northdevon.gov.uk/service/WasteRecyclingCollectionCalendar",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthEastDerbyshireDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://myselfservice.ne-derbyshire.gov.uk/service/Check_your_Bin_Day",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthHertfordshireDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://waste.nc.north-herts.gov.uk/w/webpage/find-bin-collection-day-input-address",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthKestevenDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.n-kesteven.org.uk/bins/display",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthLanarkshireCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.northlanarkshire.gov.uk/bin-collection-dates/000118016164/48402118",
+    "skip_get_url": false
+  },
+  {
+    "module": "NorthLincolnshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.northlincs.gov.uk/bins-waste-and-recycling/bin-and-box-collection-dates/",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthNorfolkDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.north-norfolk.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthNorthamptonshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://cms.northnorthants.gov.uk/bin-collection-search/calendarevents/100031021318/2023-10-17/2023-10-01",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthSomersetCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://forms.n-somerset.gov.uk/Waste/CollectionSchedule",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthTynesideCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.northtyneside.gov.uk/waste-collection-schedule",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthWarwickshireBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.northwarks.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthWestLeicestershire",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.nwleics.gov.uk/pages/collection_information",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthYorkshire",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.northyorks.gov.uk/bin-calendar/lookup",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorthumberlandCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://bincollection.northumberland.gov.uk/postcode",
+    "skip_get_url": true
+  },
+  {
+    "module": "NorwichCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://bnr-wrp.whitespacews.com",
+    "skip_get_url": false
+  },
+  {
+    "module": "NottinghamCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://geoserver.nottinghamcity.gov.uk/bincollections2/api/collection/100031540180",
+    "skip_get_url": true
+  },
+  {
+    "module": "NuneatonBedworthBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.nuneatonandbedworth.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "OadbyAndWigstonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://my.oadby-wigston.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "OldhamCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://portal.oldham.gov.uk/bincollectiondates/details?uprn=422000033556",
+    "skip_get_url": false
+  },
+  {
+    "module": "OxfordCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.oxford.gov.uk/xfp/form/142",
+    "skip_get_url": false
+  },
+  {
+    "module": "PembrokeshireCountyCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://nearest.pembrokeshire.gov.uk/property/100100278790",
+    "skip_get_url": false
+  },
+  {
+    "module": "PerthAndKinrossCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.pkc.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "PeterboroughCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://report.peterborough.gov.uk/waste",
+    "skip_get_url": true
+  },
+  {
+    "module": "PlymouthCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.plymouth.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "PortsmouthCityCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://my.portsmouth.gov.uk/en/AchieveForms/?form_uri=sandbox-publish://AF-Process-26e27e70-f771-47b1-a34d-af276075cede/AF-Stage-cd7cc291-2e59-42cc-8c3f-1f93e132a2c9/definition.json&redirectlink=%2F&cancelRedirectLink=%2F",
+    "skip_get_url": true
+  },
+  {
+    "module": "PowysCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.powys.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "PrestonCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://selfservice.preston.gov.uk/service/Forms/FindMyNearest.aspx?Service=bins",
+    "skip_get_url": true
+  },
+  {
+    "module": "ReadingBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://api.reading.gov.uk/api/collections/310056735",
+    "skip_get_url": false
+  },
+  {
+    "module": "RedditchBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://redditchbc.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "ReigateAndBansteadBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.reigate-banstead.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "RenfrewshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.renfrewshire.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "LondonBoroughOfRichmondUponThames",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.richmond.gov.uk/services/waste_and_recycling/collection_days/",
+    "skip_get_url": true
+  },
+  {
+    "module": "RochdaleCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://webforms.rochdale.gov.uk/BinCalendar",
+    "skip_get_url": true
+  },
+  {
+    "module": "RochfordCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.rochford.gov.uk/online-bin-collections-calendar",
+    "skip_get_url": false
+  },
+  {
+    "module": "RotherDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.rother.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "RotherhamCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.rotherham.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "RugbyBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.rugby.gov.uk/check-your-next-bin-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "RunnymedeBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.runnymede.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "RushcliffeBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.rushcliffe.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "RushmoorCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.rushmoor.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "SalfordCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.salford.gov.uk/bins-and-recycling/bin-collection-days/your-bin-collections",
+    "skip_get_url": true
+  },
+  {
+    "module": "SandwellBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.sandwell.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "SeftonCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.sefton.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "SevenoaksDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://sevenoaks-dc-host01.oncreate.app/w/webpage/waste-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "SheffieldCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://wasteservices.sheffield.gov.uk/property/100050931898",
+    "skip_get_url": false
+  },
+  {
+    "module": "ShropshireCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://bins.shropshire.gov.uk/property/100070034731",
+    "skip_get_url": false
+  },
+  {
+    "module": "SloughBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.slough.gov.uk/bin-collections",
+    "skip_get_url": true
+  },
+  {
+    "module": "SolihullCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://digital.solihull.gov.uk/BinCollectionCalendar/Calendar.aspx?UPRN=100071005444",
+    "skip_get_url": false
+  },
+  {
+    "module": "SomersetCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.somerset.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthAyrshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.south-ayrshire.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthCambridgeshireCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.scambs.gov.uk/recycling-and-bins/find-your-household-bin-collection-day/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthDerbyshireDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://maps.southderbyshire.gov.uk/iShareLIVE.web//getdata.aspx?RequestType=LocalInfo&ms=mapsources/MyHouse&format=JSONP&group=Recycling%20Bins%20and%20Waste|Next%20Bin%20Collections&uid=",
+    "skip_get_url": false
+  },
+  {
+    "module": "SouthGloucestershireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://api.southglos.gov.uk/wastecomp/GetCollectionDetails",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthHamsDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.southhams.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "SouthHollandDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.sholland.gov.uk/mycollections",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthKestevenDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://pre.southkesteven.gov.uk/skdcNext/tempforms/checkmybin.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthLanarkshireCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.southlanarkshire.gov.uk/directory_record/579973/abbeyhill_crescent_lesmahagow",
+    "skip_get_url": false
+  },
+  {
+    "module": "SouthNorfolkCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://area.southnorfolkandbroadland.gov.uk/FindAddress",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthOxfordshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.southoxon.gov.uk/south-oxfordshire-district-council/recycling-rubbish-and-waste/when-is-your-collection-day/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthRibbleCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://forms.chorleysouthribble.gov.uk/xfp/form/70",
+    "skip_get_url": false
+  },
+  {
+    "module": "SouthStaffordshireDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.sstaffs.gov.uk/where-i-live?objectId=100031802117",
+    "skip_get_url": false
+  },
+  {
+    "module": "SouthTynesideCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.southtyneside.gov.uk/article/33352/Bin-collection-dates",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthamptonCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.southampton.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "SouthwarkCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://services.southwark.gov.uk/bins/lookup/",
+    "skip_get_url": false
+  },
+  {
+    "module": "SpelthorneBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.spelthorne.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "StAlbansCityAndDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://gis.stalbans.gov.uk/NoticeBoard9/VeoliaProxy.NoticeBoard.asmx/GetServicesByUprnAndNoticeBoard",
+    "skip_get_url": true
+  },
+  {
+    "module": "StHelensBC",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.sthelens.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "StaffordBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.staffordbc.gov.uk/address/100032203010",
+    "skip_get_url": false
+  },
+  {
+    "module": "StaffordshireMoorlandsDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.staffsmoorlands.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "StevenageBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.stevenage.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "StirlingCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.stirling.gov.uk/bins-and-recycling/bin-collection-dates-search/",
+    "skip_get_url": true
+  },
+  {
+    "module": "StockportBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://myaccount.stockport.gov.uk/bin-collections/show/100011434401",
+    "skip_get_url": false
+  },
+  {
+    "module": "StocktonOnTeesCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.stockton.gov.uk/bin-collection-days",
+    "skip_get_url": true
+  },
+  {
+    "module": "StokeOnTrentCityCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.stoke.gov.uk/jadu/custom/webserviceLookUps/BarTecWebServices_missed_bin_calendar.php?UPRN=3455121482",
+    "skip_get_url": false
+  },
+  {
+    "module": "StratfordUponAvonCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.stratford.gov.uk/waste-recycling/when-we-collect.cfm/part/calendar",
+    "skip_get_url": true
+  },
+  {
+    "module": "StroudDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.stroud.gov.uk/my-house?uprn=100120512183&postcode=GL10+3BH",
+    "skip_get_url": false
+  },
+  {
+    "module": "SunderlandCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://webapps.sunderland.gov.uk/WEBAPPS/WSS/Sunderland_Portal/Forms/bindaychecker.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "SurreyHeathBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://asjwsw-wrpsurreyheathmunicipal-live.whitespacews.com/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SwaleBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://swale.gov.uk/bins-littering-and-the-environment/bins/collection-days",
+    "skip_get_url": true
+  },
+  {
+    "module": "SwanseaCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www1.swansea.gov.uk/recyclingsearch/",
+    "skip_get_url": true
+  },
+  {
+    "module": "SwindonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.swindon.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "TandridgeDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://tdcws01.tandridge.gov.uk/TDCWebAppsPublic/tfaBranded/408?utm_source=pressrelease&utm_medium=smposts&utm_campaign=check_my_bin_day",
+    "skip_get_url": true
+  },
+  {
+    "module": "TeignbridgeCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.google.co.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "TelfordAndWrekinCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://dac.telford.gov.uk/bindayfinder/",
+    "skip_get_url": true
+  },
+  {
+    "module": "TendringDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://tendring-self.achieveservice.com/en/service/Rubbish_and_recycling_collection_days",
+    "skip_get_url": true
+  },
+  {
+    "module": "TestValleyBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://testvalley.gov.uk/wasteandrecycling/when-are-my-bins-collected/when-are-my-bins-collected",
+    "skip_get_url": true
+  },
+  {
+    "module": "TewkesburyBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://tewkesbury.gov.uk/services/waste-and-recycling/",
+    "skip_get_url": true
+  },
+  {
+    "module": "ThanetDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.thanet.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "ThreeRiversDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://my.threerivers.gov.uk/en/AchieveForms/?mode=fill&consentMessage=yes&form_uri=sandbox-publish://AF-Process-52df96e3-992a-4b39-bba3-06cfaabcb42b/AF-Stage-01ee28aa-1584-442c-8d1f-119b6e27114a/definition.json&process=1&process_uri=sandbox-processes://AF-Process-52df96e3-992a-4b39-bba3-06cfaabcb42b&process_id=AF-Process-52df96e3-992a-4b39-bba3-06cfaabcb42b&noLoginPrompt=1",
+    "skip_get_url": true
+  },
+  {
+    "module": "ThurrockCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.thurrock.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "TonbridgeAndMallingBC",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.tmbc.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "TorbayCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.torbay.gov.uk/recycling/bin-collections/",
+    "skip_get_url": true
+  },
+  {
+    "module": "TorridgeDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://collections-torridge.azurewebsites.net/WebService2.asmx",
+    "skip_get_url": true
+  },
+  {
+    "module": "TunbridgeWellsCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://tunbridgewells.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "UttlesfordDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://bins.uttlesford.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WakefieldCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.wakefield.gov.uk/where-i-live/?uprn=63035490&a=115%20Elizabeth%20Drive%20Castleford%20WF10%203RR&usrn=41801243&e=445418&n=426091&p=WF10%203RR",
+    "skip_get_url": true
+  },
+  {
+    "module": "WalsallCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://cag.walsall.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "WalthamForest",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://portal.walthamforest.gov.uk/AchieveForms/?mode=fill&consentMessage=yes&form_uri=sandbox-publish://AF-Process-d62ccdd2-3de9-48eb-a229-8e20cbdd6393/AF-Stage-8bf39bf9-5391-4c24-857f-0dc2025c67f4/definition.json&process=1&process_uri=sandbox-processes://AF-Process-d62ccdd2-3de9-48eb-a229-8e20cbdd6393&process_id=AF-Process-d62ccdd2-3de9-48eb-a229-8e20cbdd6393",
+    "skip_get_url": true
+  },
+  {
+    "module": "WandsworthCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.wandsworth.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WarringtonBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.warrington.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WarwickDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://estates7.warwickdc.gov.uk/PropertyPortal/Property/Recycling/100070263793",
+    "skip_get_url": false
+  },
+  {
+    "module": "WatfordBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.watford.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WaverleyBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://wav-wrp.whitespacews.com/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WealdenDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.wealden.gov.uk/recycling-and-waste/bin-search/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestBerkshireCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.westberks.gov.uk/binday",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestDunbartonshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.west-dunbarton.gov.uk/",
+    "skip_get_url": false
+  },
+  {
+    "module": "WestLancashireBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.westlancs.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WestLindseyDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.west-lindsey.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestLothianCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.westlothian.gov.uk/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestNorthamptonshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.westnorthants.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestOxfordshireDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://community.westoxon.gov.uk/s/waste-collection-enquiry",
+    "skip_get_url": true
+  },
+  {
+    "module": "WestSuffolkCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://maps.westsuffolk.gov.uk/MyWestSuffolk.aspx",
+    "skip_get_url": true
+  },
+  {
+    "module": "WiganBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://apps.wigan.gov.uk/MyNeighbourhood/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WiltshireCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://ilambassadorformsprod.azurewebsites.net/wastecollectiondays/index",
+    "skip_get_url": true
+  },
+  {
+    "module": "WinchesterCityCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://iportal.itouchvision.com/icollectionday/collection-day",
+    "skip_get_url": false
+  },
+  {
+    "module": "WindsorAndMaidenheadCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://forms.rbwm.gov.uk/bincollections?uprn=",
+    "skip_get_url": true
+  },
+  {
+    "module": "WirralCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.wirral.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WokingBoroughCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://asjwsw-wrpwokingmunicipal-live.whitespacews.com/",
+    "skip_get_url": true
+  },
+  {
+    "module": "WokinghamBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": false,
+    "needs_postcode": true,
+    "url_template": "https://www.wokingham.gov.uk/rubbish-and-recycling/waste-collection/find-your-bin-collection-day",
+    "skip_get_url": true
+  },
+  {
+    "module": "WolverhamptonCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.wolverhampton.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WorcesterCityCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.Worcester.gov.uk",
+    "skip_get_url": false
+  },
+  {
+    "module": "WrexhamCountyBoroughCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://www.wrexham.gov.uk/service/when-are-my-bins-collected",
+    "skip_get_url": true
+  },
+  {
+    "module": "WychavonDistrictCouncil",
+    "pure_http": false,
+    "needs_uprn": true,
+    "needs_postcode": true,
+    "url_template": "https://selfservice.wychavon.gov.uk/wdcroundlookup/wdc_search.jsp",
+    "skip_get_url": true
+  },
+  {
+    "module": "WyreCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://www.wyre.gov.uk/bins-rubbish-recycling",
+    "skip_get_url": true
+  },
+  {
+    "module": "WyreForestDistrictCouncil",
+    "pure_http": true,
+    "needs_uprn": false,
+    "needs_postcode": false,
+    "url_template": "https://www.wyreforestdc.gov.uk",
+    "skip_get_url": true
+  },
+  {
+    "module": "YorkCouncil",
+    "pure_http": true,
+    "needs_uprn": true,
+    "needs_postcode": false,
+    "url_template": "https://waste-api.york.gov.uk/api/Collections/GetBinCollectionDataForUprn/",
+    "skip_get_url": true
+  }
+]
