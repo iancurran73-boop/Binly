@@ -42,20 +42,98 @@ ENABLE_SELENIUM = os.environ.get("ENABLE_SELENIUM", "0") == "1"
 # When CHROMEDRIVER_PATH is set, we monkey-patch create_webdriver to use the
 # system-installed chromedriver instead. The Phase B Dockerfile installs a
 # version matched to Chrome at /usr/local/bin/chromedriver.
+# Councils whose sites are protected by Cloudflare Turnstile ("verify you
+# are human" checkbox). Vanilla headless Chrome fails the fingerprint check
+# before the page even loads. We swap in undetected-chromedriver for these,
+# which strips the headless tells Cloudflare looks for.
+CLOUDFLARE_COUNCILS = {
+    "gateshead",
+    # Add others here as we identify them.
+}
+
+# Set per-job before invoking the adapter; read by our patched create_webdriver.
+_CURRENT_COUNCIL: dict[str, str | None] = {"id": None}
+
 if ENABLE_SELENIUM:
     _system_driver = os.environ.get("CHROMEDRIVER_PATH", "/usr/local/bin/chromedriver")
     if _system_driver and Path(_system_driver).exists():
         try:
-            # Patch ChromeDriverManager.install() to return our system driver.
-            # uk_bin_collection's create_webdriver() always calls .install() —
-            # by intercepting it here we avoid the version-mismatch crash where
-            # webdriver-manager downloads a stale (e.g. v114) driver that can't
-            # drive the current Chrome stable build.
+            # Step 1 — stop webdriver-manager from downloading a stale driver.
             from webdriver_manager.chrome import ChromeDriverManager as _CDM
             _CDM.install = lambda self, *a, **kw: _system_driver  # type: ignore[assignment]
-            print(f"[binnovator] patched ChromeDriverManager.install → {_system_driver}", flush=True)
+
+            # Step 2 — replace uk_bin_collection's create_webdriver entirely.
+            # We pick vanilla Chrome by default, and undetected-chromedriver
+            # for Cloudflare-protected councils.
+            from selenium import webdriver as _sel_webdriver
+            from selenium.webdriver.chrome.service import Service as _ChromeService
+            from uk_bin_collection.uk_bin_collection import common as _ukbc_common
+
+            try:
+                import undetected_chromedriver as _uc  # noqa: F401
+                _UC_AVAILABLE = True
+            except Exception as _imp_err:
+                print(f"[binnovator] undetected_chromedriver unavailable: {_imp_err}", flush=True)
+                _UC_AVAILABLE = False
+
+            def _binnovator_create_webdriver(web_driver=None, headless=True, user_agent=None, session_name=None):
+                council_id = _CURRENT_COUNCIL.get("id")
+                use_uc = _UC_AVAILABLE and council_id in CLOUDFLARE_COUNCILS
+                print(f"[binnovator] launching Chrome for council={council_id} cloudflare_bypass={use_uc}", flush=True)
+
+                common_args = [
+                    "--no-sandbox",
+                    "--disable-gpu",
+                    "--disable-dev-shm-usage",
+                    "--window-size=1920,1080",
+                    "--disable-blink-features=AutomationControlled",
+                ]
+
+                if use_uc:
+                    options = _uc.ChromeOptions()
+                    for arg in common_args:
+                        options.add_argument(arg)
+                    if user_agent:
+                        options.add_argument(f"--user-agent={user_agent}")
+                    # undetected-chromedriver takes a `headless` kwarg, NOT --headless flag.
+                    drv = _uc.Chrome(
+                        options=options,
+                        headless=headless,
+                        driver_executable_path=_system_driver,
+                        use_subprocess=False,
+                    )
+                else:
+                    options = _sel_webdriver.ChromeOptions()
+                    if headless:
+                        options.add_argument("--headless=new")
+                    for arg in common_args:
+                        options.add_argument(arg)
+                    if user_agent:
+                        options.add_argument(f"--user-agent={user_agent}")
+                    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+                    if web_driver:
+                        drv = _sel_webdriver.Remote(command_executor=web_driver, options=options)
+                    else:
+                        drv = _sel_webdriver.Chrome(
+                            service=_ChromeService(executable_path=_system_driver),
+                            options=options,
+                        )
+                try:
+                    drv.set_window_position(0, 0)
+                except Exception:
+                    pass
+                return drv
+
+            _ukbc_common.create_webdriver = _binnovator_create_webdriver
+            # Council adapters import create_webdriver at module-load time, so we
+            # also need to patch any already-loaded council module's namespace.
+            for _mod_name, _mod in list(sys.modules.items()):
+                if _mod_name.startswith("uk_bin_collection.uk_bin_collection.councils.") and hasattr(_mod, "create_webdriver"):
+                    setattr(_mod, "create_webdriver", _binnovator_create_webdriver)
+            print(f"[binnovator] patched create_webdriver (UC available: {_UC_AVAILABLE})", flush=True)
         except Exception as _e:
-            print(f"[binnovator] WARNING: could not patch ChromeDriverManager: {_e}", flush=True)
+            traceback.print_exc()
+            print(f"[binnovator] WARNING: could not patch webdriver: {_e}", flush=True)
 
 UPSTREAM_MAP_PATH = Path(__file__).parent / "upstream_map.json"
 UPSTREAM_MAP: list[dict[str, Any]] = json.loads(UPSTREAM_MAP_PATH.read_text())
@@ -120,7 +198,8 @@ class AdapterUnsupported(Exception):
 
 
 def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | None,
-                paon: str | None, skip_get_url: bool, headless: bool = True) -> list[dict[str, str]]:
+                paon: str | None, skip_get_url: bool, headless: bool = True,
+                council_id: str | None = None) -> list[dict[str, str]]:
     """Import the upstream council module and execute its adapter.
 
     Returns a list of {collection_date: 'YYYY-MM-DD', bin_type: 'recycling'|...}.
@@ -129,8 +208,20 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
     """
     full_module = f"uk_bin_collection.uk_bin_collection.councils.{module_name}"
     mod = importlib.import_module(full_module)
+    # Re-bind create_webdriver in the council module's namespace if the adapter
+    # imported it before our startup patch ran.
+    if ENABLE_SELENIUM and hasattr(mod, "create_webdriver"):
+        try:
+            from uk_bin_collection.uk_bin_collection import common as _ukbc_common
+            mod.create_webdriver = _ukbc_common.create_webdriver  # type: ignore[attr-defined]
+        except Exception:
+            pass
     klass = getattr(mod, "CouncilClass")
     instance = klass()
+
+    # Tell the patched create_webdriver which council we're running so it can
+    # decide whether to use undetected-chromedriver for Cloudflare bypass.
+    _CURRENT_COUNCIL["id"] = council_id
 
     # If adapter source imports selenium and we're not in Phase B, skip it.
     src = sys.modules[full_module].__file__
@@ -225,7 +316,7 @@ def process_job(job: dict) -> None:
     print(f"[job {job_id}] {council_id} -> {module_name} (uprn={uprn or '-'}, postcode={postcode or '-'}, paon={paon or '-'})", flush=True)
 
     try:
-        schedule = run_adapter(module_name, url, uprn, postcode, paon=paon, skip_get_url=skip_get)
+        schedule = run_adapter(module_name, url, uprn, postcode, paon=paon, skip_get_url=skip_get, council_id=council_id)
     except AdapterUnsupported as e:
         finalise(job_id, status="unsupported", error=str(e))
         return
