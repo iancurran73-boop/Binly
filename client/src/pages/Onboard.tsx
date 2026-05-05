@@ -262,19 +262,57 @@ export default function Onboard() {
                   data-testid="input-uprn"
                   className="rounded-2xl h-12 tabular-nums"
                 />
-                <p className="text-xs text-muted-foreground">
-                  {selectedCouncil?.name} needs your UPRN to look up your bins. It's an 8–12 digit number tied to your address.{" "}
-                  <a
-                    href={`https://www.findmyaddress.co.uk/search?postcode=${encodeURIComponent(postcode.trim())}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-dotted underline-offset-4 inline-flex items-center gap-1 text-foreground"
-                    data-testid="link-find-uprn"
-                  >
-                    Find my UPRN <ExternalLink className="h-3 w-3" />
-                  </a>{" "}
-                  — search your postcode, click your address, copy the UPRN, paste it back here.
-                </p>
+                <div className="text-xs text-muted-foreground space-y-2">
+                  <p>
+                    {selectedCouncil?.name} needs your UPRN to look up your bins. It's an 8–12 digit number tied to your address.
+                  </p>
+                  <div className="flex flex-wrap gap-2 items-center">
+                    <span className="text-foreground font-medium">Find it here:</span>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-8 rounded-full text-xs"
+                      data-testid="button-copy-uprn-link"
+                      onClick={async () => {
+                        const url = `https://www.findmyaddress.co.uk/search?postcode=${encodeURIComponent(postcode.trim())}`;
+                        const opened = window.open(url, "_blank", "noopener,noreferrer");
+                        if (!opened) {
+                          try {
+                            await navigator.clipboard.writeText(url);
+                            toast({ title: "Link copied", description: "Paste it into a new browser tab to look up your UPRN." });
+                          } catch {
+                            toast({ title: "Open this in a new tab", description: url });
+                          }
+                        }
+                      }}
+                    >
+                      Open FindMyAddress <ExternalLink className="h-3 w-3 ml-1" />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-8 rounded-full text-xs"
+                      data-testid="button-copy-uprn-link-alt"
+                      onClick={async () => {
+                        const url = `https://www.getthedata.com/uprn-search/${encodeURIComponent(postcode.trim().replace(/\s/g, ""))}`;
+                        const opened = window.open(url, "_blank", "noopener,noreferrer");
+                        if (!opened) {
+                          try {
+                            await navigator.clipboard.writeText(url);
+                            toast({ title: "Link copied", description: "Paste it into a new browser tab to look up your UPRN." });
+                          } catch {
+                            toast({ title: "Open this in a new tab", description: url });
+                          }
+                        }
+                      }}
+                    >
+                      Try GetTheData <ExternalLink className="h-3 w-3 ml-1" />
+                    </Button>
+                  </div>
+                  <p>Search your postcode, click your address, copy the UPRN, paste it back here.</p>
+                </div>
               </div>
             )}
 
