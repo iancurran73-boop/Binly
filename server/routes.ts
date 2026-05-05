@@ -29,6 +29,63 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // ---- Health
   app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
+  // ---- Address autocomplete by postcode (Ideal Postcodes).
+  // Server-side only — keeps the API key off the client. Returns a friendly
+  // shape so Onboard never has to know what UPRN means; it just shows the
+  // user a list of addresses and captures the right identifiers behind the
+  // scenes when they pick one.
+  app.get("/api/address-lookup", async (req, res) => {
+    const raw = String(req.query.postcode || "").trim();
+    const normalised = raw.toUpperCase().replace(/\s+/g, "");
+    if (!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(normalised)) {
+      return res.status(400).json({ message: "That doesn't look like a UK postcode." });
+    }
+    const apiKey = process.env.IDEAL_POSTCODES_API_KEY;
+    if (!apiKey) {
+      return res.status(503).json({
+        message: "Address lookup isn't configured yet. Pop your house number in below.",
+        addresses: [],
+      });
+    }
+    try {
+      const url = `https://api.ideal-postcodes.co.uk/v1/postcodes/${encodeURIComponent(
+        normalised,
+      )}?api_key=${encodeURIComponent(apiKey)}`;
+      const upstream = await fetch(url);
+      if (!upstream.ok) {
+        // 404 = postcode not found; everything else is a service issue.
+        if (upstream.status === 404) return res.json({ addresses: [] });
+        return res.status(502).json({
+          message: "Address service had a wobble. Try again in a moment.",
+          addresses: [],
+        });
+      }
+      const json: any = await upstream.json();
+      const result = Array.isArray(json?.result) ? json.result : [];
+      const addresses = result.map((row: any) => {
+        const lines = [row.line_1, row.line_2, row.line_3].filter(Boolean).join(", ");
+        const label = lines
+          ? `${lines}, ${row.post_town || ""}`.replace(/,\s*$/, "")
+          : `${row.post_town || ""}`;
+        return {
+          label,
+          uprn: String(row.uprn || ""),
+          paon: String(row.building_number || row.building_name || row.sub_building_name || ""),
+          line_1: row.line_1 || "",
+          line_2: row.line_2 || "",
+          post_town: row.post_town || "",
+          postcode: row.postcode || normalised,
+        };
+      });
+      res.json({ addresses });
+    } catch (err: any) {
+      res.status(502).json({
+        message: "Couldn't reach the address service.",
+        addresses: [],
+      });
+    }
+  });
+
   // ---- Councils (for the postcode-to-council picker). Each row is enriched
   // with the upstream requirements so the onboarding form can ask the right
   // question (UPRN vs house number) without a second round-trip.

@@ -17,7 +17,7 @@ import { Logo } from "@/components/Logo";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { Council } from "@shared/schema";
-import { Loader2, ArrowRight, Sparkles, Check, ChevronsUpDown, Hourglass, ExternalLink } from "lucide-react";
+import { Loader2, ArrowRight, Sparkles, Check, ChevronsUpDown, Hourglass, ExternalLink, Search } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import binsHero from "@/assets/char-quartet-hero.png";
 
@@ -35,6 +35,23 @@ export default function Onboard() {
   const [waitlistDone, setWaitlistDone] = useState(false);
   const [uprn, setUprn] = useState("");
   const [paon, setPaon] = useState("");
+
+  // Address lookup state — user types postcode, hits "Find my address", picks
+  // from the dropdown. UPRN + PAON get auto-populated behind the scenes.
+  type LookupAddress = {
+    label: string;
+    uprn: string;
+    paon: string;
+    line_1: string;
+    line_2: string;
+    post_town: string;
+    postcode: string;
+  };
+  const [addressOptions, setAddressOptions] = useState<LookupAddress[]>([]);
+  const [addressLookupLoading, setAddressLookupLoading] = useState(false);
+  const [addressLookupError, setAddressLookupError] = useState<string | null>(null);
+  const [selectedAddressIdx, setSelectedAddressIdx] = useState<number | null>(null);
+  const [showManualFallback, setShowManualFallback] = useState(false);
   // Default ON because the Bulletin is genuinely useful (recycling rules,
   // seasonal tips, dry humour) and the box is visible — not hidden in a 9pt
   // footer. Users see it, can untick it, and unsubscribe one-click later.
@@ -249,87 +266,123 @@ export default function Onboard() {
               </p>
             </div>
 
-            {!isWaitlist && needsUprn && (
+            {!isWaitlist && (needsUprn || needsHouseNumber) && (
               <div className="space-y-2">
-                <Label htmlFor="uprn">UPRN (Unique Property Reference)</Label>
-                <Input
-                  id="uprn"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  value={uprn}
-                  onChange={(e) => setUprn(e.target.value.replace(/\D/g, ""))}
-                  placeholder="100012345678"
-                  data-testid="input-uprn"
-                  className="rounded-2xl h-12 tabular-nums"
-                />
-                <div className="text-xs text-muted-foreground space-y-2">
-                  <p>
-                    {selectedCouncil?.name} needs your UPRN to look up your bins. It's an 8–12 digit number tied to your address.
-                  </p>
-                  <div className="flex flex-wrap gap-2 items-center">
-                    <span className="text-foreground font-medium">Find it here:</span>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="h-8 rounded-full text-xs"
-                      data-testid="button-copy-uprn-link"
-                      onClick={async () => {
-                        const url = `https://www.findmyaddress.co.uk/search?postcode=${encodeURIComponent(postcode.trim())}`;
-                        const opened = window.open(url, "_blank", "noopener,noreferrer");
-                        if (!opened) {
-                          try {
-                            await navigator.clipboard.writeText(url);
-                            toast({ title: "Link copied", description: "Paste it into a new browser tab to look up your UPRN." });
-                          } catch {
-                            toast({ title: "Open this in a new tab", description: url });
-                          }
+                <Label>Your address</Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="flex-1 rounded-2xl h-12"
+                    disabled={postcode.trim().length < 5 || addressLookupLoading}
+                    data-testid="button-find-address"
+                    onClick={async () => {
+                      setAddressLookupLoading(true);
+                      setAddressLookupError(null);
+                      setAddressOptions([]);
+                      setSelectedAddressIdx(null);
+                      try {
+                        const r = await apiRequest(
+                          "GET",
+                          `/api/address-lookup?postcode=${encodeURIComponent(postcode.trim())}`,
+                        );
+                        const data = await r.json();
+                        if (!r.ok) {
+                          setAddressLookupError(data.message || "Lookup failed.");
+                          setShowManualFallback(true);
+                        } else if (!data.addresses?.length) {
+                          setAddressLookupError("No addresses found for that postcode.");
+                          setShowManualFallback(true);
+                        } else {
+                          setAddressOptions(data.addresses);
                         }
-                      }}
-                    >
-                      Open FindMyAddress <ExternalLink className="h-3 w-3 ml-1" />
-                    </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="h-8 rounded-full text-xs"
-                      data-testid="button-copy-uprn-link-alt"
-                      onClick={async () => {
-                        const url = `https://www.getthedata.com/uprn-search/${encodeURIComponent(postcode.trim().replace(/\s/g, ""))}`;
-                        const opened = window.open(url, "_blank", "noopener,noreferrer");
-                        if (!opened) {
-                          try {
-                            await navigator.clipboard.writeText(url);
-                            toast({ title: "Link copied", description: "Paste it into a new browser tab to look up your UPRN." });
-                          } catch {
-                            toast({ title: "Open this in a new tab", description: url });
-                          }
-                        }
-                      }}
-                    >
-                      Try GetTheData <ExternalLink className="h-3 w-3 ml-1" />
-                    </Button>
-                  </div>
-                  <p>Search your postcode, click your address, copy the UPRN, paste it back here.</p>
+                      } catch (e: any) {
+                        setAddressLookupError("Couldn't reach the address service.");
+                        setShowManualFallback(true);
+                      } finally {
+                        setAddressLookupLoading(false);
+                      }
+                    }}
+                  >
+                    {addressLookupLoading ? (
+                      <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Rummaging…</>
+                    ) : (
+                      <><Search className="h-4 w-4 mr-2" /> Find my address</>
+                    )}
+                  </Button>
                 </div>
-              </div>
-            )}
 
-            {!isWaitlist && needsHouseNumber && (
-              <div className="space-y-2">
-                <Label htmlFor="paon">House number or name</Label>
-                <Input
-                  id="paon"
-                  value={paon}
-                  onChange={(e) => setPaon(e.target.value)}
-                  placeholder="42"
-                  data-testid="input-paon"
-                  className="rounded-2xl h-12"
-                />
-                <p className="text-xs text-muted-foreground">
-                  {selectedCouncil?.name} matches addresses by house number plus postcode. Just the number (or name) — no street.
-                </p>
+                {addressOptions.length > 0 && (
+                  <div className="space-y-2">
+                    <select
+                      className="w-full rounded-2xl h-12 px-3 border border-input bg-background text-sm"
+                      data-testid="select-address"
+                      value={selectedAddressIdx ?? ""}
+                      onChange={(e) => {
+                        const idx = e.target.value === "" ? null : Number(e.target.value);
+                        setSelectedAddressIdx(idx);
+                        if (idx !== null) {
+                          const a = addressOptions[idx];
+                          setUprn(a.uprn);
+                          setPaon(a.paon);
+                          setAddress(a.line_1);
+                        }
+                      }}
+                    >
+                      <option value="">Pick your address…</option>
+                      {addressOptions.map((a, i) => (
+                        <option key={`${a.uprn}-${i}`} value={i}>
+                          {a.label}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-xs text-muted-foreground">
+                      {addressOptions.length} addresses found. Pick yours.
+                    </p>
+                  </div>
+                )}
+
+                {addressLookupError && (
+                  <p className="text-xs text-destructive">{addressLookupError}</p>
+                )}
+
+                {(showManualFallback || addressLookupError) && needsUprn && (
+                  <details className="text-xs text-muted-foreground">
+                    <summary className="cursor-pointer hover:text-foreground">
+                      Address not in the list? Enter UPRN manually
+                    </summary>
+                    <div className="mt-2 space-y-2 pl-4 border-l-2 border-muted">
+                      <Input
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        value={uprn}
+                        onChange={(e) => setUprn(e.target.value.replace(/\D/g, ""))}
+                        placeholder="100012345678"
+                        data-testid="input-uprn"
+                        className="rounded-2xl h-10 tabular-nums"
+                      />
+                      <p>Look up your UPRN at <a href={`https://www.getthedata.com/uprn-search/${encodeURIComponent(postcode.trim().replace(/\s/g, ""))}`} target="_blank" rel="noopener noreferrer" className="underline">GetTheData<ExternalLink className="h-3 w-3 inline ml-0.5" /></a> if your address didn't show up.</p>
+                    </div>
+                  </details>
+                )}
+
+                {(showManualFallback || addressLookupError) && needsHouseNumber && !needsUprn && (
+                  <details className="text-xs text-muted-foreground">
+                    <summary className="cursor-pointer hover:text-foreground">
+                      Address not in the list? Enter house number manually
+                    </summary>
+                    <div className="mt-2 space-y-2 pl-4 border-l-2 border-muted">
+                      <Input
+                        value={paon}
+                        onChange={(e) => setPaon(e.target.value)}
+                        placeholder="42"
+                        data-testid="input-paon"
+                        className="rounded-2xl h-10"
+                      />
+                      <p>Just the number or name — no street.</p>
+                    </div>
+                  </details>
+                )}
               </div>
             )}
 
