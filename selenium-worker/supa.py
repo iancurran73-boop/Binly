@@ -8,8 +8,26 @@ import os
 from typing import Any
 import requests
 
-SUPABASE_URL = os.environ["SUPABASE_URL"].rstrip("/")
-SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY") or os.environ["SUPABASE_ANON_KEY"]
+def _clean_env(name: str, default: str | None = None) -> str:
+    """Read an env var and strip whitespace including invisible Unicode spaces.
+
+    Render's dashboard sometimes captures stray characters when you paste
+    (thin space U+2009, NBSP U+00A0, zero-width space U+200B). Those break
+    URL parsing in opaque ways, so we scrub them here.
+    """
+    raw = os.environ.get(name, default)
+    if raw is None:
+        raise KeyError(name)
+    # Strip ASCII + common Unicode whitespace.
+    for ch in ("\u2009", "\u00a0", "\u200b", "\u202f", "\ufeff"):
+        raw = raw.replace(ch, "")
+    return raw.strip()
+
+
+SUPABASE_URL = _clean_env("SUPABASE_URL").rstrip("/")
+SUPABASE_KEY = _clean_env("SUPABASE_SERVICE_KEY", os.environ.get("SUPABASE_ANON_KEY", ""))
+if not SUPABASE_KEY:
+    raise KeyError("SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY must be set")
 
 HEADERS = {
     "apikey": SUPABASE_KEY,
