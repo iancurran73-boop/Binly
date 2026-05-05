@@ -1,0 +1,29 @@
+# Render Blueprint — deploys the Binly worker ("binnovator") that fetches
+# bin schedules from UK council websites. Lives at repo root so Render's
+# one-click Blueprint deploy can auto-detect it.
+#
+# Plan note: `free` is fine for Phase A (pure-HTTP councils — 205 of them).
+# Phase B (Selenium, 91 more councils) needs at least `starter` because the
+# Chrome image has a larger footprint. Switch the plan field when you're ready.
+
+services:
+  - type: worker
+    name: binly-binnovator
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    rootDir: selenium-worker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      # Both must be set in the Render dashboard before the first deploy.
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      # How often the worker polls the Supabase queue (seconds).
+      - key: WORKER_INTERVAL_SECONDS
+        value: "5"
+      # How many jobs to process per poll cycle.
+      - key: WORKER_BATCH_SIZE
+        value: "5"
