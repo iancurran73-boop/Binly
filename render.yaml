@@ -1,13 +1,20 @@
-# Render Blueprint — deploys the Binly worker ("binnovator") that fetches
-# bin schedules from UK council websites. Lives at repo root so Render's
-# one-click Blueprint deploy can auto-detect it.
+# Render Blueprint — deploys the Binly binnovator that fetches bin schedules
+# from UK council websites. Lives at repo root so Render's one-click Blueprint
+# deploy auto-detects it.
 #
-# Plan note: `free` is fine for Phase A (pure-HTTP councils — 205 of them).
+# Why a Web Service (not a Worker)?
+#   Render's free tier doesn't support Background Workers, only Web Services.
+#   Our service.py runs the polling loop in a background thread and exposes
+#   a tiny health-check HTTP server, so we get worker behaviour on the free
+#   plan. To keep it from spinning down after 15 min idle, point an external
+#   pinger (UptimeRobot, cron-job.org) at https://<service>.onrender.com/
+#   every 10 minutes.
+#
 # Phase B (Selenium, 91 more councils) needs at least `starter` because the
-# Chrome image has a larger footprint. Switch the plan field when you're ready.
+# Chrome image has a larger footprint. Switch the plan field when ready.
 
 services:
-  - type: worker
+  - type: web
     name: binly-binnovator
     runtime: docker
     plan: free
@@ -15,6 +22,7 @@ services:
     rootDir: selenium-worker
     dockerfilePath: ./Dockerfile
     dockerContext: .
+    healthCheckPath: /
     envVars:
       # Both must be set in the Render dashboard before the first deploy.
       - key: SUPABASE_URL

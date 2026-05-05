@@ -20,4 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "worker.py"]
+# Render free tier supports Web Services (not Background Workers), so we
+# run the binnovator polling loop inside a tiny HTTP server. See server.py.
+CMD ["python", "server.py"]
