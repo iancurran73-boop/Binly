@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useLocation, Link } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -28,9 +28,9 @@ export default function Onboard() {
 
   const [postcode, setPostcode] = useState("");
   const [address, setAddress] = useState("");
-  const [householdName, setHouseholdName] = useState("");
   const [email, setEmail] = useState("");
   const [councilId, setCouncilId] = useState<string | undefined>(undefined);
+  const [councilWasAutoDetected, setCouncilWasAutoDetected] = useState(false);
   const [comboOpen, setComboOpen] = useState(false);
   const [waitlistDone, setWaitlistDone] = useState(false);
   const [uprn, setUprn] = useState("");
@@ -57,6 +57,64 @@ export default function Onboard() {
   // footer. Users see it, can untick it, and unsubscribe one-click later.
   const [bulletinOptIn, setBulletinOptIn] = useState(true);
 
+  // Auto-fire address lookup ~400ms after the user finishes typing a valid
+  // postcode. Keeps the flow conversational — they don't have to hunt for a
+  // "Find my address" button. UK postcode regex is permissive: 1-2 letters,
+  // 1 digit, optional letter/digit, then space/none, digit, 2 letters.
+  const lookupTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const runAddressLookup = async (rawPostcode: string) => {
+    setAddressLookupLoading(true);
+    setAddressLookupError(null);
+    setAddressOptions([]);
+    setSelectedAddressIdx(null);
+    setUprn("");
+    setPaon("");
+    setAddress("");
+    try {
+      const r = await apiRequest(
+        "GET",
+        `/api/address-lookup?postcode=${encodeURIComponent(rawPostcode.trim())}`,
+      );
+      const data = await r.json();
+      if (!r.ok) {
+        setAddressLookupError(data.message || "Lookup failed.");
+        setShowManualFallback(true);
+      } else if (!data.addresses?.length) {
+        setAddressLookupError("No addresses found for that postcode.");
+        setShowManualFallback(true);
+      } else {
+        setAddressOptions(data.addresses);
+        // Auto-pick the council if Ideal Postcodes' district matched a slug.
+        if (data.detectedCouncilId) {
+          setCouncilId(data.detectedCouncilId);
+          setCouncilWasAutoDetected(true);
+        }
+      }
+    } catch (e: any) {
+      setAddressLookupError("Couldn't reach the address service.");
+      setShowManualFallback(true);
+    } finally {
+      setAddressLookupLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const cleaned = postcode.trim().replace(/\s+/g, "").toUpperCase();
+    const looksValid = /^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(cleaned);
+    if (lookupTimer.current) clearTimeout(lookupTimer.current);
+    if (!looksValid) {
+      // User is mid-type or has cleared it — wipe stale results.
+      setAddressOptions([]);
+      setAddressLookupError(null);
+      return;
+    }
+    lookupTimer.current = setTimeout(() => runAddressLookup(cleaned), 350);
+    return () => {
+      if (lookupTimer.current) clearTimeout(lookupTimer.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postcode]);
+
   const { data: councils = [] } = useQuery<Council[]>({ queryKey: ["/api/councils"] });
 
   const selectedCouncil = useMemo(
@@ -77,7 +135,7 @@ export default function Onboard() {
       const res = await apiRequest("POST", "/api/onboard", {
         postcode: postcode.trim(),
         address_line: address.trim() || undefined,
-        household_name: householdName.trim() || undefined,
+        household_name: undefined,
         council_id: councilId,
         email: email.trim(),
         uprn: uprn.trim() || undefined,
@@ -140,7 +198,7 @@ export default function Onboard() {
             Tell us where you live.
           </h1>
           <p className="mt-2 text-base text-muted-foreground max-w-lg">
-            Pop your postcode in. We'll work out your schedule for all four bins (food caddy included from 31 March 2026) and double-check it every week. Always free.
+            Postcode in, schedule out. Food caddy included from 31 March 2026. We re-check every week. Always free.
           </p>
 
           <form
@@ -152,251 +210,221 @@ export default function Onboard() {
               } else if (canSubmit) onboard.mutate();
             }}
           >
-            <div className="space-y-2">
-              <Label htmlFor="email">Email (for bin nudges)</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.co.uk"
-                data-testid="input-email"
-                className="rounded-2xl h-12"
-              />
-              <label className="flex items-start gap-3 pt-2 cursor-pointer select-none" data-testid="label-bulletin-opt-in">
-                <Checkbox
-                  id="bulletin"
-                  checked={bulletinOptIn}
-                  onCheckedChange={(v) => setBulletinOptIn(v === true)}
-                  className="mt-0.5"
-                  data-testid="checkbox-bulletin"
-                />
-                <span className="text-sm text-muted-foreground leading-snug">
-                  Send me the <strong className="text-foreground font-medium">Binly Bulletin</strong> — a short, useful weekly email about recycling rules, seasonal bin chaos, and the occasional good deal we've found. No spam, no tracking pixels, one-click unsubscribe. We won't share your email with anyone.
-                </span>
-              </label>
-            </div>
-
+            {/* 1. Postcode — the single ask that drives everything */}
             <div className="space-y-2">
               <Label htmlFor="postcode">Postcode</Label>
-              <Input
-                id="postcode"
-                value={postcode}
-                onChange={(e) => setPostcode(e.target.value.toUpperCase())}
-                placeholder="NE8 1HH"
-                data-testid="input-postcode"
-                className="rounded-2xl h-12 uppercase tracking-wider"
-                autoCapitalize="characters"
-              />
+              <div className="relative">
+                <Input
+                  id="postcode"
+                  value={postcode}
+                  onChange={(e) => setPostcode(e.target.value.toUpperCase())}
+                  placeholder="NE8 1HH"
+                  data-testid="input-postcode"
+                  className="rounded-2xl h-12 uppercase tracking-wider pr-10"
+                  autoCapitalize="characters"
+                  autoFocus
+                />
+                {addressLookupLoading && (
+                  <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-muted-foreground" />
+                )}
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="address">Address (optional, for the dashboard)</Label>
-              <Input
-                id="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="42 Acacia Avenue"
-                data-testid="input-address"
-                className="rounded-2xl h-12"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label>Council</Label>
-              <Popover open={comboOpen} onOpenChange={setComboOpen}>
-                <PopoverTrigger asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    role="combobox"
-                    aria-expanded={comboOpen}
-                    className="w-full h-12 rounded-2xl justify-between text-left font-normal"
-                    data-testid="button-council-combobox"
-                  >
-                    {selectedCouncil ? (
-                      <span className="truncate">{selectedCouncil.name}</span>
-                    ) : (
-                      <span className="text-muted-foreground">Search 361 UK councils…</span>
-                    )}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent
-                  className="w-[--radix-popover-trigger-width] p-0 rounded-2xl"
-                  align="start"
-                >
-                  <Command shouldFilter>
-                    <CommandInput placeholder="Type your council, town or borough…" data-testid="input-council-search" />
-                    <CommandList className="max-h-72">
-                      <CommandEmpty>
-                        Nothing matching. UK has a lot of councils. Try the borough.
-                      </CommandEmpty>
-                      <CommandGroup>
-                        {councils.map((c) => (
-                          <CommandItem
-                            key={c.id}
-                            value={`${c.name} ${c.region ?? ""}`}
-                            onSelect={() => {
-                              setCouncilId(c.id);
-                              setComboOpen(false);
-                            }}
-                            data-testid={`option-council-${c.id}`}
-                          >
-                            <Check
-                              className={`mr-2 h-4 w-4 ${
-                                councilId === c.id ? "opacity-100" : "opacity-0"
-                              }`}
-                            />
-                            <span className="flex-1">{c.name}</span>
-                            {c.data_strategy === "waitlist" && (
-                              <span className="ml-2 text-[10px] uppercase tracking-wider text-muted-foreground">
-                                waitlist
-                              </span>
-                            )}
-                          </CommandItem>
-                        ))}
-                      </CommandGroup>
-                    </CommandList>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-              <p className="text-xs text-muted-foreground">
-                361 councils loaded. Pilot councils run live — others join the waitlist.
-              </p>
-            </div>
-
-            {!isWaitlist && (needsUprn || needsHouseNumber) && (
+            {/* 2. Address dropdown — appears the moment postcode resolves */}
+            {addressOptions.length > 0 && (
               <div className="space-y-2">
-                <Label>Your address</Label>
-                <div className="flex gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex-1 rounded-2xl h-12"
-                    disabled={postcode.trim().length < 5 || addressLookupLoading}
-                    data-testid="button-find-address"
-                    onClick={async () => {
-                      setAddressLookupLoading(true);
-                      setAddressLookupError(null);
-                      setAddressOptions([]);
-                      setSelectedAddressIdx(null);
-                      try {
-                        const r = await apiRequest(
-                          "GET",
-                          `/api/address-lookup?postcode=${encodeURIComponent(postcode.trim())}`,
-                        );
-                        const data = await r.json();
-                        if (!r.ok) {
-                          setAddressLookupError(data.message || "Lookup failed.");
-                          setShowManualFallback(true);
-                        } else if (!data.addresses?.length) {
-                          setAddressLookupError("No addresses found for that postcode.");
-                          setShowManualFallback(true);
-                        } else {
-                          setAddressOptions(data.addresses);
-                        }
-                      } catch (e: any) {
-                        setAddressLookupError("Couldn't reach the address service.");
-                        setShowManualFallback(true);
-                      } finally {
-                        setAddressLookupLoading(false);
-                      }
-                    }}
-                  >
-                    {addressLookupLoading ? (
-                      <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Rummaging…</>
-                    ) : (
-                      <><Search className="h-4 w-4 mr-2" /> Find my address</>
-                    )}
-                  </Button>
-                </div>
+                <Label htmlFor="address-select">Pick your address</Label>
+                <select
+                  id="address-select"
+                  className="w-full rounded-2xl h-12 px-3 border border-input bg-background text-sm"
+                  data-testid="select-address"
+                  value={selectedAddressIdx ?? ""}
+                  onChange={(e) => {
+                    const idx = e.target.value === "" ? null : Number(e.target.value);
+                    setSelectedAddressIdx(idx);
+                    if (idx !== null) {
+                      const a = addressOptions[idx];
+                      setUprn(a.uprn);
+                      setPaon(a.paon);
+                      setAddress(a.line_1);
+                    } else {
+                      setUprn("");
+                      setPaon("");
+                      setAddress("");
+                    }
+                  }}
+                >
+                  <option value="">{addressOptions.length} addresses found…</option>
+                  {addressOptions.map((a, i) => (
+                    <option key={`${a.uprn}-${i}`} value={i}>
+                      {a.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
-                {addressOptions.length > 0 && (
-                  <div className="space-y-2">
-                    <select
-                      className="w-full rounded-2xl h-12 px-3 border border-input bg-background text-sm"
-                      data-testid="select-address"
-                      value={selectedAddressIdx ?? ""}
-                      onChange={(e) => {
-                        const idx = e.target.value === "" ? null : Number(e.target.value);
-                        setSelectedAddressIdx(idx);
-                        if (idx !== null) {
-                          const a = addressOptions[idx];
-                          setUprn(a.uprn);
-                          setPaon(a.paon);
-                          setAddress(a.line_1);
-                        }
-                      }}
-                    >
-                      <option value="">Pick your address…</option>
-                      {addressOptions.map((a, i) => (
-                        <option key={`${a.uprn}-${i}`} value={i}>
-                          {a.label}
-                        </option>
-                      ))}
-                    </select>
-                    <p className="text-xs text-muted-foreground">
-                      {addressOptions.length} addresses found. Pick yours.
+            {/* 3. Council confirmation — auto-detected, with manual override */}
+            {(addressLookupError || (postcode.trim().length >= 5 && addressOptions.length === 0 && !addressLookupLoading)) && (
+              <p className="text-xs text-destructive">{addressLookupError || "No addresses found for that postcode."}</p>
+            )}
+
+            {selectedAddressIdx !== null && selectedCouncil && (
+              <div className="rounded-2xl border border-card-border bg-muted/40 p-4 space-y-2">
+                <div className="flex items-start gap-3">
+                  <Check className="h-5 w-5 text-accent mt-0.5 shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm">
+                      <span className="text-muted-foreground">Served by</span>{" "}
+                      <span className="font-medium">{selectedCouncil.name} Council</span>
+                      {isWaitlist && (
+                        <span className="ml-2 text-[10px] uppercase tracking-wider text-muted-foreground">waitlist</span>
+                      )}
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => setComboOpen(true)}
+                      className="text-xs text-muted-foreground underline hover:text-foreground mt-1"
+                      data-testid="button-change-council"
+                    >
+                      Wrong council? Pick a different one
+                    </button>
                   </div>
-                )}
+                </div>
+                {/* Hidden popover trigger so the "wrong council?" link works */}
+                <Popover open={comboOpen} onOpenChange={setComboOpen}>
+                  <PopoverTrigger asChild><span className="sr-only">council picker</span></PopoverTrigger>
+                  <PopoverContent className="w-[320px] p-0 rounded-2xl" align="start">
+                    <Command shouldFilter>
+                      <CommandInput placeholder="Type your council, town or borough…" data-testid="input-council-search" />
+                      <CommandList className="max-h-72">
+                        <CommandEmpty>Nothing matching. UK has a lot of councils.</CommandEmpty>
+                        <CommandGroup>
+                          {councils.map((c) => (
+                            <CommandItem
+                              key={c.id}
+                              value={`${c.name} ${c.region ?? ""}`}
+                              onSelect={() => {
+                                setCouncilId(c.id);
+                                setCouncilWasAutoDetected(false);
+                                setComboOpen(false);
+                              }}
+                              data-testid={`option-council-${c.id}`}
+                            >
+                              <Check className={`mr-2 h-4 w-4 ${councilId === c.id ? "opacity-100" : "opacity-0"}`} />
+                              <span className="flex-1">{c.name}</span>
+                              {c.data_strategy === "waitlist" && (
+                                <span className="ml-2 text-[10px] uppercase tracking-wider text-muted-foreground">waitlist</span>
+                              )}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )}
 
-                {addressLookupError && (
-                  <p className="text-xs text-destructive">{addressLookupError}</p>
-                )}
+            {/* 3b. Council picker fallback — if address lookup failed entirely */}
+            {!selectedCouncil && addressOptions.length === 0 && (addressLookupError || showManualFallback) && (
+              <div className="space-y-2">
+                <Label>Council (manual)</Label>
+                <Popover open={comboOpen} onOpenChange={setComboOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={comboOpen}
+                      className="w-full h-12 rounded-2xl justify-between text-left font-normal"
+                      data-testid="button-council-combobox"
+                    >
+                      <span className="text-muted-foreground">Search 361 UK councils…</span>
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[--radix-popover-trigger-width] p-0 rounded-2xl" align="start">
+                    <Command shouldFilter>
+                      <CommandInput placeholder="Type your council, town or borough…" />
+                      <CommandList className="max-h-72">
+                        <CommandEmpty>Nothing matching.</CommandEmpty>
+                        <CommandGroup>
+                          {councils.map((c) => (
+                            <CommandItem
+                              key={c.id}
+                              value={`${c.name} ${c.region ?? ""}`}
+                              onSelect={() => { setCouncilId(c.id); setComboOpen(false); }}
+                            >
+                              <Check className={`mr-2 h-4 w-4 ${councilId === c.id ? "opacity-100" : "opacity-0"}`} />
+                              <span className="flex-1">{c.name}</span>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </div>
+            )}
 
-                {(showManualFallback || addressLookupError) && needsUprn && (
-                  <details className="text-xs text-muted-foreground">
-                    <summary className="cursor-pointer hover:text-foreground">
-                      Address not in the list? Enter UPRN manually
-                    </summary>
-                    <div className="mt-2 space-y-2 pl-4 border-l-2 border-muted">
-                      <Input
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        value={uprn}
-                        onChange={(e) => setUprn(e.target.value.replace(/\D/g, ""))}
-                        placeholder="100012345678"
-                        data-testid="input-uprn"
-                        className="rounded-2xl h-10 tabular-nums"
-                      />
-                      <p>Look up your UPRN at <a href={`https://www.getthedata.com/uprn-search/${encodeURIComponent(postcode.trim().replace(/\s/g, ""))}`} target="_blank" rel="noopener noreferrer" className="underline">GetTheData<ExternalLink className="h-3 w-3 inline ml-0.5" /></a> if your address didn't show up.</p>
-                    </div>
-                  </details>
+            {/* 4. Manual UPRN/PAON fallback — only when address lookup couldn't find them */}
+            {!isWaitlist && selectedCouncil && (needsUprn || needsHouseNumber) && (showManualFallback || addressLookupError) && addressOptions.length === 0 && (
+              <div className="space-y-2 rounded-2xl border border-card-border p-4">
+                <p className="text-xs text-muted-foreground">Couldn't find your address automatically. Enter manually:</p>
+                {needsUprn && (
+                  <Input
+                    inputMode="numeric"
+                    pattern="[0-9]*"
+                    value={uprn}
+                    onChange={(e) => setUprn(e.target.value.replace(/\D/g, ""))}
+                    placeholder="UPRN (e.g. 100012345678)"
+                    data-testid="input-uprn"
+                    className="rounded-2xl h-10 tabular-nums"
+                  />
                 )}
-
-                {(showManualFallback || addressLookupError) && needsHouseNumber && !needsUprn && (
-                  <details className="text-xs text-muted-foreground">
-                    <summary className="cursor-pointer hover:text-foreground">
-                      Address not in the list? Enter house number manually
-                    </summary>
-                    <div className="mt-2 space-y-2 pl-4 border-l-2 border-muted">
-                      <Input
-                        value={paon}
-                        onChange={(e) => setPaon(e.target.value)}
-                        placeholder="42"
-                        data-testid="input-paon"
-                        className="rounded-2xl h-10"
-                      />
-                      <p>Just the number or name — no street.</p>
-                    </div>
-                  </details>
+                {needsHouseNumber && (
+                  <Input
+                    value={paon}
+                    onChange={(e) => setPaon(e.target.value)}
+                    placeholder="House number or name"
+                    data-testid="input-paon"
+                    className="rounded-2xl h-10"
+                  />
+                )}
+                {needsUprn && (
+                  <p className="text-xs text-muted-foreground">
+                    Look up your UPRN at <a href={`https://www.getthedata.com/uprn-search/${encodeURIComponent(postcode.trim().replace(/\s/g, ""))}`} target="_blank" rel="noopener noreferrer" className="underline">GetTheData<ExternalLink className="h-3 w-3 inline ml-0.5" /></a>.
+                  </p>
                 )}
               </div>
             )}
 
-            {!isWaitlist && (
-              <div className="space-y-2">
-                <Label htmlFor="household">Household nickname (optional)</Label>
+            {/* 5. Email — asked LAST, after they've seen the lookup work */}
+            {(selectedCouncil || isWaitlist) && (
+              <div className="space-y-2 pt-2">
+                <Label htmlFor="email">Email for bin nudges</Label>
                 <Input
-                  id="household"
-                  value={householdName}
-                  onChange={(e) => setHouseholdName(e.target.value)}
-                  placeholder="The Curran Compound"
-                  data-testid="input-household"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.co.uk"
+                  data-testid="input-email"
                   className="rounded-2xl h-12"
                 />
+                <label className="flex items-start gap-3 pt-2 cursor-pointer select-none" data-testid="label-bulletin-opt-in">
+                  <Checkbox
+                    id="bulletin"
+                    checked={bulletinOptIn}
+                    onCheckedChange={(v) => setBulletinOptIn(v === true)}
+                    className="mt-0.5"
+                    data-testid="checkbox-bulletin"
+                  />
+                  <span className="text-sm text-muted-foreground leading-snug">
+                    Send me the <strong className="text-foreground font-medium">Binly Bulletin</strong> — a short weekly email about recycling rules, seasonal bin chaos, and the occasional good deal. No spam, one-click unsubscribe.
+                  </span>
+                </label>
               </div>
             )}
 

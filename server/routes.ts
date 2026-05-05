@@ -74,10 +74,36 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
           line_1: row.line_1 || "",
           line_2: row.line_2 || "",
           post_town: row.post_town || "",
+          // district = the actual local authority (e.g. "North Tyneside"),
+          // NOT the postal town. This is what we match against bindicator_councils.
+          district: row.district || "",
           postcode: row.postcode || normalised,
         };
       });
-      res.json({ addresses });
+      // Try to auto-detect the council. Slug rule: lowercase, spaces → hyphens.
+      // Falls back to undefined if no match — client shows the picker.
+      let detectedCouncilId: string | undefined;
+      const district = addresses[0]?.district;
+      if (district) {
+        const candidate = district.toLowerCase().replace(/\s+/g, "-");
+        const { data: match } = await supabase
+          .from("bindicator_councils")
+          .select("id")
+          .eq("id", candidate)
+          .maybeSingle();
+        if (match) {
+          detectedCouncilId = match.id;
+        } else {
+          // Loose fallback: name match (handles edge cases like "Bristol, City of").
+          const { data: byName } = await supabase
+            .from("bindicator_councils")
+            .select("id")
+            .ilike("name", district)
+            .maybeSingle();
+          if (byName) detectedCouncilId = byName.id;
+        }
+      }
+      res.json({ addresses, detectedCouncilId });
     } catch (err: any) {
       res.status(502).json({
         message: "Couldn't reach the address service.",
