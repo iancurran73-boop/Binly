@@ -3,6 +3,9 @@ requests==2.32.3
 beautifulsoup4==4.12.3
 lxml>=5.0,<6.0
 python-dateutil==2.9.0.post0
-# Cloudflare Turnstile bypass for councils like Gateshead. Patches Chrome
-# at runtime to remove the headless fingerprints Cloudflare looks for.
-undetected-chromedriver==3.5.5
+# Cloudflare Turnstile bypass for councils like Gateshead. Pin to a specific
+# git commit on master because the latest pypi release (3.5.5) imports
+# stdlib `distutils` which was removed in Python 3.12. Master has dropped
+# that import. We MUST stay on 3.12 because uk_bin_collection 0.166.1
+# requires >=3.12.
+undetected-chromedriver @ git+https://github.com/ultrafunkamsterdam/undetected-chromedriver.git@757ed6a22052f0674bb7c9f765ca884d15dcb780
