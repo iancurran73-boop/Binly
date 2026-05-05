@@ -170,10 +170,18 @@
   * {
     @apply border-border;
   }
+  html, body {
+    /* Belt-and-braces: ensure the page can always scroll, even when the app
+       is iframed by the host (deploy_website wraps us in a sandboxed frame
+       which sometimes locks scroll if we don't explicitly opt in). */
+    overflow-y: auto;
+    height: auto;
+  }
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-family: var(--font-body);
     letter-spacing: var(--tracking-normal);
+    min-height: 100vh;
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);

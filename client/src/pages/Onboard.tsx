@@ -110,24 +110,24 @@ export default function Onboard() {
   const canWaitlist = email.includes("@") && councilId && !waitlist.isPending;
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="px-6 md:px-10 pt-8 max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background text-foreground pb-24">
+      <header className="px-6 md:px-10 pt-6 max-w-6xl mx-auto">
         <Link href="/" data-testid="link-home">
           <span className="cursor-pointer inline-flex items-center" aria-label="Binly home"><Logo className="h-8" /></span>
         </Link>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 md:px-10 py-10 md:py-16 grid md:grid-cols-5 gap-10">
+      <main className="max-w-6xl mx-auto px-6 md:px-10 py-6 md:py-10 grid md:grid-cols-5 gap-10">
         <div className="md:col-span-3">
-          <h1 className="text-4xl md:text-5xl font-display font-semibold tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-display font-semibold tracking-tight">
             Tell us where you live.
           </h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-lg">
+          <p className="mt-2 text-base text-muted-foreground max-w-lg">
             Pop your postcode in. We'll work out your schedule for all four bins (food caddy included from 31 March 2026) and double-check it every week. Always free.
           </p>
 
           <form
-            className="mt-8 space-y-5 max-w-lg"
+            className="mt-6 space-y-4 max-w-lg"
             onSubmit={(e) => {
               e.preventDefault();
               if (isWaitlist) {
