@@ -37,6 +37,26 @@ MAX_ATTEMPTS = int(os.environ.get("WORKER_MAX_ATTEMPTS", "3"))
 # 'unsupported'. Phase B images set ENABLE_SELENIUM=1 to actually run them.
 ENABLE_SELENIUM = os.environ.get("ENABLE_SELENIUM", "0") == "1"
 
+# uk_bin_collection's create_webdriver() calls ChromeDriverManager().install()
+# which can pick a stale chromedriver version (causing 'status 127' crashes).
+# When CHROMEDRIVER_PATH is set, we monkey-patch create_webdriver to use the
+# system-installed chromedriver instead. The Phase B Dockerfile installs a
+# version matched to Chrome at /usr/local/bin/chromedriver.
+if ENABLE_SELENIUM:
+    _system_driver = os.environ.get("CHROMEDRIVER_PATH", "/usr/local/bin/chromedriver")
+    if _system_driver and Path(_system_driver).exists():
+        try:
+            # Patch ChromeDriverManager.install() to return our system driver.
+            # uk_bin_collection's create_webdriver() always calls .install() —
+            # by intercepting it here we avoid the version-mismatch crash where
+            # webdriver-manager downloads a stale (e.g. v114) driver that can't
+            # drive the current Chrome stable build.
+            from webdriver_manager.chrome import ChromeDriverManager as _CDM
+            _CDM.install = lambda self, *a, **kw: _system_driver  # type: ignore[assignment]
+            print(f"[binnovator] patched ChromeDriverManager.install → {_system_driver}", flush=True)
+        except Exception as _e:
+            print(f"[binnovator] WARNING: could not patch ChromeDriverManager: {_e}", flush=True)
+
 UPSTREAM_MAP_PATH = Path(__file__).parent / "upstream_map.json"
 UPSTREAM_MAP: list[dict[str, Any]] = json.loads(UPSTREAM_MAP_PATH.read_text())
 COUNCIL_TO_MODULE: dict[str, dict[str, Any]] = {

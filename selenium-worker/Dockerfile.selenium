@@ -16,6 +16,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get update && apt-get install -y --no-install-recommends google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
+# Install chromedriver MATCHING the installed Chrome version (Chrome for Testing).
+# webdriver-manager often picks a stale version (e.g. 114) which then fails
+# with status 127 when it tries to drive a much newer Chrome binary.
+RUN set -e; \
+    CHROME_VERSION=$(google-chrome --version | awk '{print $3}'); \
+    echo "Chrome version: $CHROME_VERSION"; \
+    DRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"; \
+    curl -fsSL "$DRIVER_URL" -o /tmp/chromedriver.zip; \
+    apt-get update && apt-get install -y --no-install-recommends unzip && rm -rf /var/lib/apt/lists/*; \
+    unzip -q /tmp/chromedriver.zip -d /tmp/cdr; \
+    mv /tmp/cdr/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver; \
+    chmod +x /usr/local/bin/chromedriver; \
+    rm -rf /tmp/chromedriver.zip /tmp/cdr; \
+    chromedriver --version
+
 WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
