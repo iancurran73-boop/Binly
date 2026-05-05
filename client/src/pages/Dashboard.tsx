@@ -207,11 +207,31 @@ export default function Dashboard() {
             Refresh schedule
           </Button>
           {council?.missed_collection_url && (
-            <a href={council.missed_collection_url} target="_blank" rel="noreferrer">
-              <Button variant="outline" className="rounded-full clay-press" data-testid="button-missed-collection">
-                <ExternalLink className="h-4 w-4 mr-2" /> Missed bin?
-              </Button>
-            </a>
+            <Button
+              variant="outline"
+              className="rounded-full clay-press"
+              data-testid="button-missed-collection"
+              onClick={async () => {
+                const url = council.missed_collection_url!;
+                const opened = window.open(url, "_blank", "noopener,noreferrer");
+                if (!opened) {
+                  try {
+                    await navigator.clipboard.writeText(url);
+                    toast({
+                      title: "Link copied",
+                      description: `Paste it into a new browser tab to report your missed bin to ${council.name}.`,
+                    });
+                  } catch {
+                    toast({
+                      title: `Open this in a new tab`,
+                      description: url,
+                    });
+                  }
+                }
+              }}
+            >
+              <ExternalLink className="h-4 w-4 mr-2" /> Missed bin?
+            </Button>
           )}
         </div>
       </div>
