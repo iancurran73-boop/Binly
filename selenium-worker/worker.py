@@ -33,6 +33,10 @@ INTERVAL = int(os.environ.get("WORKER_INTERVAL_SECONDS", "5"))
 BATCH = int(os.environ.get("WORKER_BATCH_SIZE", "5"))
 MAX_ATTEMPTS = int(os.environ.get("WORKER_MAX_ATTEMPTS", "3"))
 
+# Phase A images don't ship Chrome — Selenium adapters get short-circuited as
+# 'unsupported'. Phase B images set ENABLE_SELENIUM=1 to actually run them.
+ENABLE_SELENIUM = os.environ.get("ENABLE_SELENIUM", "0") == "1"
+
 UPSTREAM_MAP_PATH = Path(__file__).parent / "upstream_map.json"
 UPSTREAM_MAP: list[dict[str, Any]] = json.loads(UPSTREAM_MAP_PATH.read_text())
 COUNCIL_TO_MODULE: dict[str, dict[str, Any]] = {
@@ -108,9 +112,10 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
     klass = getattr(mod, "CouncilClass")
     instance = klass()
 
-    # If adapter source imports selenium, treat as unsupported in Phase A.
+    # If adapter source imports selenium and we're not in Phase B, skip it.
     src = sys.modules[full_module].__file__
-    if src and "from selenium" in Path(src).read_text(errors="ignore"):
+    needs_selenium = bool(src and "from selenium" in Path(src).read_text(errors="ignore"))
+    if needs_selenium and not ENABLE_SELENIUM:
         raise AdapterUnsupported(f"{module_name} requires selenium (Phase B)")
 
     kwargs: dict[str, Any] = {}
@@ -122,8 +127,14 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
         kwargs["paon"] = paon
     kwargs["skip_get_url"] = skip_get_url
 
-    # Mirror what `template_method` does for the pure-HTTP path:
-    if not skip_get_url:
+    if needs_selenium:
+        # Selenium adapters create their own driver via create_webdriver().
+        # Pass web_driver=None (use local Chrome) and headless=True.
+        kwargs["web_driver"] = None
+        kwargs["headless"] = True
+        bin_data = instance.parse_data("", url=url, **kwargs)
+    elif not skip_get_url:
+        # Pure-HTTP path: fetch the page ourselves, then hand to parse_data.
         # Some adapters interpolate UPRN into the URL.
         target_url = url.replace("{uprn}", uprn or "").replace("{postcode}", postcode or "")
         if target_url and "?uprn=" in target_url and uprn and not target_url.endswith(uprn):

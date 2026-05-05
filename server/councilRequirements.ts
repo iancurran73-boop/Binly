@@ -81,9 +81,8 @@ export function publicShape(councilId: string) {
     needs_uprn: req.needs_uprn,
     needs_house_number: req.needs_house_number,
     requires_selenium: req.requires_selenium,
-    // Phase A only ships pure-HTTP adapters. Selenium adapters will work
-    // once the Render worker with Chrome is online — until then we surface
-    // an honest "rolling out" state instead of pretending.
-    supported: req.pure_http,
+    // Phase B: the Render worker now ships Chrome, so Selenium adapters
+    // are supported alongside the pure-HTTP ones — all 296 councils live.
+    supported: true,
   };
 }

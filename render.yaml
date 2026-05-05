@@ -1,26 +1,21 @@
-# Render Blueprint — deploys the Binly binnovator that fetches bin schedules
-# from UK council websites. Lives at repo root so Render's one-click Blueprint
-# deploy auto-detects it.
+# Render Blueprint \u2014 Binly binnovator (Phase B: 296 councils total).
 #
-# Why a Web Service (not a Worker)?
-#   Render's free tier doesn't support Background Workers, only Web Services.
-#   Our service.py runs the polling loop in a background thread and exposes
-#   a tiny health-check HTTP server, so we get worker behaviour on the free
-#   plan. To keep it from spinning down after 15 min idle, point an external
-#   pinger (UptimeRobot, cron-job.org) at https://<service>.onrender.com/
-#   every 10 minutes.
+# Phase B uses Dockerfile.selenium which ships Chrome + chromedriver, so
+# Selenium-only councils (Gateshead, Stockton, etc.) work alongside the
+# 205 pure-HTTP ones. Image is ~1.2 GB so we need a paid plan.
 #
-# Phase B (Selenium, 91 more councils) needs at least `starter` because the
-# Chrome image has a larger footprint. Switch the plan field when ready.
+# Architecture: server.py runs the polling loop in a background thread and
+# exposes a tiny HTTP server (/, /health, /tick) so Render is happy serving
+# this as a Web Service. (Render free/hobby tier blocks Background Workers.)
 
 services:
   - type: web
     name: binly-binnovator
     runtime: docker
-    plan: free
+    plan: standard
     autoDeploy: true
     rootDir: selenium-worker
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: ./Dockerfile.selenium
     dockerContext: .
     healthCheckPath: /
     envVars:
@@ -29,9 +24,12 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_KEY
         sync: false
-      # How often the worker polls the Supabase queue (seconds).
+      # Phase B switch \u2014 actually run Selenium adapters.
+      - key: ENABLE_SELENIUM
+        value: "1"
+      # Selenium jobs can take 30-60s each, so smaller batch + slightly longer
+      # poll interval keeps the queue moving without thrashing.
       - key: WORKER_INTERVAL_SECONDS
         value: "5"
-      # How many jobs to process per poll cycle.
       - key: WORKER_BATCH_SIZE
-        value: "5"
+        value: "2"

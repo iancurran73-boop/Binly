@@ -21,4 +21,16 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
-CMD ["python", "worker.py"]
+# Adapters write debug HTML / chromedriver cache to disk — give them a
+# writeable scratch dir that won't fight with /app.
+RUN mkdir -p /tmp/binnovator && chmod 777 /tmp/binnovator
+ENV HOME=/tmp/binnovator \
+    WDM_LOCAL=1 \
+    XDG_CACHE_HOME=/tmp/binnovator/.cache \
+    PYTHONPATH=/app
+
+# Phase B: run the binnovator HTTP wrapper (background-thread polling).
+# Render free tier doesn't allow Background Workers, so we run as a Web
+# Service. Standard plan ($25/mo) gives plenty of headroom for Chrome.
+WORKDIR /tmp/binnovator
+CMD ["python", "/app/server.py"]
