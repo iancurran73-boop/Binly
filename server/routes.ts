@@ -261,11 +261,20 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   });
 
   // ---- Item lookup — "what goes in which bin?"
+  //
+  // Strategy:
+  //  1. Broad ILIKE across item_name, notes, tip, category (catches "Costa cup"
+  //     even though it only appears in `tip`).
+  //  2. If no hits, fall back to pg_trgm similarity on item_name (catches typos
+  //     like "teabag" -> "Tea bag", "banana skin" -> "Banana peel").
+  //  3. If still nothing, log the unknown query to bindicator_unknown_items so
+  //     we can grow the catalogue from real user demand.
   app.get("/api/items", async (req, res) => {
     const userId = getUserId(req);
     const parse = itemSearchSchema.safeParse({ query: req.query.q });
     if (!parse.success) return res.status(400).json({ message: "Provide q" });
-    const q = parse.data.query.trim().toLowerCase();
+    const q = parse.data.query.trim();
+    const qLower = q.toLowerCase();
 
     const { data: household } = await supabase
       .from("bindicator_households")
@@ -274,14 +283,61 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       .maybeSingle();
     if (!household) return res.json([]);
 
-    const { data, error } = await supabase
+    // 1. Broad substring match across the searchable text columns.
+    const escaped = qLower.replace(/[%_]/g, (c) => `\\${c}`);
+    const broad = await supabase
       .from("bindicator_items")
       .select("*")
       .eq("council_id", household.council_id)
-      .ilike("item_name", `%${q}%`)
+      .or(
+        `item_name.ilike.%${escaped}%,notes.ilike.%${escaped}%,tip.ilike.%${escaped}%,category.ilike.%${escaped}%`
+      )
       .limit(8);
-    if (error) return res.status(500).json({ message: error.message });
-    res.json(data);
+    if (broad.error) return res.status(500).json({ message: broad.error.message });
+    if (broad.data && broad.data.length > 0) {
+      return res.json(broad.data);
+    }
+
+    // 2. Trigram fuzzy match — only fires when the broad ILIKE returned nothing.
+    //    Threshold 0.25 catches typos without dragging in unrelated noise.
+    const fuzzy = await supabase.rpc("binly_search_items_fuzzy", {
+      p_council_id: household.council_id,
+      p_query: qLower,
+      p_limit: 8,
+    });
+    if (!fuzzy.error && Array.isArray(fuzzy.data) && fuzzy.data.length > 0) {
+      return res.json(fuzzy.data);
+    }
+
+    // 3. Nothing matched — log the miss for the catalogue backlog, then return [].
+    //    Fire-and-forget; never block the response on logging.
+    if (qLower.length >= 2) {
+      supabase
+        .from("bindicator_unknown_items")
+        .upsert(
+          {
+            council_id: household.council_id,
+            query: qLower,
+            search_count: 1,
+            last_seen_at: new Date().toISOString(),
+          },
+          { onConflict: "council_id,query", ignoreDuplicates: false }
+        )
+        .then(async ({ error: upsertError }) => {
+          if (upsertError) return;
+          // Bump the counter on existing rows (upsert above only sets it to 1
+          // for inserts — increments require a follow-up RPC).
+          await supabase.rpc("binly_bump_unknown_item", {
+            p_council_id: household.council_id,
+            p_query: qLower,
+          });
+        })
+        .catch(() => {
+          /* swallow — logging is best-effort */
+        });
+    }
+
+    return res.json([]);
   });
 
   app.get("/api/items/all", async (req, res) => {

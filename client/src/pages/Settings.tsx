@@ -7,6 +7,7 @@ import type { Council, Household, AgentRun } from "@shared/schema";
 import { ShieldCheck, AlertTriangle, ExternalLink } from "lucide-react";
 import { PushOptIn } from "@/components/PushOptIn";
 import { SignInOnAnotherDevice } from "@/components/SignInOnAnotherDevice";
+import { SignOut } from "@/components/SignOut";
 
 function timeAgo(iso: string): string {
   const ms = Date.now() - new Date(iso).getTime();
@@ -114,6 +115,7 @@ export default function Settings() {
             </Card>
 
             <SignInOnAnotherDevice />
+            <SignOut />
           </>
         )}
       </main>
