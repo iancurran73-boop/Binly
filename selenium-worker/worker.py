@@ -18,6 +18,7 @@ import argparse
 import importlib
 import json
 import os
+import re
 import sys
 import time
 import traceback
@@ -26,6 +27,21 @@ from pathlib import Path
 from typing import Any
 
 import supa
+
+
+def substitute_url(url: str, uprn: str | None, postcode: str | None) -> str:
+    """Substitute {uprn}, {uprn:12} (zero-padded), {postcode}, {postcode_plus}
+    placeholders into a url_template. Returns empty string if url is empty."""
+    if not url:
+        return ""
+    out = url
+    if uprn:
+        out = out.replace("{uprn:12}", uprn.zfill(12))
+        out = out.replace("{uprn}", uprn)
+    if postcode:
+        out = out.replace("{postcode_plus}", postcode.replace(" ", "+"))
+        out = out.replace("{postcode}", postcode)
+    return out
 
 # ---------- config ----------
 
@@ -243,19 +259,16 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
         # Pass web_driver=None (use local Chrome) and headless=True.
         kwargs["web_driver"] = None
         kwargs["headless"] = True
-        bin_data = instance.parse_data("", url=url, **kwargs)
+        target_url = substitute_url(url, uprn, postcode)
+        bin_data = instance.parse_data("", url=target_url, **kwargs)
     elif not skip_get_url:
         # Pure-HTTP path: fetch the page ourselves, then hand to parse_data.
-        # Some adapters interpolate UPRN into the URL.
-        target_url = url.replace("{uprn}", uprn or "").replace("{postcode}", postcode or "")
-        if target_url and "?uprn=" in target_url and uprn and not target_url.endswith(uprn):
-            # Durham-style url ending in '?uprn=' — append.
-            if target_url.endswith("="):
-                target_url = target_url + uprn
+        target_url = substitute_url(url, uprn, postcode)
         page = instance.get_data(target_url) if target_url else ""
         bin_data = instance.parse_data(page, url=target_url, **kwargs)
     else:
-        bin_data = instance.parse_data("", url=url, **kwargs)
+        target_url = substitute_url(url, uprn, postcode)
+        bin_data = instance.parse_data("", url=target_url, **kwargs)
 
     bins = bin_data.get("bins", []) if isinstance(bin_data, dict) else []
 
@@ -309,9 +322,25 @@ def process_job(job: dict) -> None:
         finalise(job_id, status="error", error=f"No upstream module for {council_id}")
         return
 
+    # Refuse councils we know need data we don't capture (USRN/UUID/etc.)
+    if entry.get("unsupported_reason"):
+        finalise(job_id, status="unsupported", error=entry["unsupported_reason"])
+        return
+
     module_name = entry["module"]
     url = entry.get("url_template", "")
     skip_get = bool(entry.get("skip_get_url"))
+
+    # Defensive guard: if url_template has a long digit run with no placeholder,
+    # that's the hardcoded-UPRN bug pattern. Refuse to run rather than return
+    # data for the wrong property. Catches the bug if it ever resurfaces.
+    if uprn and "{uprn}" not in url and "{uprn:12}" not in url and re.search(r"\d{8,}", url or ""):
+        finalise(
+            job_id,
+            status="unsupported",
+            error=f"url_template contains hardcoded property identifier without {{uprn}} placeholder: {url}",
+        )
+        return
 
     print(f"[job {job_id}] {council_id} -> {module_name} (uprn={uprn or '-'}, postcode={postcode or '-'}, paon={paon or '-'})", flush=True)
 
