@@ -599,11 +599,19 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
     have chromedriver available (Phase B).
     """
     # ----- pure-HTTP override (proxied councils) -----
-    # If we have a UK proxy and a custom HTTP adapter for this council,
-    # bypass Selenium + the upstream module entirely. Faster, more reliable,
-    # avoids Chrome-extension-in-headless flakiness.
-    if council_id and council_id in HTTP_PROXY_OVERRIDES and _WEBSHARE_CONFIGURED:
-        print(f"[binnovator] using HTTP proxy override for council={council_id}", flush=True)
+    # If we have a custom HTTP adapter for this council, bypass Selenium +
+    # the upstream module entirely. Faster, more reliable, avoids Chrome-
+    # extension-in-headless flakiness. We require the override to be present
+    # for any council in HTTP_PROXY_OVERRIDES — if proxy creds are missing,
+    # we surface a clear error rather than silently falling back to Selenium
+    # (Selenium can't reach these councils from non-UK egress anyway).
+    if council_id and council_id in HTTP_PROXY_OVERRIDES:
+        if not _WEBSHARE_CONFIGURED:
+            raise RuntimeError(
+                f"OVERRIDE_NO_PROXY: council={council_id} requires Webshare proxy creds "
+                f"(WEBSHARE_PROXY_HOST/PORT/USER/PASS) but they aren't configured"
+            )
+        print(f"[binnovator BUILD=dec56f0+banner] using HTTP proxy override for council={council_id}", flush=True)
         try:
             override = HTTP_PROXY_OVERRIDES[council_id]
             override_data = override(postcode or "", uprn or "")
@@ -864,6 +872,13 @@ def finalise(job_id: str, status: str, error: str | None, count: int = 0) -> Non
 
 
 def main() -> None:
+    print("=" * 60, flush=True)
+    print("[binnovator BUILD=dec56f0+banner] worker booting", flush=True)
+    print(f"  ENABLE_SELENIUM={ENABLE_SELENIUM}", flush=True)
+    print(f"  WEBSHARE_PROXY_CONFIGURED={_WEBSHARE_CONFIGURED}", flush=True)
+    print(f"  HTTP_PROXY_OVERRIDES={sorted(HTTP_PROXY_OVERRIDES.keys())}", flush=True)
+    print(f"  PROXY_COUNCILS={sorted(PROXY_COUNCILS)}", flush=True)
+    print("=" * 60, flush=True)
     parser = argparse.ArgumentParser()
     parser.add_argument("--once", action="store_true", help="One pass, then exit")
     parser.add_argument("--job", help="Process a single job id, then exit")
