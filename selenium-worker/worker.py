@@ -29,6 +29,20 @@ from typing import Any
 import supa
 
 
+def _schedule_signature(schedule: list) -> str:
+    """Produce a stable string fingerprint of a schedule for equality checks.
+    Order-insensitive (sorted), considers (date, bin_type) pairs only."""
+    if not isinstance(schedule, list):
+        return ""
+    pairs = []
+    for e in schedule:
+        if isinstance(e, dict):
+            d = e.get("collection_date") or e.get("date") or ""
+            b = e.get("bin_type") or e.get("type") or ""
+            pairs.append(f"{d}|{b}")
+    return "||".join(sorted(pairs))
+
+
 def substitute_url(url: str, uprn: str | None, postcode: str | None) -> str:
     """Substitute {uprn}, {uprn:12} (zero-padded), {postcode}, {postcode_plus}
     placeholders into a url_template. Returns empty string if url is empty."""
@@ -357,6 +371,52 @@ def process_job(job: dict) -> None:
     if not schedule:
         finalise(job_id, status="empty", error=None)
         return
+
+    # Canary: if another UPRN under this council already has the IDENTICAL
+    # schedule we just produced, the url_template almost certainly isn't using
+    # the user's UPRN. Refuse to write the cache. This catches the
+    # hardcoded-property bug class structurally — any council where every user
+    # gets the same schedule trips this on the second lookup.
+    if uprn:
+        try:
+            existing = supa.select(
+                "bindicator_schedule_cache",
+                {
+                    "select": "uprn,schedule",
+                    "council_id": f"eq.{council_id}",
+                    "uprn": f"neq.{uprn}",
+                    "limit": "5",
+                },
+            )
+            new_sig = _schedule_signature(schedule)
+            for row in existing:
+                if row.get("uprn") and _schedule_signature(row.get("schedule") or []) == new_sig:
+                    msg = (
+                        f"canary tripped: identical schedule already cached for council={council_id} "
+                        f"under uprn={row['uprn']} (this lookup uprn={uprn}). "
+                        f"url_template likely ignores UPRN."
+                    )
+                    print(f"[job {job_id}] {msg}", flush=True)
+                    finalise(job_id, status="error", error=msg)
+                    # Also flag the council in freshness so ops can see it.
+                    try:
+                        supa.upsert(
+                            "bindicator_council_freshness",
+                            [{
+                                "council_id": council_id,
+                                "last_refreshed_at": datetime.now(timezone.utc).isoformat(),
+                                "last_status": "error",
+                                "last_error": msg,
+                                "refresh_method": "worker",
+                            }],
+                            on_conflict="council_id",
+                        )
+                    except Exception:
+                        pass
+                    return
+        except Exception as e:
+            # Canary check is best-effort — never block a legit lookup.
+            print(f"[job {job_id}] canary check failed (non-fatal): {e}", flush=True)
 
     # Write to schedule cache.
     supa.upsert(
