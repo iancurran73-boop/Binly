@@ -195,6 +195,11 @@ interface JobStatus {
  * Ensure there's a non-failed job for this property. If the most recent job
  * is stale (>30 mins) or errored, enqueue a new one. If it's still pending or
  * running, return it. If it's done, just return its status.
+ *
+ * Circuit breaker: if there have been MAX_RECENT_ERRORS for this (council,
+ * uprn, paon) within the BACKOFF window, stop re-enqueueing. The user gets
+ * an honest empty state with the last error so they're not stuck on a
+ * forever-spinning "Rummaging through the council site…".
  */
 export async function ensureJob(
   councilId: string,
@@ -219,8 +224,9 @@ export async function ensureJob(
 
   const now = Date.now();
   const STALE_DONE_MS = 14 * 24 * 60 * 60 * 1000; // 2 weeks
-  const STALE_ERROR_MS = 60 * 60 * 1000; // 1 hour
   const STALE_RUNNING_MS = 5 * 60 * 1000; // 5 min — recover from crashed workers
+  const BACKOFF_MS = 60 * 60 * 1000; // 1 hour — circuit-breaker window
+  const MAX_RECENT_ERRORS = 3;
 
   if (latest) {
     const finishedAt = latest.finished_at ? new Date(latest.finished_at).getTime() : 0;
@@ -230,6 +236,42 @@ export async function ensureJob(
     if (latest.status === "running" && now - enqueuedAt < STALE_RUNNING_MS) return latest as JobStatus;
     if (latest.status === "done" && finishedAt && now - finishedAt < STALE_DONE_MS) return latest as JobStatus;
     if (latest.status === "unsupported") return latest as JobStatus; // Phase B, don't requeue
+
+    // Circuit breaker: count recent errors for this exact property.
+    if (latest.status === "error" || latest.status === "empty") {
+      const sinceIso = new Date(now - BACKOFF_MS).toISOString();
+      let countQ = supabase
+        .from("bindicator_lookup_jobs")
+        .select("id", { count: "exact", head: true })
+        .eq("council_id", councilId)
+        .eq("postcode", cleanPostcode)
+        .in("status", ["error", "empty"])
+        .gte("enqueued_at", sinceIso);
+      if (uprn) countQ = countQ.eq("uprn", uprn);
+      else countQ = countQ.is("uprn", null);
+      if (paon) countQ = countQ.eq("paon", paon);
+      else countQ = countQ.is("paon", null);
+
+      const { count: recentErrorCount } = await countQ;
+      if ((recentErrorCount ?? 0) >= MAX_RECENT_ERRORS) {
+        // Honest stop. Mark the council as broken so future lookups for this
+        // council skip straight to the empty state too. The next attempt is
+        // allowed only after BACKOFF_MS rolls over.
+        await recordFreshness(
+          councilId,
+          "error",
+          "worker",
+          latest.last_error ?? "Lookup failed multiple times",
+        );
+        return {
+          id: latest.id,
+          status: "error",
+          last_error:
+            latest.last_error ??
+            "This council's site isn't responding right now. We'll keep trying — check back soon.",
+        };
+      }
+    }
     // else fall through and enqueue a new job.
   }
 
