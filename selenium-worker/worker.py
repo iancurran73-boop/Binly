@@ -87,6 +87,7 @@ CLOUDFLARE_COUNCILS = {
 # is set. Webshare free tier gives 10 UK IPs forever.
 PROXY_COUNCILS = {
     "northumberland",
+    "south-tyneside",
     # Add others here as we identify them (Birmingham, Manchester suspected).
 }
 
@@ -436,8 +437,112 @@ def _http_northumberland(postcode: str, uprn: str) -> dict:
     return {"bins": bins}
 
 
+def _http_south_tyneside(postcode: str, uprn: str) -> dict:
+    """Drive the South Tyneside JSON-RPC API through the UK proxy.
+
+    The upstream adapter requires `paon` + `postcode`, but we always have
+    the UPRN from Ideal Postcodes. We bypass the address-list step by
+    matching the UPRN directly against `getAddressList` results, then
+    hand the resulting `addresscode` (S+UPRN|+address) to the schedule
+    endpoint. This gives us a path that works with our existing data
+    model and avoids any reliance on house-number capture.
+
+    Endpoint: https://www.southtyneside.gov.uk/apiserver/ajaxlibrary/
+      method 1: stc.common.snippets.getAddressList   { postcode, localonly }
+      method 2: stc.waste.collections.getDates       { addresscode }
+
+    The site is geo-blocked outside the UK — hence the proxy requirement.
+    Verified live: NE36 0HQ / S100000298613 returns full schedule with
+    Recycling, Household, etc.
+    """
+    import requests
+    proxies = _proxy_dict()
+    if not proxies:
+        raise RuntimeError("Webshare proxy not configured; cannot run South Tyneside HTTP adapter")
+
+    api = "https://www.southtyneside.gov.uk/apiserver/ajaxlibrary/"
+    pc_compact = (postcode or "").replace(" ", "").upper()
+    if not pc_compact:
+        raise RuntimeError("South Tyneside: postcode is required")
+    if not uprn:
+        raise RuntimeError("South Tyneside: uprn is required")
+
+    headers = {"Content-Type": "application/json"}
+    sess = requests.Session()
+    sess.proxies.update(proxies)
+    sess.headers.update(headers)
+
+    # Step 1 — getAddressList. Match our UPRN against the returned list
+    # to recover the `addresscode` format the schedule endpoint demands.
+    payload1 = json.dumps({
+        "jsonrpc": "2.0",
+        "id": "binly-1",
+        "method": "stc.common.snippets.getAddressList",
+        "params": {"postcode": pc_compact, "localonly": "true"},
+    })
+    r1 = sess.post(api, data=payload1, timeout=30)
+    r1.raise_for_status()
+    if not r1.text or not r1.text.lstrip().startswith("{"):
+        raise RuntimeError(f"South Tyneside step-1: non-JSON response (likely WAF block); first 80 chars: {r1.text[:80]!r}")
+    j1 = json.loads(r1.text)
+    results = (j1.get("result") or {}).get("ReturnedList") or []
+    if not results:
+        raise RuntimeError(f"South Tyneside step-1: empty address list for postcode {pc_compact}")
+
+    uprn_str = str(uprn).lstrip("S").lstrip("0") or str(uprn)
+    addresscode = None
+    for item in results:
+        api_uprn = str(item.get("UPRN") or "").lstrip("S").lstrip("0")
+        if api_uprn == uprn_str:
+            addresscode = f"{item.get('UPRN')}|{item.get('Address')}"
+            break
+    if not addresscode:
+        raise RuntimeError(
+            f"South Tyneside step-1: uprn {uprn} not found among {len(results)} addresses for {pc_compact}"
+        )
+
+    # Step 2 — getDates with the addresscode.
+    payload2 = json.dumps({
+        "jsonrpc": "2.0",
+        "id": "binly-2",
+        "method": "stc.waste.collections.getDates",
+        "params": {"addresscode": addresscode},
+    })
+    r2 = sess.post(api, data=payload2, timeout=30)
+    r2.raise_for_status()
+    j2 = json.loads(r2.text)
+    sched_result = j2.get("result") or {}
+    if sched_result.get("error"):
+        raise RuntimeError(f"South Tyneside step-2: API error: {sched_result.get('error')}")
+    sorted_collections = sched_result.get("SortedCollections") or []
+
+    bins: list[dict[str, str]] = []
+    for month in sorted_collections:
+        for item in (month.get("Collections") or []):
+            type_str = item.get("Type") or ""
+            full_date_str = item.get("FullDateString") or ""  # "Wed 13 May 2026"
+            date_string = item.get("DateString") or ""        # "13 May 2026"
+            d_parsed = None
+            for fmt, src in (("%a %d %b %Y", full_date_str), ("%d %B %Y", date_string), ("%d %b %Y", date_string)):
+                if not src:
+                    continue
+                try:
+                    d_parsed = datetime.strptime(src, fmt)
+                    break
+                except ValueError:
+                    continue
+            if not d_parsed:
+                continue
+            bins.append({
+                "type": type_str,
+                "collectionDate": d_parsed.strftime("%d/%m/%Y"),
+            })
+    return {"bins": bins}
+
+
 HTTP_PROXY_OVERRIDES: dict[str, Any] = {
     "northumberland": _http_northumberland,
+    "south-tyneside": _http_south_tyneside,
 }
 
 
