@@ -281,6 +281,166 @@ else:
             COUNCIL_TO_MODULE[cid] = entry
 
 
+# ---------- pure-HTTP overrides for proxied councils ----------
+#
+# Some council sites are blocked by Barracuda WAFs that geo-fence non-UK IPs.
+# We have a UK datacenter proxy (Webshare) for those. Selenium + Chrome
+# extension proxy auth is fragile in headless mode, so for sites whose form
+# flow is simple HTML POSTs (no client-side JS validation), we skip the
+# browser entirely and drive the form with `requests.Session` through the
+# Webshare HTTP proxy. The form structure has been verified live via curl.
+
+def _proxy_dict() -> dict[str, str] | None:
+    if not _WEBSHARE_CONFIGURED:
+        return None
+    auth = f"{WEBSHARE_PROXY_USER}:{WEBSHARE_PROXY_PASS}"
+    host = f"{WEBSHARE_PROXY_HOST}:{WEBSHARE_PROXY_PORT}"
+    proxy_url = f"http://{auth}@{host}"
+    return {"http": proxy_url, "https": proxy_url}
+
+
+def _http_northumberland(postcode: str, uprn: str) -> dict:
+    """Drive the Northumberland postcode lookup form via plain HTTP through
+    the UK proxy. Mirrors the Selenium adapter's flow:
+      1. GET  /postcode             -> form with postcode input
+      2. POST /postcode (postcode=) -> address-select page with <select id='address'>
+      3. POST /postcode (address=)  -> results page with <table class='govuk-table'>
+    Returns {'bins': [...]} matching the upstream adapter's contract.
+    """
+    import requests
+    from bs4 import BeautifulSoup
+
+    proxies = _proxy_dict()
+    if not proxies:
+        raise RuntimeError("Webshare proxy not configured; cannot run Northumberland HTTP adapter")
+
+    base = "https://bincollection.northumberland.gov.uk"
+    url = f"{base}/postcode"
+    uprn_padded = str(uprn).zfill(12)
+    pc = (postcode or "").strip().upper()
+    # The form expects the postcode WITH the space (e.g. "NE46 1XQ").
+    if " " not in pc and len(pc) >= 5:
+        pc = pc[:-3].rstrip() + " " + pc[-3:]
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-GB,en;q=0.9",
+    }
+
+    sess = requests.Session()
+    sess.proxies.update(proxies)
+    sess.headers.update(headers)
+
+    # Step 1 — GET the form. Picks up cookies + any CSRF token if present.
+    r1 = sess.get(url, timeout=30)
+    r1.raise_for_status()
+    soup1 = BeautifulSoup(r1.text, "html.parser")
+    form1 = soup1.find("form")
+    if not form1:
+        raise RuntimeError("Northumberland step-1: no <form> on page")
+    action1 = form1.get("action") or "/postcode"
+    if action1.startswith("/"):
+        action1 = base + action1
+    payload1: dict[str, str] = {}
+    for inp in form1.find_all("input"):
+        name = inp.get("name")
+        if not name:
+            continue
+        payload1[name] = inp.get("value", "")
+    payload1["postcode"] = pc
+
+    # Step 2 — POST postcode, expect address-select page.
+    r2 = sess.post(action1, data=payload1, timeout=30)
+    r2.raise_for_status()
+    soup2 = BeautifulSoup(r2.text, "html.parser")
+    select_el = soup2.find("select", id="address")
+    if not select_el:
+        # The Barracuda WAF block page would land here.
+        raise RuntimeError("Northumberland step-2: address <select> missing — likely WAF/geo-block")
+    form2 = select_el.find_parent("form") or soup2.find("form")
+    action2 = (form2.get("action") if form2 else None) or "/postcode"
+    if action2.startswith("/"):
+        action2 = base + action2
+    payload2: dict[str, str] = {}
+    if form2:
+        for inp in form2.find_all("input"):
+            name = inp.get("name")
+            if not name:
+                continue
+            payload2[name] = inp.get("value", "")
+    payload2["address"] = uprn_padded
+
+    # Confirm the UPRN actually exists in the dropdown to fail fast otherwise.
+    available = {opt.get("value") for opt in select_el.find_all("option") if opt.get("value")}
+    if uprn_padded not in available:
+        raise RuntimeError(
+            f"Northumberland step-2: uprn {uprn_padded} not in address dropdown "
+            f"({len(available)} options for postcode {pc})"
+        )
+
+    # Step 3 — POST address, expect results table.
+    r3 = sess.post(action2, data=payload2, timeout=30)
+    r3.raise_for_status()
+    soup3 = BeautifulSoup(r3.text, "html.parser")
+
+    # Honest empty state: site explicitly tells us there are no upcoming
+    # collections for this property. Return an empty list so the job is
+    # finalised as 'empty' rather than 'error'.
+    page_text = soup3.get_text(" ", strip=True).lower()
+    if "no upcoming bin collection days" in page_text:
+        print("[binnovator] northumberland: honest empty state for this property", flush=True)
+        return {"bins": []}
+
+    table = soup3.find("table", class_="govuk-table")
+    if not table:
+        raise RuntimeError("Northumberland step-3: results table missing")
+    body = table.find("tbody")
+    if not body:
+        raise RuntimeError("Northumberland step-3: results <tbody> missing")
+
+    now = datetime.now()
+    current_month = now.month
+    current_year = now.year
+    bins: list[dict[str, str]] = []
+    for row in body.find_all("tr"):
+        cells = row.find_all(["th", "td"])
+        if len(cells) < 2:
+            continue
+        # Mirror upstream layout: cell 1 (th) = date "9 September",
+        # last td = bin type.
+        date_str = cells[0].get_text(" ", strip=True)
+        bin_type_str = cells[-1].get_text(" ", strip=True)
+        if not date_str or not bin_type_str:
+            continue
+        parts = date_str.split()
+        if len(parts) < 2:
+            continue
+        day_digits = "".join(c for c in parts[0] if c.isdigit())
+        month_name = parts[1]
+        if not day_digits or not month_name:
+            continue
+        if current_month >= 10 and month_name in ("January", "February", "March"):
+            year = current_year + 1
+        else:
+            year = current_year
+        try:
+            d = datetime.strptime(f"{day_digits} {month_name} {year}", "%d %B %Y")
+        except ValueError:
+            continue
+        bins.append({
+            "type": bin_type_str,
+            "collectionDate": d.strftime("%d/%m/%Y"),
+        })
+    return {"bins": bins}
+
+
+HTTP_PROXY_OVERRIDES: dict[str, Any] = {
+    "northumberland": _http_northumberland,
+}
+
+
 # ---------- bin-type mapping ----------
 
 # uk_bin_collection adapters return free-form bin labels like "Mixed Recycling
@@ -333,6 +493,45 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
     Raises AdapterUnsupported if the adapter requires Selenium and we don't
     have chromedriver available (Phase B).
     """
+    # ----- pure-HTTP override (proxied councils) -----
+    # If we have a UK proxy and a custom HTTP adapter for this council,
+    # bypass Selenium + the upstream module entirely. Faster, more reliable,
+    # avoids Chrome-extension-in-headless flakiness.
+    if council_id and council_id in HTTP_PROXY_OVERRIDES and _WEBSHARE_CONFIGURED:
+        print(f"[binnovator] using HTTP proxy override for council={council_id}", flush=True)
+        try:
+            override = HTTP_PROXY_OVERRIDES[council_id]
+            override_data = override(postcode or "", uprn or "")
+            bins = override_data.get("bins", []) if isinstance(override_data, dict) else []
+            out: list[dict[str, str]] = []
+            today = datetime.now(timezone.utc).date()
+            for b in bins:
+                raw_date = b.get("collectionDate") or b.get("collection_date")
+                raw_type = b.get("type") or b.get("binType") or b.get("bin_type") or ""
+                iso = parse_date(raw_date) if isinstance(raw_date, str) else None
+                if not iso:
+                    continue
+                d = datetime.fromisoformat(iso).date()
+                if d < today:
+                    continue
+                if (d - today).days > 70:
+                    continue
+                out.append({"collection_date": iso, "bin_type": normalise_bin_type(raw_type)})
+            seen = set()
+            deduped = []
+            for r in sorted(out, key=lambda x: (x["collection_date"], x["bin_type"])):
+                key = (r["collection_date"], r["bin_type"])
+                if key in seen:
+                    continue
+                seen.add(key)
+                deduped.append(r)
+            return deduped
+        except Exception as e:
+            # Surface the error — do NOT silently fall back to Selenium, since
+            # Selenium also can't reach this council from non-UK egress.
+            print(f"[binnovator] HTTP proxy override failed for {council_id}: {e}", flush=True)
+            raise
+
     full_module = f"uk_bin_collection.uk_bin_collection.councils.{module_name}"
     mod = importlib.import_module(full_module)
     # Re-bind create_webdriver in the council module's namespace if the adapter
