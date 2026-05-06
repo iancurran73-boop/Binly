@@ -81,6 +81,91 @@ CLOUDFLARE_COUNCILS = {
     # Add others here as we identify them.
 }
 
+# Councils whose sites are protected by Barracuda WAFs that geo-block
+# non-UK IPs (Render's Frankfurt egress hits a 'GEO_IP_BLOCK' page).
+# We route Selenium through a UK datacenter proxy when WEBSHARE_PROXY_HOST
+# is set. Webshare free tier gives 10 UK IPs forever.
+PROXY_COUNCILS = {
+    "northumberland",
+    # Add others here as we identify them (Birmingham, Manchester suspected).
+}
+
+WEBSHARE_PROXY_HOST = os.environ.get("WEBSHARE_PROXY_HOST", "").strip()
+WEBSHARE_PROXY_PORT = os.environ.get("WEBSHARE_PROXY_PORT", "").strip()
+WEBSHARE_PROXY_USER = os.environ.get("WEBSHARE_PROXY_USER", "").strip()
+WEBSHARE_PROXY_PASS = os.environ.get("WEBSHARE_PROXY_PASS", "").strip()
+_WEBSHARE_CONFIGURED = bool(
+    WEBSHARE_PROXY_HOST and WEBSHARE_PROXY_PORT
+    and WEBSHARE_PROXY_USER and WEBSHARE_PROXY_PASS
+)
+
+# Build a Chrome extension on the fly that injects proxy auth credentials.
+# Required because Chrome's --proxy-server flag doesn't support user:pass
+# in the URL (would pop up a credential dialog that headless can't handle).
+# The extension uses chrome.webRequest.onAuthRequired to feed the creds
+# automatically, identical to the technique recommended in Webshare's
+# own docs. We write the extension once at startup and reuse it.
+_PROXY_EXTENSION_DIR: str | None = None
+
+def _build_proxy_auth_extension() -> str | None:
+    """Write an unpacked Chrome extension that handles proxy auth.
+    Returns the directory path to load via --load-extension, or None if
+    proxy creds aren't configured. Idempotent across calls.
+    """
+    global _PROXY_EXTENSION_DIR
+    if _PROXY_EXTENSION_DIR and Path(_PROXY_EXTENSION_DIR).exists():
+        return _PROXY_EXTENSION_DIR
+    if not _WEBSHARE_CONFIGURED:
+        return None
+    try:
+        ext_dir = Path("/tmp/binnovator_proxy_ext")
+        ext_dir.mkdir(parents=True, exist_ok=True)
+        manifest = {
+            "version": "1.0.0",
+            "manifest_version": 2,
+            "name": "Binnovator UK Proxy",
+            "permissions": [
+                "proxy", "tabs", "unlimitedStorage", "storage",
+                "<all_urls>", "webRequest", "webRequestBlocking",
+            ],
+            "background": {"scripts": ["background.js"]},
+            "minimum_chrome_version": "22.0.0",
+        }
+        background_js = f"""
+var config = {{
+  mode: "fixed_servers",
+  rules: {{
+    singleProxy: {{
+      scheme: "http",
+      host: "{WEBSHARE_PROXY_HOST}",
+      port: parseInt("{WEBSHARE_PROXY_PORT}")
+    }},
+    bypassList: ["localhost"]
+  }}
+}};
+chrome.proxy.settings.set({{value: config, scope: "regular"}}, function() {{}});
+function callbackFn(details) {{
+  return {{
+    authCredentials: {{
+      username: "{WEBSHARE_PROXY_USER}",
+      password: "{WEBSHARE_PROXY_PASS}"
+    }}
+  }};
+}}
+chrome.webRequest.onAuthRequired.addListener(
+  callbackFn,
+  {{urls: ["<all_urls>"]}},
+  ['blocking']
+);
+"""
+        (ext_dir / "manifest.json").write_text(json.dumps(manifest))
+        (ext_dir / "background.js").write_text(background_js)
+        _PROXY_EXTENSION_DIR = str(ext_dir)
+        return _PROXY_EXTENSION_DIR
+    except Exception as e:
+        print(f"[binnovator] failed to build proxy extension: {e}", flush=True)
+        return None
+
 # Set per-job before invoking the adapter; read by our patched create_webdriver.
 _CURRENT_COUNCIL: dict[str, str | None] = {"id": None}
 
@@ -109,7 +194,8 @@ if ENABLE_SELENIUM:
             def _binnovator_create_webdriver(web_driver=None, headless=True, user_agent=None, session_name=None):
                 council_id = _CURRENT_COUNCIL.get("id")
                 use_uc = _UC_AVAILABLE and council_id in CLOUDFLARE_COUNCILS
-                print(f"[binnovator] launching Chrome for council={council_id} cloudflare_bypass={use_uc}", flush=True)
+                use_proxy = _WEBSHARE_CONFIGURED and council_id in PROXY_COUNCILS
+                print(f"[binnovator] launching Chrome for council={council_id} cloudflare_bypass={use_uc} uk_proxy={use_proxy}", flush=True)
 
                 common_args = [
                     "--no-sandbox",
@@ -118,6 +204,11 @@ if ENABLE_SELENIUM:
                     "--window-size=1920,1080",
                     "--disable-blink-features=AutomationControlled",
                 ]
+                proxy_ext_path: str | None = None
+                if use_proxy:
+                    proxy_ext_path = _build_proxy_auth_extension()
+                    if not proxy_ext_path:
+                        print("[binnovator] WARNING: proxy requested but extension build failed; running without proxy", flush=True)
 
                 if use_uc:
                     options = _uc.ChromeOptions()
@@ -125,6 +216,8 @@ if ENABLE_SELENIUM:
                         options.add_argument(arg)
                     if user_agent:
                         options.add_argument(f"--user-agent={user_agent}")
+                    if proxy_ext_path:
+                        options.add_argument(f"--load-extension={proxy_ext_path}")
                     # undetected-chromedriver takes a `headless` kwarg, NOT --headless flag.
                     drv = _uc.Chrome(
                         options=options,
@@ -134,12 +227,16 @@ if ENABLE_SELENIUM:
                     )
                 else:
                     options = _sel_webdriver.ChromeOptions()
+                    # Chrome extensions don't load in headless=new mode, but DO load
+                    # in the legacy --headless flag. Switch modes when proxy needed.
                     if headless:
-                        options.add_argument("--headless=new")
+                        options.add_argument("--headless" if proxy_ext_path else "--headless=new")
                     for arg in common_args:
                         options.add_argument(arg)
                     if user_agent:
                         options.add_argument(f"--user-agent={user_agent}")
+                    if proxy_ext_path:
+                        options.add_argument(f"--load-extension={proxy_ext_path}")
                     options.add_experimental_option("excludeSwitches", ["enable-logging"])
                     if web_driver:
                         drv = _sel_webdriver.Remote(command_executor=web_driver, options=options)
