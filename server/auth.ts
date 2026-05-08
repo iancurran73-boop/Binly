@@ -14,6 +14,7 @@
  */
 import crypto from "node:crypto";
 import { supabase } from "./supabase";
+import { sendEmail, magicLinkEmail, welcomeEmail } from "./email";
 
 const TOKEN_TTL_MINUTES = 30;
 
@@ -25,20 +26,42 @@ export function newUserId(): string {
   return "u_" + crypto.randomBytes(12).toString("hex");
 }
 
-export async function requestMagicLink(email: string, currentUserId?: string) {
+export async function requestMagicLink(
+  email: string,
+  currentUserId?: string,
+  buildVerifyUrl?: (token: string) => string,
+) {
   const token = newToken();
   // Re-use the existing visitor id if one is supplied so their household stays attached.
   const userId = currentUserId && currentUserId.startsWith("u_") ? currentUserId : newUserId();
   const expires = new Date(Date.now() + TOKEN_TTL_MINUTES * 60_000).toISOString();
+  const cleanEmail = email.toLowerCase().trim();
 
   await supabase.from("bindicator_magic_links").insert({
-    email: email.toLowerCase().trim(),
+    email: cleanEmail,
     token,
     user_id: userId,
     expires_at: expires,
   });
 
-  return { token, userId, expiresAt: expires };
+  // Fire the email if a URL builder was supplied. Safe degradation built in:
+  // when RESEND_API_KEY is unset the helper logs and returns ok:false, and the
+  // caller still gets the verifyUrl back to surface directly.
+  let emailed: { ok: boolean; reason?: string } = { ok: false, reason: "no-url-builder" };
+  if (buildVerifyUrl) {
+    const verifyUrl = buildVerifyUrl(token);
+    const tpl = magicLinkEmail(cleanEmail, verifyUrl);
+    const r = await sendEmail({
+      to: cleanEmail,
+      subject: tpl.subject,
+      html: tpl.html,
+      text: tpl.text,
+      tag: "magic-link",
+    });
+    emailed = r.ok ? { ok: true } : { ok: false, reason: r.reason };
+  }
+
+  return { token, userId, expiresAt: expires, emailed };
 }
 
 export async function verifyMagicLink(token: string) {
@@ -61,6 +84,30 @@ export async function verifyMagicLink(token: string) {
     user_id: link.user_id,
     email: link.email,
   });
+
+  // Fire the welcome email on first verified session for this email.
+  // Safe-degrades to a log line if Resend isn't configured. We don't await
+  // the result blocking the auth response — caller can move on immediately.
+  void (async () => {
+    try {
+      const { count } = await supabase
+        .from("bindicator_sessions")
+        .select("id", { count: "exact", head: true })
+        .eq("email", link.email);
+      if ((count ?? 0) <= 1) {
+        const tpl = welcomeEmail(link.email);
+        await sendEmail({
+          to: link.email,
+          subject: tpl.subject,
+          html: tpl.html,
+          text: tpl.text,
+          tag: "welcome",
+        });
+      }
+    } catch (e) {
+      console.error("[binnovator email] welcome send failed", e);
+    }
+  })();
 
   return { ok: true as const, userId: link.user_id, email: link.email };
 }

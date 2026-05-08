@@ -824,14 +824,27 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       return res.status(400).json({ message: "Need a valid email" });
     }
     const currentUserId = getUserId(req);
-    const { token, userId, expiresAt } = await requestMagicLink(email, currentUserId);
-    // The verify URL is returned so the client (or future email integration) can deliver it.
-    // Build an absolute URL when possible so the link is openable from any device.
+    // Prefer PUBLIC_APP_URL when set (Render env) so emails always link to the
+    // canonical binly.uk domain regardless of which host fronted the request.
     const proto = (req.headers["x-forwarded-proto"] as string) || req.protocol || "https";
     const host = (req.headers["x-forwarded-host"] as string) || req.headers.host || "";
-    const origin = host ? `${proto}://${host}` : "";
-    const verifyUrl = `${origin}/#/verify/${token}`;
-    res.json({ ok: true, verifyUrl, userId, expiresAt });
+    const origin = process.env.PUBLIC_APP_URL || (host ? `${proto}://${host}` : "");
+    const buildVerifyUrl = origin
+      ? (token: string) => `${origin}/#/verify/${token}`
+      : undefined;
+    const { token, userId, expiresAt, emailed } = await requestMagicLink(
+      email,
+      currentUserId,
+      buildVerifyUrl,
+    );
+    const verifyUrl = buildVerifyUrl ? buildVerifyUrl(token) : `/#/verify/${token}`;
+    // If email actually went out, suppress the verifyUrl in the response so the client
+    // shows a "check your inbox" state instead of a tappable link. Keeps the dev path
+    // working when Resend isn't configured.
+    if (emailed.ok) {
+      return res.json({ ok: true, emailed: true, userId, expiresAt });
+    }
+    res.json({ ok: true, emailed: false, verifyUrl, userId, expiresAt });
   });
 
   // ---- Magic-link auth: verify
