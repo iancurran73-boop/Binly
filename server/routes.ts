@@ -555,6 +555,39 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json({ ok: true });
   });
 
+  // ---- Binly Bulletin: confirm consent (post-bug double-opt-in)
+  // The token is embedded in the welcome edition. Sets confirmation_status
+  // to 'confirmed' and flips consent to true. Idempotent.
+  app.get("/api/bulletin/confirm", async (req, res) => {
+    const token = String(req.query.t || "").trim();
+    if (!token || token.length < 16) return res.status(400).send("Invalid token");
+    const { data: row, error: lookupErr } = await supabase
+      .from("bindicator_bulletin_subscribers")
+      .select("email, confirmation_status")
+      .eq("confirmation_token", token)
+      .maybeSingle();
+    if (lookupErr || !row) return res.status(404).send("Token not found");
+    if (row.confirmation_status !== "confirmed") {
+      const { error } = await supabase
+        .from("bindicator_bulletin_subscribers")
+        .update({
+          confirmation_status: "confirmed",
+          consent: true,
+          consent_at: new Date().toISOString(),
+          unsubscribed_at: null,
+        })
+        .eq("confirmation_token", token);
+      if (error) return res.status(500).send("Couldn't confirm \u2014 sorry. Try again or email hello@binly.uk");
+    }
+    res.send(
+      "<!doctype html><html><head><meta charset=\"utf-8\"><title>You're in | Binly</title>" +
+      "<style>body{font-family:system-ui;max-width:520px;margin:80px auto;padding:0 24px;color:#1a1a1a;line-height:1.6;text-align:center}h1{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:32px;margin:0 0 16px;color:#0f172a}.tick{font-size:56px;margin-bottom:8px}p{color:#475569}a{display:inline-block;margin-top:24px;background:#16a34a;color:#fff;padding:12px 24px;border-radius:999px;text-decoration:none;font-weight:600}</style>" +
+      "</head><body><div class=\"tick\">\u2705</div><h1>You're in.</h1>" +
+      "<p>The Binly Bulletin will land in your inbox once a week, max. Probably less. Always free, properly honest.</p>" +
+      "<a href=\"https://binly.uk\">Back to Binly</a></body></html>"
+    );
+  });
+
   // ---- Binly Bulletin: one-click unsubscribe (GDPR Article 21 + PECR Reg 22)
   // The token is embedded in every email footer. No login required to use.
   app.get("/api/bulletin/unsubscribe", async (req, res) => {
