@@ -817,6 +817,55 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json(result);
   });
 
+  // ---- Notification preferences: read
+  app.get("/api/notification-prefs", async (req, res) => {
+    const userId = getUserId(req);
+    const { data: household } = await supabase
+      .from("bindicator_households")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (!household) return res.status(404).json({ message: "No household" });
+    const { data: prefs } = await supabase
+      .from("bindicator_notification_prefs")
+      .select("push_enabled, notify_day_before, notify_morning_of, notify_time")
+      .eq("household_id", household.id)
+      .maybeSingle();
+    res.json(prefs || {
+      push_enabled: false,
+      notify_day_before: true,
+      notify_morning_of: true,
+      notify_time: "20:00",
+    });
+  });
+
+  // ---- Notification preferences: update (partial)
+  app.patch("/api/notification-prefs", async (req, res) => {
+    const userId = getUserId(req);
+    const { data: household } = await supabase
+      .from("bindicator_households")
+      .select("id")
+      .eq("user_id", userId)
+      .maybeSingle();
+    if (!household) return res.status(404).json({ message: "No household" });
+    const allowed: Record<string, any> = {};
+    const body = req.body || {};
+    if (typeof body.notify_day_before === "boolean") allowed.notify_day_before = body.notify_day_before;
+    if (typeof body.notify_morning_of === "boolean") allowed.notify_morning_of = body.notify_morning_of;
+    if (typeof body.push_enabled === "boolean") allowed.push_enabled = body.push_enabled;
+    if (typeof body.notify_time === "string" && /^\d{2}:\d{2}(:\d{2})?$/.test(body.notify_time)) {
+      allowed.notify_time = body.notify_time;
+    }
+    if (Object.keys(allowed).length === 0) {
+      return res.status(400).json({ message: "No valid fields" });
+    }
+    await supabase
+      .from("bindicator_notification_prefs")
+      .update(allowed)
+      .eq("household_id", household.id);
+    res.json({ ok: true });
+  });
+
   // ---- Magic-link auth: request
   app.post("/api/auth/request", async (req, res) => {
     const email = String(req.body?.email || "").trim();

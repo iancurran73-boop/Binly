@@ -148,7 +148,7 @@ export default function Onboard() {
       qc.invalidateQueries({ queryKey: ["/api/household"] });
       qc.invalidateQueries({ queryKey: ["/api/collections"] });
       qc.invalidateQueries({ queryKey: ["/api/streak"] });
-      navigate("/dashboard");
+      navigate("/welcome");
     },
     onError: (err: any) => {
       toast({ title: "Bin lorry's gone sideways", description: err.message, variant: "destructive" });

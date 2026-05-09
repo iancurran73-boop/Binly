@@ -6,6 +6,7 @@ import { Nav } from "@/components/Nav";
 import type { Council, Household, AgentRun } from "@shared/schema";
 import { ShieldCheck, AlertTriangle, ExternalLink } from "lucide-react";
 import { PushOptIn } from "@/components/PushOptIn";
+import { NudgeTime } from "@/components/NudgeTime";
 import { SignInOnAnotherDevice } from "@/components/SignInOnAnotherDevice";
 import { SignOut } from "@/components/SignOut";
 
@@ -47,6 +48,7 @@ export default function Settings() {
         ) : (
           <>
             <PushOptIn />
+            <NudgeTime />
             <Card className="rounded-3xl p-6">
               <h2 className="text-lg font-display font-semibold">Household</h2>
               <dl className="mt-4 grid sm:grid-cols-2 gap-4 text-sm">

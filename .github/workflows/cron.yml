@@ -1,0 +1,29 @@
+name: Daily bin nudge cron
+
+on:
+  schedule:
+    # Run every hour on the hour. cron.ts decides which jobs (tomorrow / morning / weekly) fire
+    # based on the current UTC hour and each household's notify_time preference.
+    - cron: "0 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  nudge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Hit /api/cron/daily on binly.uk
+        run: |
+          set -e
+          response=$(curl -sS -w "\nHTTP_STATUS:%{http_code}" \
+            -X POST \
+            -H "X-Cron-Secret: ${{ secrets.CRON_SECRET }}" \
+            https://binly.uk/api/cron/daily)
+          body=$(echo "$response" | sed '$d')
+          status=$(echo "$response" | tail -n1 | cut -d: -f2)
+          echo "Status: $status"
+          echo "Body:   $body"
+          if [ "$status" != "200" ]; then
+            echo "::error::Cron call failed with status $status"
+            exit 1
+          fi

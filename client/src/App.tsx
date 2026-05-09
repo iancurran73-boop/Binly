@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Landing from "@/pages/Landing";
 import Onboard from "@/pages/Onboard";
+import Welcome from "@/pages/Welcome";
 import Dashboard from "@/pages/Dashboard";
 import Items from "@/pages/Items";
 import Settings from "@/pages/Settings";
@@ -21,6 +22,7 @@ function AppRouter() {
     <Switch>
       <Route path="/" component={Landing} />
       <Route path="/onboard" component={Onboard} />
+      <Route path="/welcome" component={Welcome} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/items" component={Items} />
       <Route path="/achievements" component={Achievements} />
