@@ -78,10 +78,14 @@ export default function Settings() {
                     Manage flatmates
                   </Button>
                 </Link>
-                {council?.source_url && (
-                  <a href={council.source_url} target="_blank" rel="noreferrer">
+                {council?.name && (
+                  <a
+                    href={`https://www.google.com/search?q=${encodeURIComponent(council.name + ' council bin collection lookup')}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <Button variant="ghost" className="rounded-full clay-press">
-                      <ExternalLink className="h-4 w-4 mr-2" /> Council source
+                      <ExternalLink className="h-4 w-4 mr-2" /> Council bin lookup
                     </Button>
                   </a>
                 )}

@@ -118,7 +118,7 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   app.get("/api/councils", async (_req, res) => {
     const { data, error } = await supabase
       .from("bindicator_councils")
-      .select("id, name, region, bin_types, missed_collection_url, source_url, data_strategy")
+      .select("id, name, region, bin_types, missed_collection_url, data_strategy")
       .order("name");
     if (error) return res.status(500).json({ message: error.message });
     const enriched = (data || []).map((c) => ({
@@ -938,7 +938,6 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
       paon: result.paon ?? null,
       address: result.address ?? null,
       council_name: council.name,
-      source_url: council.source_url,
     });
   });
 

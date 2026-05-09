@@ -37,7 +37,6 @@ interface LookupStatus {
   paon: string | null;
   address: string | null;
   council_name: string | null;
-  source_url: string | null;
 }
 
 interface Horoscope {
@@ -272,10 +271,14 @@ export default function Dashboard() {
               <p className="mt-2 text-sm text-muted-foreground">
                 We won't make up dates. Your council's schedule isn't wired into Binly yet — we're going through them in priority order. Until then, check the official page.
               </p>
-              {council?.source_url && (
-                <a href={council.source_url} target="_blank" rel="noreferrer">
+              {council?.name && (
+                <a
+                  href={`https://www.google.com/search?q=${encodeURIComponent(council.name + ' council bin collection lookup')}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Button variant="outline" className="mt-4 rounded-full clay-press">
-                    <ExternalLink className="h-4 w-4 mr-2" /> Open {council.name} bin lookup
+                    <ExternalLink className="h-4 w-4 mr-2" /> Find {council.name} bin lookup
                   </Button>
                 </a>
               )}
