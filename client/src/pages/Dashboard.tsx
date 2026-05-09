@@ -260,7 +260,7 @@ export default function Dashboard() {
             </div>
           </div>
         </Card>
-      ) : collections.length === 0 ? (
+      ) : collections.length === 0 && lookup?.state === "unsupported" ? (
         <Card className="rounded-3xl p-8">
           <div className="flex items-start gap-3">
             <div className="h-10 w-10 rounded-2xl bg-amber-100 text-amber-700 grid place-items-center">
@@ -284,6 +284,24 @@ export default function Dashboard() {
               )}
             </div>
           </div>
+        </Card>
+      ) : collections.length === 0 && lookup?.state === "empty" ? (
+        <Card className="rounded-3xl p-8" data-testid="card-empty-fetch">
+          <div className="flex items-start gap-3">
+            <div className="h-10 w-10 rounded-2xl bg-primary/10 text-primary grid place-items-center">
+              <RefreshCw className="h-5 w-5" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-display font-semibold">No upcoming dates yet.</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                {lookup.council_name ?? "Your council"} answered, but didn't return any bins for your address in the next 30 days. Tap refresh in a moment — councils sometimes lag.
+              </p>
+            </div>
+          </div>
+        </Card>
+      ) : collections.length === 0 ? (
+        <Card className="rounded-3xl p-10 text-center">
+          <p className="text-muted-foreground">Nothing on the kerb this week. Take five. Lid down. Smug nod.</p>
         </Card>
       ) : (
         <Card className="rounded-3xl p-10 text-center">
