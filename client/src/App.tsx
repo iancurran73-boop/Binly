@@ -15,6 +15,7 @@ import Achievements from "@/pages/Achievements";
 import Households from "@/pages/Households";
 import Wrapped from "@/pages/Wrapped";
 import Rules from "@/pages/Rules";
+import Lab from "@/pages/Lab";
 import Verify from "@/pages/Verify";
 
 function AppRouter() {
@@ -29,6 +30,7 @@ function AppRouter() {
       <Route path="/households" component={Households} />
       <Route path="/wrapped" component={Wrapped} />
       <Route path="/rules" component={Rules} />
+      <Route path="/lab" component={Lab} />
       <Route path="/settings" component={Settings} />
       <Route path="/verify/:token" component={Verify} />
       <Route path="/verify" component={Verify} />

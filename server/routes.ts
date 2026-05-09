@@ -866,6 +866,93 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
     res.json({ ok: true });
   });
 
+  // ---- Ideas board: list (public, no auth required to read)
+  app.get("/api/ideas", async (req, res) => {
+    const userId = getUserId(req);
+    const { data: ideas } = await supabase
+      .from("bindicator_ideas")
+      .select("id, title, body, status, upvotes, curated, submitted_by_name, created_at")
+      .neq("status", "wont_do")
+      .order("upvotes", { ascending: false })
+      .order("created_at", { ascending: false })
+      .limit(100);
+
+    // Which ones has this user voted on?
+    let voted: Set<string> = new Set();
+    if (userId) {
+      const { data: votes } = await supabase
+        .from("bindicator_idea_votes")
+        .select("idea_id")
+        .eq("user_id", userId);
+      voted = new Set((votes || []).map((v) => v.idea_id));
+    }
+
+    res.json({
+      ideas: (ideas || []).map((i) => ({ ...i, voted: voted.has(i.id) })),
+    });
+  });
+
+  // ---- Ideas board: submit
+  app.post("/api/ideas", async (req, res) => {
+    const userId = getUserId(req);
+    const title = String(req.body?.title || "").trim();
+    const body = String(req.body?.body || "").trim();
+    const submitted_by_name = String(req.body?.name || "").trim() || null;
+    if (title.length < 3 || title.length > 120) {
+      return res.status(400).json({ message: "Title must be 3\u2013120 characters" });
+    }
+    if (body.length > 1000) {
+      return res.status(400).json({ message: "Keep it under 1000 characters" });
+    }
+    const { data: created, error } = await supabase
+      .from("bindicator_ideas")
+      .insert({
+        title,
+        body: body || null,
+        submitted_by_user_id: userId,
+        submitted_by_name,
+        status: "open",
+      })
+      .select()
+      .single();
+    if (error) return res.status(500).json({ message: error.message });
+    res.json({ idea: created });
+  });
+
+  // ---- Ideas board: vote (toggle)
+  app.post("/api/ideas/:id/vote", async (req, res) => {
+    const userId = getUserId(req);
+    const ideaId = req.params.id;
+    if (!userId) return res.status(401).json({ message: "Not signed in" });
+
+    // Try to insert; if it conflicts, the user has already voted -> remove
+    const { error: insertErr } = await supabase
+      .from("bindicator_idea_votes")
+      .insert({ idea_id: ideaId, user_id: userId });
+
+    let voted: boolean;
+    if (insertErr) {
+      // Already voted -> retract
+      await supabase
+        .from("bindicator_idea_votes")
+        .delete()
+        .eq("idea_id", ideaId)
+        .eq("user_id", userId);
+      voted = false;
+    } else {
+      voted = true;
+    }
+
+    // Recompute count (cheap, accurate)
+    const { count } = await supabase
+      .from("bindicator_idea_votes")
+      .select("*", { count: "exact", head: true })
+      .eq("idea_id", ideaId);
+    await supabase.from("bindicator_ideas").update({ upvotes: count || 0 }).eq("id", ideaId);
+
+    res.json({ voted, upvotes: count || 0 });
+  });
+
   // ---- Magic-link auth: request
   app.post("/api/auth/request", async (req, res) => {
     const email = String(req.body?.email || "").trim();

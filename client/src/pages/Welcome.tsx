@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PushOptIn } from "@/components/PushOptIn";
+import { AddToHomeScreen } from "@/components/AddToHomeScreen";
 import { Logo } from "@/components/Logo";
 import { Sparkles } from "lucide-react";
 
@@ -31,6 +32,8 @@ export default function Welcome() {
             Two nudges a week, max. Night before. Morning of. Nothing else, ever. Bin there, reminded that.
           </p>
         </div>
+
+        <AddToHomeScreen />
 
         <PushOptIn />
 

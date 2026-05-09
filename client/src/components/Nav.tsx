@@ -10,6 +10,7 @@ const ITEMS = [
   { href: "/achievements", label: "Trophies" },
   { href: "/households", label: "Flatmates" },
   { href: "/wrapped", label: "Wrapped" },
+  { href: "/lab", label: "Lab" },
   { href: "/settings", label: "Settings" },
 ];
 
