@@ -54,6 +54,33 @@ export interface ScheduleEntry {
 }
 
 /**
+ * Resolve a bin_type string (e.g. "general", "Rubbish", "recycling") to the
+ * council's configured colour. Falls back to a sensible default if no match.
+ */
+export function resolveBinColor(council: Council, binType: string): string {
+  const lower = (binType || "").toLowerCase();
+  const isFood = /food|caddy|kitchen waste|compost/.test(lower);
+  const isGarden = /garden|brown(?!\s*food)/.test(lower);
+  const isRecycling = /recyc|blue|paper|card|glass|mixed/.test(lower) && !isGarden && !isFood;
+  const isGeneral = /general|refuse|household|grey|black|rubbish|residual/.test(lower) && !isFood && !isGarden && !isRecycling;
+
+  const types = council?.bin_types || [];
+  for (const bt of types) {
+    const t = (bt.type || "").toLowerCase();
+    if (isFood && /food|caddy/.test(t)) return bt.color;
+    if (isGarden && /garden/.test(t)) return bt.color;
+    if (isRecycling && /recyc/.test(t)) return bt.color;
+    if (isGeneral && /general|refuse|residual/.test(t)) return bt.color;
+    if (t === lower) return bt.color;
+  }
+  // Final fallback by kind
+  if (isFood) return "#2C5530";
+  if (isGarden) return "#7A5C3F";
+  if (isRecycling) return "#1F75BA";
+  return "#1A1A1A";
+}
+
+/**
  * Generate ~8 weeks of upcoming collections from today.
  */
 export function generateSchedule(
@@ -170,7 +197,7 @@ export async function runBinAnalyst(
       household_id: householdId,
       collection_date: s.collection_date,
       bin_type: s.bin_type,
-      bin_color: s.bin_color,
+      bin_color: s.bin_color || resolveBinColor(council, s.bin_type),
       source: "analyst" as const,
       verification_status: "unverified" as const,
     }));
