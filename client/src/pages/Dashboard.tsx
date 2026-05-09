@@ -492,12 +492,22 @@ function BinCard({ date, items, highlighted = false, compact = false }: { date: 
         {items.map((it, idx) => (
           <div
             key={it.id}
-            className="flex items-center gap-3 rounded-2xl bg-background/60 px-3 py-2 border border-card-border transition-transform hover:-translate-y-0.5"
+            className="flex items-center gap-3 rounded-2xl bg-background/60 px-3 py-2 border border-l-4 border-card-border transition-transform hover:-translate-y-0.5"
+            style={it.bin_color ? { borderLeftColor: it.bin_color } : undefined}
             data-testid={`text-bin-${classifyBin(it.bin_type)}`}
           >
             <BinIcon binType={it.bin_type} className={compact ? "h-12 w-12" : "h-20 w-20"} wobble={highlighted} index={idx} />
             <div>
-              <div className="font-medium leading-tight">{it.bin_type}</div>
+              <div className="font-medium leading-tight flex items-center gap-2">
+                {it.bin_color && (
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-full ring-1 ring-black/10"
+                    style={{ backgroundColor: it.bin_color }}
+                    aria-hidden="true"
+                  />
+                )}
+                {it.bin_type}
+              </div>
               <div className="text-xs text-muted-foreground">{classifyBin(it.bin_type)}</div>
             </div>
           </div>
