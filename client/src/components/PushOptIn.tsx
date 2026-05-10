@@ -65,8 +65,10 @@ export function PushOptIn() {
       };
       await apiRequest("POST", "/api/push/subscribe", {
         endpoint: json.endpoint,
-        p256dh: json.keys?.p256dh,
-        auth: json.keys?.auth,
+        keys: {
+          p256dh: json.keys?.p256dh,
+          auth: json.keys?.auth,
+        },
       });
       setState("subscribed");
       toast({

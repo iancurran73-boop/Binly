@@ -774,8 +774,14 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
   // ---- Subscribe a device to push for the visitor's household
   app.post("/api/push/subscribe", async (req, res) => {
     const userId = getUserId(req);
-    const { endpoint, keys, user_agent } = req.body || {};
-    if (!endpoint || !keys?.p256dh || !keys?.auth) {
+    const body = req.body || {};
+    // Accept both the standard nested shape ({ endpoint, keys: { p256dh, auth } })
+    // and the legacy flat shape ({ endpoint, p256dh, auth }) for backwards compat.
+    const endpoint: string | undefined = body.endpoint;
+    const p256dh: string | undefined = body.keys?.p256dh ?? body.p256dh;
+    const auth: string | undefined = body.keys?.auth ?? body.auth;
+    const user_agent: string | undefined = body.user_agent;
+    if (!endpoint || !p256dh || !auth) {
       return res.status(400).json({ message: "Subscription payload missing keys" });
     }
     const { data: household } = await supabase
@@ -791,8 +797,8 @@ export async function registerRoutes(httpServer: Server, app: Express): Promise<
         {
           household_id: household.id,
           endpoint,
-          p256dh: keys.p256dh,
-          auth: keys.auth,
+          p256dh,
+          auth,
           user_agent: user_agent || req.header("user-agent") || null,
           enabled: true,
         },
