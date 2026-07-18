@@ -1,11 +1,12 @@
-/**
- * Drop-in replacement for the old `@supabase/supabase-js` client.
- *
- * Everything that imports `{ supabase } from "./supabase"` (agents.ts,
- * auth.ts, cron.ts, lookup.ts, push.ts, routes.ts) keeps working unmodified —
- * `.from(table).select().eq()...` etc. now run as parameterised SQL against
- * Neon via `server/supabaseCompat.ts` instead of Supabase's hosted REST API.
- * See MIGRATION_RUNBOOK.md for why this shim exists instead of rewriting
- * every call site to typed Drizzle queries.
- */
-export { supabase } from "./supabaseCompat";
+import { createClient } from "@supabase/supabase-js";
+
+const url = process.env.SUPABASE_URL;
+const key = process.env.SUPABASE_ANON_KEY;
+
+if (!url || !key) {
+  throw new Error("SUPABASE_URL and SUPABASE_ANON_KEY must be set in .env");
+}
+
+export const supabase = createClient(url, key, {
+  auth: { persistSession: false, autoRefreshToken: false },
+});

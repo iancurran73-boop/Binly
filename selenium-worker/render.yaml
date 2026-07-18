@@ -5,7 +5,9 @@ services:
     plan: starter
     autoDeploy: true
     envVars:
-      - key: DATABASE_URL
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
         sync: false
       - key: WORKER_INTERVAL_SECONDS
         value: "1800"

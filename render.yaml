@@ -19,10 +19,10 @@ services:
     dockerContext: .
     healthCheckPath: /
     envVars:
-      # Neon connection string (pooled). Set in the Render dashboard.
-      # Replaces the old SUPABASE_URL / SUPABASE_SERVICE_KEY pair — see
-      # MIGRATION_RUNBOOK.md.
-      - key: DATABASE_URL
+      # Both must be set in the Render dashboard before the first deploy.
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
         sync: false
       # Phase B switch \u2014 actually run Selenium adapters.
       - key: ENABLE_SELENIUM
