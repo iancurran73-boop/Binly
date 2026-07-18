@@ -40,11 +40,14 @@ selenium-worker/
 cd selenium-worker
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-export SUPABASE_URL=https://kgxvomfyvirkqhgabjel.supabase.co
-export SUPABASE_SERVICE_KEY=...        # service_role key, server-side only
+export DATABASE_URL=postgresql://...   # Neon pooled connection string
 python worker.py --once                # one pass, then exit
 python worker.py                       # loop forever, refreshing stale councils
 ```
+
+(Previously this used `SUPABASE_URL` / `SUPABASE_SERVICE_KEY` against a
+Supabase project. The worker now talks to Postgres directly — see
+`../MIGRATION_RUNBOOK.md`.)
 
 ## Deploy on Render
 
@@ -55,8 +58,7 @@ python worker.py                       # loop forever, refreshing stale councils
 
 Set environment variables in the Render dashboard:
 
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_KEY`
+- `DATABASE_URL` (Neon pooled connection string)
 - `WORKER_INTERVAL_SECONDS` (default `1800`)
 - `WORKER_BATCH_SIZE` (default `10`)
 

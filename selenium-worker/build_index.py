@@ -16,14 +16,14 @@ import json
 import os
 import re
 from pathlib import Path
-import requests
 
 HERE = Path(__file__).parent
 MAP_PATH = HERE / "upstream_map.json"
 OUT_PATH = HERE / "upstream_index.json"
 
-SUPABASE_URL = os.environ["SUPABASE_URL"].rstrip("/")
-SUPABASE_KEY = os.environ.get("SUPABASE_SERVICE_KEY") or os.environ["SUPABASE_ANON_KEY"]
+# Migrated off Supabase's REST API — this now goes straight at Neon via
+# supa.py (see MIGRATION_RUNBOOK.md). DATABASE_URL replaces SUPABASE_URL/KEY.
+import supa  # noqa: E402
 
 # Manual overrides for cases where slugify(module) != council_id.
 OVERRIDES = {
@@ -108,15 +108,10 @@ def load_full_inputs() -> dict:
 
 
 def fetch_councils() -> list[dict]:
-    headers = {"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"}
-    r = requests.get(
-        f"{SUPABASE_URL}/rest/v1/bindicator_councils",
-        headers=headers,
-        params={"select": "id,name", "data_strategy": "eq.real"},
-        timeout=30,
+    return supa.select(
+        "bindicator_councils",
+        {"select": "id,name", "data_strategy": "eq.real"},
     )
-    r.raise_for_status()
-    return r.json()
 
 
 def main() -> None:
