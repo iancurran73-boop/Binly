@@ -259,6 +259,11 @@ export async function ensureJob(
   const STALE_RUNNING_MS = 5 * 60 * 1000; // 5 min — recover from crashed workers
   const BACKOFF_MS = 60 * 60 * 1000; // 1 hour — circuit-breaker window
   const MAX_RECENT_ERRORS = 3;
+  // The scheduled Selenium runner (GitHub Actions) only sweeps every ~6h,
+  // so there's no point re-queuing an 'unsupported' job on every poll —
+  // that would just spam the jobs table while the dashboard is open. Wait
+  // roughly one runner cycle before trying again.
+  const STALE_UNSUPPORTED_MS = 6 * 60 * 60 * 1000; // 6 hours
 
   if (latest) {
     const finishedAt = latest.finished_at ? new Date(latest.finished_at).getTime() : 0;
@@ -270,7 +275,14 @@ export async function ensureJob(
     }
     if (latest.status === "running" && now - enqueuedAt < STALE_RUNNING_MS) return latest as JobStatus;
     if (latest.status === "done" && finishedAt && now - finishedAt < STALE_DONE_MS) return latest as JobStatus;
-    if (latest.status === "unsupported") return latest as JobStatus; // Phase B, don't requeue
+    // 'unsupported' used to be treated as permanent (Phase A never had
+    // Selenium at all, so there was no point retrying). Now that the
+    // scheduled Selenium runner exists, a council that was unsupported at
+    // enqueue time may be supported on the next sweep — so retry it,
+    // just not on every single poll.
+    if (latest.status === "unsupported" && finishedAt && now - finishedAt < STALE_UNSUPPORTED_MS) {
+      return latest as JobStatus;
+    }
 
     // Circuit breaker: count recent errors for this exact property.
     if (latest.status === "error" || latest.status === "empty") {
