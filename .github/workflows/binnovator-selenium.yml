@@ -1,0 +1,77 @@
+name: Binnovator Selenium runner
+
+# Handles the ~90 councils whose real bin-collection lookup needs a real
+# Chrome browser (Cloudflare Turnstile challenges, JS-driven forms). The
+# always-on worker on Render stays on the free tier and only runs the
+# ~200 pure-HTTP councils; this workflow picks up the Selenium-only jobs
+# on a schedule instead of needing an always-on $25/mo Selenium server.
+#
+# Required repo secrets (Settings -> Secrets and variables -> Actions):
+#   SUPABASE_URL          e.g. https://xxxx.supabase.co
+#   SUPABASE_SERVICE_KEY  the service_role key (or SUPABASE_ANON_KEY if
+#                          that's the only one you have — RLS is disabled
+#                          on the bindicator_* tables so either works)
+
+on:
+  schedule:
+    # Every 6 hours. Bin schedules don't change fast enough to need
+    # anything tighter, and this comfortably fits GitHub Actions' free
+    # tier (2,000 min/month on private repos).
+    - cron: "17 */6 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  run-selenium-jobs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install matching Chrome + chromedriver
+        run: |
+          set -e
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ca-certificates curl gnupg unzip
+          curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends google-chrome-stable
+          CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
+          echo "Chrome version: $CHROME_VERSION"
+          DRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"
+          curl -fsSL "$DRIVER_URL" -o /tmp/chromedriver.zip
+          unzip -q /tmp/chromedriver.zip -d /tmp/cdr
+          sudo mv /tmp/cdr/chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          sudo chmod +x /usr/local/bin/chromedriver
+          chromedriver --version
+
+      - name: Install Python deps
+        working-directory: selenium-worker
+        run: pip install --no-cache-dir -r requirements.txt
+
+      - name: Drain pending Selenium jobs
+        working-directory: selenium-worker
+        env:
+          ENABLE_SELENIUM: "1"
+          CHROMEDRIVER_PATH: /usr/local/bin/chromedriver
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          HOME: /tmp/binnovator
+          WDM_LOCAL: "1"
+          XDG_CACHE_HOME: /tmp/binnovator/.cache
+          PYTHONPATH: ${{ github.workspace }}/selenium-worker
+        run: |
+          set -e
+          mkdir -p /tmp/binnovator
+          # Loop `--once` passes until the queue's empty (each pass claims
+          # a small batch and processes it, then returns immediately once
+          # there's nothing left) rather than running the infinite poll
+          # loop server.py uses on Render.
+          for i in $(seq 1 20); do
+            echo "=== pass $i ==="
+            python worker.py --once
+          done

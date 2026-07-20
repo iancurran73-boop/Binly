@@ -726,8 +726,29 @@ def run_adapter(module_name: str, url: str, uprn: str | None, postcode: str | No
 # ---------- job loop ----------
 
 def claim_jobs(limit: int) -> list[dict]:
-    """Atomically claim up to `limit` pending jobs by setting status='running'."""
-    return supa.rpc_or_select_then_update_pending(limit)
+    """Atomically claim up to `limit` pending jobs by setting status='running'.
+
+    Capability-filtered: a job's council needs Selenium iff
+    COUNCIL_TO_MODULE[council_id]['requires_selenium'] is true. This worker
+    process only claims jobs whose requirement matches ENABLE_SELENIUM, so
+    the always-on lite Render worker and the scheduled Selenium runner
+    (GitHub Actions) don't race each other for the same jobs — a Selenium
+    job left pending by the lite worker stays pending (visible, honest
+    'unsupported'-free state) until the Selenium runner's next scheduled
+    pass picks it up.
+    """
+    def wants(job: dict) -> bool:
+        council_id = job.get("council_id")
+        if council_id in HTTP_PROXY_OVERRIDES:
+            # These run through a pure-HTTP proxy override, not real
+            # Selenium, regardless of what the upstream module itself
+            # requires — always the lite worker's job to claim.
+            return not ENABLE_SELENIUM
+        entry = COUNCIL_TO_MODULE.get(council_id) or {}
+        needs_selenium = bool(entry.get("requires_selenium"))
+        return needs_selenium == ENABLE_SELENIUM
+
+    return supa.rpc_or_select_then_update_pending(limit, wants)
 
 
 def process_job(job: dict) -> None:

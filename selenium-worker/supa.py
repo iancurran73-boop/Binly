@@ -71,25 +71,38 @@ def insert(table: str, rows: list[dict[str, Any]]) -> Any:
     return res.json()
 
 
-def rpc_or_select_then_update_pending(limit: int) -> list[dict]:
+def rpc_or_select_then_update_pending(limit: int, wants=None) -> list[dict]:
     """Claim up to `limit` pending jobs.
 
-    No real atomicity (we'd need a Postgres function for that), but for our
-    single-worker setup this is fine: PATCH the next N pending rows to
+    No real atomicity (we'd need a Postgres function for that), but this is
+    fine for our small worker fleet: PATCH the next N pending rows to
     'running' and return the resulting representation.
+
+    `wants`, if given, is a predicate(job) -> bool used to let this worker
+    instance only claim jobs it's actually capable of running (e.g. the
+    free lite worker skips Selenium-only councils so they stay pending for
+    the Selenium runner, instead of racing to claim and reject them).
+    When filtering, we over-fetch so filtering out ineligible rows still
+    leaves enough real candidates.
     """
-    # Step 1: pick pending ids
+    # Step 1: pick pending ids (over-fetch when we'll filter client-side)
+    fetch_limit = limit * 8 if wants else limit
     rows = select(
         "bindicator_lookup_jobs",
         {
             "select": "id,council_id,postcode,uprn",
             "status": "eq.pending",
             "order": "enqueued_at.asc",
-            "limit": str(limit),
+            "limit": str(fetch_limit),
         },
     )
     if not rows:
         return []
+
+    if wants:
+        rows = [r for r in rows if wants(r)][:limit]
+        if not rows:
+            return []
 
     ids = [r["id"] for r in rows]
     # Step 2: PATCH them to running, only if still pending (best-effort).
