@@ -12,7 +12,7 @@ WORKDIR /app
 
 # Build deps for some pure-Python wheels that compile native code (lxml etc.)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates curl \
+        ca-certificates curl git \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt ./
