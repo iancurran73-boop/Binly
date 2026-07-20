@@ -43,7 +43,7 @@ function nudgeWorker(): void {
   });
 }
 
-export type LookupSource = "cache" | "live" | "pending" | "seeded" | "manual" | "empty";
+export type LookupSource = "cache" | "live" | "pending" | "seeded" | "manual" | "empty" | "unsupported";
 
 export interface LookupResult {
   schedule: ScheduleEntry[];
@@ -191,10 +191,24 @@ export async function lookupSchedule(
     return { schedule: seeded, source: "seeded", fetched_at: null };
   }
 
-  // Honest: we have a job pending or failed; let UI explain.
+  // Honest: we have a job pending, unsupported, or failed; let UI explain.
+  // "unsupported" means the council needs Selenium (Cloudflare-protected /
+  // JS-only sites) which the free-tier worker doesn't run — that's a
+  // different, non-retryable situation from a genuine empty/error result,
+  // so it needs its own source so the UI doesn't tell the user to "try
+  // refreshing" for something that will never succeed on this tier.
+  let source: LookupSource;
+  if (jobStatus.status === "pending" || jobStatus.status === "running") {
+    source = "pending";
+  } else if (jobStatus.status === "unsupported") {
+    source = "unsupported";
+  } else {
+    source = "empty";
+  }
+
   return {
     schedule: [],
-    source: jobStatus.status === "pending" || jobStatus.status === "running" ? "pending" : "empty",
+    source,
     fetched_at: null,
     uprn,
     paon,
