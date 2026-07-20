@@ -34,12 +34,16 @@ jobs:
       - name: Install matching Chrome + chromedriver
         run: |
           set -e
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends ca-certificates curl gnupg unzip
-          curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/google-chrome.gpg
-          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends google-chrome-stable
+          # GitHub-hosted ubuntu runners already ship Google Chrome with its
+          # apt repo pre-configured — no need to add the signing key
+          # ourselves (that step is what was failing: gpg tries to talk to
+          # a tty that doesn't exist in this non-interactive shell). Just
+          # make sure it's actually there, installing only if missing.
+          if ! command -v google-chrome >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends google-chrome-stable
+          fi
+          sudo apt-get install -y --no-install-recommends unzip
           CHROME_VERSION=$(google-chrome --version | awk '{print $3}')
           echo "Chrome version: $CHROME_VERSION"
           DRIVER_URL="https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip"
