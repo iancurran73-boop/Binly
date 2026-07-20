@@ -25,6 +25,24 @@ import { generateSchedule, type ScheduleEntry } from "./agents";
 import type { Council } from "../shared/schema";
 import * as durham from "./adapters/durham";
 
+// Nudge the Python worker awake the moment a job is queued. Render's free
+// tier spins the worker down after 15 min idle, and its polling loop can
+// only run while the process is alive — so without this, a freshly-enqueued
+// job just sits there until *something else* happens to hit the worker's
+// HTTP endpoint and wake it back up. Fire-and-forget: never block or fail
+// the caller's request on this.
+const WORKER_URL = process.env.WORKER_URL || "";
+
+function nudgeWorker(): void {
+  if (!WORKER_URL) return;
+  const url = `${WORKER_URL.replace(/\/$/, "")}/tick`;
+  fetch(url, { method: "POST", signal: AbortSignal.timeout(3000) }).catch(() => {
+    // Cold start can take 30-60s and will time out here — that's fine, the
+    // request itself is what wakes the service up regardless of whether we
+    // see the response.
+  });
+}
+
 export type LookupSource = "cache" | "live" | "pending" | "seeded" | "manual" | "empty";
 
 export interface LookupResult {
@@ -232,7 +250,10 @@ export async function ensureJob(
     const finishedAt = latest.finished_at ? new Date(latest.finished_at).getTime() : 0;
     const enqueuedAt = latest.enqueued_at ? new Date(latest.enqueued_at).getTime() : 0;
 
-    if (latest.status === "pending") return latest as JobStatus;
+    if (latest.status === "pending") {
+      nudgeWorker();
+      return latest as JobStatus;
+    }
     if (latest.status === "running" && now - enqueuedAt < STALE_RUNNING_MS) return latest as JobStatus;
     if (latest.status === "done" && finishedAt && now - finishedAt < STALE_DONE_MS) return latest as JobStatus;
     if (latest.status === "unsupported") return latest as JobStatus; // Phase B, don't requeue
@@ -287,6 +308,7 @@ export async function ensureJob(
     .select("id, status, last_error")
     .single();
 
+  nudgeWorker();
   return (created as JobStatus) || { id: "", status: "pending", last_error: null };
 }
 
